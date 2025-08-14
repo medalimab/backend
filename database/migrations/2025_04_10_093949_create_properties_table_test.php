@@ -33,7 +33,7 @@ class CreatePropertiesTableTest extends Migration
             $table->text('description')->nullable();
             $table->string('address');
             $table->string('developer')->nullable();
-            $table->string('property_usage')->nullable();
+          //  $table->string('property_usage')->nullable();
             $table->decimal('price', 15, 2);
             $table->integer('property_size');
             $table->decimal('building_area', 10, 2)->nullable();
