@@ -293,16 +293,8 @@
         const yearBuiltInput = document.getElementById('year-built-field');
         const handoverDateInput = document.getElementById('handover-date');
         const propertyTypeSelect = document.getElementById('property-type');
-        // Champs à masquer/afficher
-        const buildingFields = [
-            document.getElementById('building-name'),
-            document.getElementById('building-parking_spaces'),
-            document.getElementById('building_area'),
-            document.getElementById('number_elevators'),
-            document.getElementById('swiming-pool'),
-            document.getElementById('retail-centers'),
-            document.getElementById('total-floors')
-        ];
+    // Section Building Information (carte complète)
+    const buildingCard = Array.from(document.querySelectorAll('.card-title')).find(e => e.textContent.trim() === 'Building Information')?.closest('.card');
         const bedroomsField = document.getElementById('property-bedroom');
         const bathroomsField = document.getElementById('property-bathroom');
         const furnishingField = document.getElementById('furnishing-field');
@@ -331,7 +323,7 @@
             // Filtrage par type
             // Villas/Townhouses
             if (selectedType === 'Villa' || selectedType === 'Townhouse' || selectedType === 'Villa Compound') {
-                buildingFields.forEach(f => f.closest('.col-lg-6, .col-lg-4').style.display = 'none');
+                if (buildingCard) buildingCard.style.display = 'none';
                 bedroomsField.closest('.col-lg-4').style.display = 'block';
                 bathroomsField.closest('.col-lg-4').style.display = 'block';
                 furnishingField.closest('.col-lg-4').style.display = 'block';
@@ -340,7 +332,7 @@
             }
             // Apartments
             else if (selectedType === 'Apartment' || selectedType === 'Penthouse' || selectedType === 'Hotel Apartment') {
-                buildingFields.forEach(f => f.closest('.col-lg-6, .col-lg-4').style.display = 'block');
+                if (buildingCard) buildingCard.style.display = 'block';
                 bedroomsField.closest('.col-lg-4').style.display = 'block';
                 bathroomsField.closest('.col-lg-4').style.display = 'block';
                 furnishingField.closest('.col-lg-4').style.display = 'block';
@@ -349,16 +341,16 @@
             }
             // Plots/Land
             else if (selectedType === 'Plot' || selectedType === 'Land' || selectedType === 'Industrial Land' || selectedType === 'Mixed Use Land') {
+                if (buildingCard) buildingCard.style.display = 'none';
                 bedroomsField.closest('.col-lg-4').style.display = 'none';
                 bathroomsField.closest('.col-lg-4').style.display = 'none';
                 furnishingField.closest('.col-lg-4').style.display = 'none';
                 garageField.closest('.col-lg-4, .col-lg-6').style.display = 'none';
                 plotAreaField.closest('.col-lg-6').style.display = 'block';
-                buildingFields.forEach(f => f.closest('.col-lg-6, .col-lg-4').style.display = 'none');
             }
             // Autres types : afficher tout
             else {
-                buildingFields.forEach(f => f.closest('.col-lg-6, .col-lg-4').style.display = 'block');
+                if (buildingCard) buildingCard.style.display = 'block';
                 bedroomsField.closest('.col-lg-4').style.display = 'block';
                 bathroomsField.closest('.col-lg-4').style.display = 'block';
                 furnishingField.closest('.col-lg-4').style.display = 'block';
