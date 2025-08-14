@@ -356,6 +356,22 @@
         </div>
         <div class="card">
             <div class="card-header">
+                <h4 class="card-title">Assign Agent</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="agent_id" class="form-label">Select Agent</label>
+                    <select name="agent_id" id="agent_id" class="form-control" required>
+                        <option value="" disabled selected hidden>Select agent...</option>
+                        @foreach(App\Models\Agent::all() as $agent)
+                            <option value="{{ $agent->id }}">{{ $agent->full_name }} ({{ $agent->job_title }})</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
                 <h4 class="card-title">Property Attachments</h4>
             </div>
             <div class="card-body">
