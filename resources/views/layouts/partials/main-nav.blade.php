@@ -77,9 +77,27 @@
                          <span class="nav-icon">
                               <i class="ri-group-line"></i>
                          </span>
-                         <span class="nav-text"> Project </span>
+                         <span class="nav-text"> Agents </span>
                     </a>
                     <div class="collapse" id="sidebarAgents">
+                         <ul class="nav sub-navbar-nav">
+                              <li class="sub-nav-item">
+                                   <a class="sub-nav-link" href="{{ route('agents.index') }}">Agents List</a>
+                              </li>
+                              <li class="sub-nav-item">
+                                   <a class="sub-nav-link" href="{{ route('agents.create') }}">Add Agent</a>
+                              </li>
+                         </ul>
+                    </div>
+               </li>
+               <li class="nav-item">
+                    <a class="nav-link menu-arrow" href="#sidebarProjects" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProjects">
+                         <span class="nav-icon">
+                              <i class="ri-group-line"></i>
+                         </span>
+                         <span class="nav-text"> Project </span>
+                    </a>
+                    <div class="collapse" id="sidebarProjects">
                          <ul class="nav sub-navbar-nav">
                               <li class="sub-nav-item">
                                    <a class="sub-nav-link" href="{{ route('second', ['projects', 'grid'])}}">Project Grid</a>
@@ -90,14 +108,9 @@
                               <li class="sub-nav-item">
                                    <a class="sub-nav-link" href="{{ route('second', ['projects', 'add'])}}">Add Project</a>
                               </li>
-
-                              <!-- <li class="sub-nav-item">
-                                   <a class="sub-nav-link" href="{{ route('second', ['agents', 'details'])}}">Agent Details</a>
-                              </li> -->
-
                          </ul>
                     </div>
-               </li> 
+               </li>
 
                <!-- <li class="nav-item">
                     <a class="nav-link menu-arrow" href="#sidebarAgents" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAgents">
