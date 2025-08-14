@@ -200,13 +200,10 @@
                         <label for="property-name" class="form-label">Building Name</label>
                         <input type="text" id="building-name" name="building_name" class="form-control" placeholder="Building Name">
                     </div>
-
                     <div class="col-lg-6 mb-3">
                         <label for="building-parking_spaces" class="form-label">Total parking spaces</label>
                         <input type="number" id="building-parking_spaces" name="building_parking_spaces" class="form-control" placeholder="total parking spaces">
-
                     </div>
-
                     <div class="col-lg-6 mb-3">
                         <label for="building_area" class="form-label">Total Building Area</label>
                         <div class="input-group">
@@ -214,25 +211,159 @@
                             <input type="number" id="building_area" name="building_area" class="form-control" placeholder="Building area">
                         </div>
                     </div>
-
                     <div class="col-lg-4 mb-3">
                         <label for="elevators" class="form-label">Elevators</label>
                         <input type="number" id="number_elevators" name="number_elevators" class="form-control" placeholder="Number of elevators">
                     </div>
-
-                    <div class="col-lg-4 mb-3">
-                        <label for="swimming_pool" class="form-label">Swimming Pool</label>
-                        <input type="number" id="swiming-pool" name="swiming_pool" class="form-control" placeholder="Swimming Pool">
-                    </div>
-
                     <div class="col-lg-4 mb-3">
                         <label for="retail-centers" class="form-label">Retail centers</label>
                         <input type="number" id="retail-centers" name="retail_centers" class="form-control" placeholder="Number Retail Centers">
                     </div>
-
                     <div class="col-lg-4 mb-3">
                         <label for="total-floors" class="form-label">Total Floors</label>
                         <input type="number" id="total-floors" name="total_floors" class="form-control" placeholder="Total Floors">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Amenities Taxonomy </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 mb-3">
+                        <label class="form-label">Residential Community</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Swimming Pool"> Swimming Pool (Infinity pool, temperature-controlled pool)
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Children's Pool"> Children's Pool
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Children's Play Area"> Children's Play Area (indoor & outdoor)
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Landscaped Gardens"> Landscaped Gardens / Green Spaces
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="BBQ Areas"> BBQ Areas
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Community Park"> Community Park
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Pet-friendly Areas"> Pet-friendly Areas / Dog Park
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <label class="form-label">Wellness & Fitness</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Gymnasium"> Fully Equipped Gymnasium
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Yoga & Meditation"> Yoga & Meditation Areas
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Spa & Sauna"> Spa & Sauna
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Steam Rooms"> Steam Rooms
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Jacuzzi"> Jacuzzi
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Running Track"> Running / Jogging Track
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Cycling Track"> Cycling Track
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <label class="form-label">Recreational & Lifestyle</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Clubhouse"> Clubhouse / Residents’ Lounge
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Cinema Room"> Cinema Room / Multimedia Room
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Game Room"> Game Room (billiards, table tennis, etc.)
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Library"> Library / Reading Lounge
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Event Spaces"> Event Spaces / Community Hall
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <label class="form-label">Security & Services</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="24/7 Security"> 24/7 Security with CCTV Surveillance
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Concierge Services"> Concierge Services
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Smart Entry"> Controlled Access & Smart Entry Systems
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Maintenance Services"> Maintenance Services
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Valet Parking"> Valet Parking
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <label class="form-label">Parking & Transportation</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Covered Parking"> Covered Parking Spaces
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Visitor Parking"> Visitor Parking
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="EV Charging"> Electric Vehicle Charging Stations
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Bicycle Storage"> Bicycle Storage
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <label class="form-label">Retail & Dining</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Retail Outlets"> Retail Outlets
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Supermarket"> Supermarket / Mini-Mart
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Cafés & Restaurants"> Cafés & Restaurants
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <label class="form-label">Luxury & Premium Add-ons</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Private Beach Access"> Private Beach Access
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Waterfront Promenade"> Waterfront Promenade / Marina Access
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Rooftop Lounge"> Rooftop Lounge or Sky Deck
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Private Pools"> Private Pools (in penthouses or villas)
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Serviced Apartments"> Serviced Apartments Facilities
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="amenities[]" value="Helipad Access"> Helipad Access (ultra-luxury)
+                        </div>
                     </div>
                 </div>
             </div>
