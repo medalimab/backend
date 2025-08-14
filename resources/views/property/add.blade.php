@@ -122,6 +122,7 @@
                             <option value="" disabled selected hidden>Select furnishing status...</option> 
                             <option value="Furnished" >Furnished</option>
                             <option value="Unfurnished">Unfurnished</option>
+                            <option value="Semi-furnished">Semi-furnished</option>
                         </select>
                     </div>
                     <div class="col-lg-4 mb-3">
