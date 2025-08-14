@@ -74,14 +74,15 @@
                         @enderror
                     </div>                    
                     <div class="col-lg-6 mb-3" id="property-categories-group">
-                        <label for="property-categories" class="form-label">Property Type</label>
-                        <select class="form-control" id="property-categories" name="property_type" required>
-                            <option value="" disabled selected hidden>Choose property type...</option>
-                            <option value="Villas">Villas</option>
-                            <option value="Residences">Residences</option>
-                            <option value="Bungalow">Bungalow</option>
-                            <option value="Apartment">Apartment</option>
-                            <option value="Penthouse">Penthouse</option>
+                        <label for="property-main-type" class="form-label">Property Category</label>
+                        <select class="form-control" id="property-main-type" name="property_main_type" required>
+                            <option value="" disabled selected hidden>Select category...</option>
+                            <option value="Residential">Residential</option>
+                            <option value="Commercial">Commercial</option>
+                        </select>
+                        <label for="property-type" class="form-label mt-2">Property Type</label>
+                        <select class="form-control" id="property-type" name="property_type" required>
+                            <option value="" disabled selected hidden>Select property type...</option>
                         </select>
                     </div>
                     <div class="col-lg-6 mb-3" id="property-statu-group">
@@ -258,39 +259,117 @@
 @section('script-bottom')
 @vite(['resources/js/components/form-fileupload.js'])
 <script>
+    // Ajout du filtrage dynamique pour les deux listes
+    document.addEventListener('DOMContentLoaded', function () {
+        const mainTypeSelect = document.getElementById('property-main-type');
+        const typeSelect = document.getElementById('property-type');
+        const residentialTypes = [
+            'Apartment', 'Villa', 'Townhouse', 'Penthouse', 'Villa Compound', 'Hotel Apartment', 'Land', 'Floor', 'Building'
+        ];
+        const commercialTypes = [
+            'Office', 'Shop', 'Warehouse', 'Labour Camp', 'Villa', 'Bulk Unit', 'Land', 'Floor', 'Building', 'Factory', 'Industrial Land', 'Mixed Use Land', 'Showroom', 'Other Commercial'
+        ];
+        function updateTypeOptions() {
+            const selectedMain = mainTypeSelect.value;
+            let options = '<option value="" disabled selected hidden>Select property type...</option>';
+            if (selectedMain === 'Residential') {
+                residentialTypes.forEach(t => {
+                    options += `<option value="${t}">${t}</option>`;
+                });
+            } else if (selectedMain === 'Commercial') {
+                commercialTypes.forEach(t => {
+                    options += `<option value="${t}">${t}</option>`;
+                });
+            }
+            typeSelect.innerHTML = options;
+        }
+        mainTypeSelect.addEventListener('change', updateTypeOptions);
+        updateTypeOptions();
+    });
     document.addEventListener('DOMContentLoaded', function () {
         const statusSelect = document.getElementById('property-status');
         const yearBuiltGroup = document.getElementById('year-built-group');
         const handoverDateGroup = document.getElementById('handover-date-group');
         const yearBuiltInput = document.getElementById('year-built-field');
         const handoverDateInput = document.getElementById('handover-date');
-    
+        const propertyTypeSelect = document.getElementById('property-type');
+        // Champs à masquer/afficher
+        const buildingFields = [
+            document.getElementById('building-name'),
+            document.getElementById('building-parking_spaces'),
+            document.getElementById('building_area'),
+            document.getElementById('number_elevators'),
+            document.getElementById('swiming-pool'),
+            document.getElementById('retail-centers'),
+            document.getElementById('total-floors')
+        ];
+        const bedroomsField = document.getElementById('property-bedroom');
+        const bathroomsField = document.getElementById('property-bathroom');
+        const furnishingField = document.getElementById('furnishing-field');
+        const garageField = document.getElementById('property-garage');
+        const plotAreaField = document.getElementById('property-size');
+
         function toggleFields() {
-            const selected = statusSelect.value;
-    
-            if (selected === 'off-plan') {
-                // Show Handover Date
+            const selectedStatus = statusSelect.value;
+            const selectedType = propertyTypeSelect.value;
+
+            // Statut Off-plan : handover visible, year built caché
+            if (selectedStatus === 'Off-plan') {
                 handoverDateGroup.style.display = 'block';
                 handoverDateInput.required = true;
-    
-                // Hide Year Built
                 yearBuiltGroup.style.display = 'none';
                 yearBuiltInput.required = false;
                 yearBuiltInput.value = '';
             } else {
-                // Show Year Built
                 yearBuiltGroup.style.display = 'block';
                 yearBuiltInput.required = true;
-    
-                // Hide Handover Date
                 handoverDateGroup.style.display = 'none';
                 handoverDateInput.required = false;
                 handoverDateInput.value = '';
             }
+
+            // Filtrage par type
+            // Villas/Townhouses
+            if (selectedType === 'Villa' || selectedType === 'Townhouse' || selectedType === 'Villa Compound') {
+                buildingFields.forEach(f => f.closest('.col-lg-6, .col-lg-4').style.display = 'none');
+                bedroomsField.closest('.col-lg-4').style.display = 'block';
+                bathroomsField.closest('.col-lg-4').style.display = 'block';
+                furnishingField.closest('.col-lg-4').style.display = 'block';
+                garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
+                plotAreaField.closest('.col-lg-6').style.display = 'block';
+            }
+            // Apartments
+            else if (selectedType === 'Apartment' || selectedType === 'Penthouse' || selectedType === 'Hotel Apartment') {
+                buildingFields.forEach(f => f.closest('.col-lg-6, .col-lg-4').style.display = 'block');
+                bedroomsField.closest('.col-lg-4').style.display = 'block';
+                bathroomsField.closest('.col-lg-4').style.display = 'block';
+                furnishingField.closest('.col-lg-4').style.display = 'block';
+                garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
+                plotAreaField.closest('.col-lg-6').style.display = 'block';
+            }
+            // Plots/Land
+            else if (selectedType === 'Plot' || selectedType === 'Land' || selectedType === 'Industrial Land' || selectedType === 'Mixed Use Land') {
+                bedroomsField.closest('.col-lg-4').style.display = 'none';
+                bathroomsField.closest('.col-lg-4').style.display = 'none';
+                furnishingField.closest('.col-lg-4').style.display = 'none';
+                garageField.closest('.col-lg-4, .col-lg-6').style.display = 'none';
+                plotAreaField.closest('.col-lg-6').style.display = 'block';
+                buildingFields.forEach(f => f.closest('.col-lg-6, .col-lg-4').style.display = 'none');
+            }
+            // Autres types : afficher tout
+            else {
+                buildingFields.forEach(f => f.closest('.col-lg-6, .col-lg-4').style.display = 'block');
+                bedroomsField.closest('.col-lg-4').style.display = 'block';
+                bathroomsField.closest('.col-lg-4').style.display = 'block';
+                furnishingField.closest('.col-lg-4').style.display = 'block';
+                garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
+                plotAreaField.closest('.col-lg-6').style.display = 'block';
+            }
         }
-    
-        toggleFields(); // Run on initial load
-        statusSelect.addEventListener('change', toggleFields); // Run on change
+
+        toggleFields(); // Initial
+        statusSelect.addEventListener('change', toggleFields);
+        propertyTypeSelect.addEventListener('change', toggleFields);
     });
 
     document.getElementById('pdf').addEventListener('change', function() {
