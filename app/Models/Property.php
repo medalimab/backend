@@ -9,6 +9,7 @@ class Property extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'property_name',
         'property_id',
@@ -32,14 +33,21 @@ class Property extends Model
         'property_built_up_area',
         'property_parking_availability',
         'building_name',
-        'building_parking_spaces',  //  Use snake_case in DB and here too
+        'building_parking_spaces',
         'number_elevators',
         'swimming_pool',
         'retail_centers',
         'total_floors',
         'user_id',
-        'pdf'
+        'pdf',
+        'agent_id',
     ];
+
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
