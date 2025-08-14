@@ -241,7 +241,7 @@
                       <input type="text" class="filter-input" placeholder="Enter location" name="location" />
 
                       <div class="filter-toggle-group">
-                        <input type="hidden" name="property_completion" id="propertyCompletionInput" value="All">
+                        <!-- Champ property_completion supprimé -->
                         <button class="toggle active" data-value="All">All</button>
                         <button class="toggle" data-value="Ready">Ready</button>
                         <button class="toggle" data-value="Off-plan">Off Plan</button>
@@ -617,7 +617,7 @@
 
         // Handle status toggles
         const statusButtons = document.querySelectorAll('.filter-toggle-group .toggle');
-        const propertyCompletionInput = document.getElementById('propertyCompletionInput');
+  // propertyCompletionInput supprimé
 
         statusButtons.forEach(button => {
           button.addEventListener('click', (e) => {

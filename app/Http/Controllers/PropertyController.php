@@ -72,7 +72,7 @@ class PropertyController extends Controller
                         'garage' => 'nullable|integer',
                         'property_type' => 'required|string|max:100',
                         'property_status' => 'required|string|max:100',
-                        'property_completion' => 'required|string|max:100',
+                        // 'property_completion' supprimé
                         'amenities' => 'nullable|string',
                         'property_furnishing' => 'required|string',
                         'images' => 'required|array|min:5|max:30',
@@ -176,9 +176,7 @@ class PropertyController extends Controller
                 $query->where('address', 'like', '%' . $request->location . '%');
             }
 
-            if ($request->filled('property_completion') && $request->property_completion !== 'All') {
-                $query->where('property_completion', $request->property_completion);
-            }
+            // Filtrage property_completion supprimé
             if ($request->filled('home_type') ) {
                 $query->where('property_type', $request->home_type);
             }

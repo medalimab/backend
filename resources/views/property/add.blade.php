@@ -87,14 +87,14 @@
                     <div class="col-lg-6 mb-3" id="property-statu-group">
                         <label for="property-for" class="form-label">Status</label>
                         <select class="form-control" id="property-status" name="property_status" required>
-                            <option value="" disabled selected hidden>Choose property status...</option>
+                            <option value="" disabled selected hidden>Choisir le statut de la propriété...</option>
                             <option value="Buy">Buy</option>
                             <option value="Rent">Rent</option>
-                            <option value="off-plan">Off Plan</option>
+                            <option value="Off-plan">Off-plan</option>
+                            <option value="Ready">Ready</option>
+                            <option value="Under Construction">Under Construction</option>
+                            <option value="Handover Soon">Handover Soon</option>
                         </select>
-                    </div>
-
-                    <div class="col-lg-4 mb-3" id="property-size-group">
                         <label for="property-square-foot" class="form-label">Property Size</label>
                         <input type="number" id="property-size" name="property_size" class="form-control" placeholder="Property Size" required>
                     </div>
@@ -114,13 +114,7 @@
                         <input type="number" id="property-garage" name="garage" class="form-control" placeholder="Garage" required >
 
                     </div>
-                    <div class="col-lg-4 mb-3" id="completion-group">
-                        <label for="property-for" class="form-label">Completion</label>
-                        <select class="form-control" id="completion-field" name="property_completion" required>
-                            <option value="Ready">Ready</option>
-                            <option value="off-plan">off plan</option>
-                        </select>
-                    </div>
+                    <!-- Champ Completion supprimé, tous les statuts sont dans Status -->
                     <div class="col-lg-4 mb-3">
                         <label for="property-for" class="form-label" id="furnishing_group">Furnishing</label>
                         <select class="form-control" id="furnishing-field" name="property_furnishing" required>

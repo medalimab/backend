@@ -26,7 +26,6 @@ class Property extends Model
         'garage',
         'property_type',
         'property_status',
-        'property_completion',
         'amenities',
         'property_furnishing',
         'image',
