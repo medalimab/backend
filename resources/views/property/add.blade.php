@@ -109,10 +109,9 @@
                         <label for="property-bathroom" class="form-label">Bathrooms</label>
                         <input type="number" id="property-bathroom" name="bathrooms" class="form-control" placeholder="Number of bathrooms" required >
                     </div>
-                    <div class="col-lg-4 mb-3" id="garage-field-group">
-                        <label for="property-for" class="form-label">Garage</label>
-                        <input type="number" id="property-garage" name="garage" class="form-control" placeholder="Garage" required >
-
+                    <div class="col-lg-6 mb-3">
+                        <label for="building-parking_spaces" class="form-label">Total parking spaces</label>
+                        <input type="number" id="building-parking_spaces" name="building_parking_spaces" class="form-control" placeholder="total parking spaces">
                     </div>
                     <!-- Champ Completion supprimé, tous les statuts sont dans Status -->
                     <div class="col-lg-4 mb-3">
@@ -163,13 +162,7 @@
                         <input type="text" id="property-developer" name="developer" class="form-control" placeholder="Name">
                     </div>
 
-                    <div class="col-lg-6 mb-3">
-                        <label for="property-Usage" class="form-label">Usage</label>
-                        <select class="form-control" id="property-categories" name="property_usage">
-                            <option value="unkonwn">others</option>
-
-                        </select>
-                    </div>
+                 
 
                     <div class="col-lg-6 mb-3">
                         <label for="property-built_up_area" class="form-label">Build up area</label>
@@ -199,10 +192,7 @@
                         <label for="property-name" class="form-label">Building Name</label>
                         <input type="text" id="building-name" name="building_name" class="form-control" placeholder="Building Name">
                     </div>
-                    <div class="col-lg-6 mb-3">
-                        <label for="building-parking_spaces" class="form-label">Total parking spaces</label>
-                        <input type="number" id="building-parking_spaces" name="building_parking_spaces" class="form-control" placeholder="total parking spaces">
-                    </div>
+                    
                     <div class="col-lg-6 mb-3">
                         <label for="building_area" class="form-label">Total Building Area</label>
                         <div class="input-group">
@@ -214,10 +204,7 @@
                         <label for="elevators" class="form-label">Elevators</label>
                         <input type="number" id="number_elevators" name="number_elevators" class="form-control" placeholder="Number of elevators">
                     </div>
-                    <div class="col-lg-4 mb-3">
-                        <label for="retail-centers" class="form-label">Retail centers</label>
-                        <input type="number" id="retail-centers" name="retail_centers" class="form-control" placeholder="Number Retail Centers">
-                    </div>
+                    
                     <div class="col-lg-4 mb-3">
                         <label for="total-floors" class="form-label">Total Floors</label>
                         <input type="number" id="total-floors" name="total_floors" class="form-control" placeholder="Total Floors">
