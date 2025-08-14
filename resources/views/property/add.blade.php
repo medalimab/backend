@@ -93,8 +93,7 @@
                             <option value="Rent">Rent</option>
                             <option value="Off-plan">Off-plan</option>
                             <option value="Ready">Ready</option>
-                            <option value="Under Construction">Under Construction</option>
-                            <option value="Handover Soon">Handover Soon</option>
+                            
                         </select>
                         <label for="property-square-foot" class="form-label">Property Size</label>
                         <input type="number" id="property-size" name="property_size" class="form-control" placeholder="Property Size" required>
