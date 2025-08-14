@@ -78,7 +78,7 @@
                         <div class="overflow-hidden">
                             <div class="card d-inline-block">
                                 <div class="card-body">
-                                    <h5 class="mt-0 fs-16">We have archieved 25k sales in our themes</h5>
+                                    <h5 class="mt-0 fs-16">We have archieved 25k buys in our themes</h5>
                                     <p class="text-muted mb-0">Dolorum provident rerum aut hic quasi
                                         placeat iure tempora laudantium ipsa ad debitis unde?</p>
                                 </div>

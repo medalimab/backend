@@ -1122,7 +1122,7 @@
 									<img class="img-whp" src="images/property/fp3.jpg" alt="fp3.jpg">
 									<div class="thmb_cntnt">
 										<ul class="tag mb0">
-											<li class="list-inline-item"><a href="#">For Sale</a></li>
+											<li class="list-inline-item"><a href="#">For Buy</a></li>
 										</ul>
 										<ul class="icon mb0">
 											<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>

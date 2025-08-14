@@ -65,7 +65,7 @@
                             @endif
                             
                             <span class="position-absolute top-0 end-0 p-1">
-                                <span class="badge bg-{{ $property->property_status === 'Sale' ? 'warning' : 'success' }} text-white fs-13">
+                                <span class="badge bg-{{ $property->property_status === 'Buy' ? 'warning' : 'success' }} text-white fs-13">
                                     {{ ucfirst($property->property_status) }}
                                 </span>
                             </span>

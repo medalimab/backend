@@ -2162,7 +2162,7 @@
                       <div class="thmb_cntnt">
                         <ul class="tag mb0">
                           <li class="list-inline-item">
-                            <a href="#">For Sale</a>
+                            <a href="#">For Buy</a>
                           </li>
                         </ul>
                         <ul class="icon mb0">

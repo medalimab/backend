@@ -516,7 +516,7 @@
                               <li class="list-inline-item">
                                 @if ($property->property_status == 'off-plan')
                                   <span>Handover Date: {{ $property->handover_date }}</span>
-                                @elseif ($property->property_status == 'Sale')
+                                @elseif ($property->property_status == 'Buy')
                                   <span>Year of Built: {{ $property->year_built }}</span>
                                 @endif
                               </li>
@@ -642,7 +642,7 @@
                     </div>
                     <div class="details">
                       <h4>Augusta Silva</h4>
-                      <p>Sales Manager</p>
+                      <p>Buy Manager</p>
                       <p class="mt25">
                         I was nervous about downsizing after 30 years in the
                         same house. The agents took time to understand my

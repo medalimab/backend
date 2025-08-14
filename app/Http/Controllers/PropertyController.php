@@ -159,7 +159,7 @@ class PropertyController extends Controller
             // Apply filters based on form inputs
             if ($request->filled('listing_status')&& $request->listing_status !== 'All') {
                 if($request->listing_status =="Buy"){
-                    $query->where('property_status', "Sale");
+                    $query->where('property_status', "Buy");
                 }
                 if($request->listing_status =="Rent"){
                     $query->where('property_status', "Rent");

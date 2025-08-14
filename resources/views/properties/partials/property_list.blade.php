@@ -73,7 +73,7 @@
                                 Handover Date: {{ $property->handover_date }}
                             </li>
                         </ul>
-                    @elseif($property->property_status == 'Sale')
+                    @elseif($property->property_status == 'Buy')
                         <ul class="prop_details mb0">
                             <li class="list-inline-item" style="color: black">
                                 Year of Built: {{ $property->year_built }}

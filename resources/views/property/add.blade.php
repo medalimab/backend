@@ -88,7 +88,7 @@
                         <label for="property-for" class="form-label">Status</label>
                         <select class="form-control" id="property-status" name="property_status" required>
                             <option value="" disabled selected hidden>Choose property status...</option>
-                            <option value="Sale">Sale</option>
+                            <option value="Buy">Buy</option>
                             <option value="Rent">Rent</option>
                             <option value="off-plan">Off Plan</option>
                         </select>

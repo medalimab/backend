@@ -109,7 +109,7 @@
                                             <p class="mb-0 fw-semibold text-dark fs-20">243</p>
                                         </div>
                                         <div class="col-lg-6">
-                                            <div id="property_sale" class="apex-charts"></div>
+                                            <div id="property_buy" class="apex-charts"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                                             <p class="mb-0 fw-semibold text-dark fs-20">136</p>
                                         </div>
                                         <div class="col-xl-6">
-                                            <div id="property_sale2" class="apex-charts"></div>
+                                            <div id="property_buy2" class="apex-charts"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
                                             <p class="mb-0 fw-semibold text-dark fs-20">105</p>
                                         </div>
                                         <div class="col-lg-6">
-                                            <div id="property_sale3" class="apex-charts"></div>
+                                            <div id="property_buy3" class="apex-charts"></div>
                                         </div>
                                     </div>
                                 </div>

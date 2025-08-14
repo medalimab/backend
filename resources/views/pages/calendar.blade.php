@@ -28,7 +28,7 @@
                                 <i class="ri-circle-fill me-2 vertical-middle"></i>Product Launch Strategy Meeting
                             </div>
                             <div class="external-event bg-soft-success text-success" data-class="bg-success">
-                                <i class="ri-circle-fill me-2 vertical-middle"></i>Monthly Sales Review
+                                <i class="ri-circle-fill me-2 vertical-middle"></i>Monthly Buy Review
                             </div>
                             <div class="external-event bg-soft-danger text-danger" data-class="bg-danger">
                                 <i class="ri-circle-fill me-2 vertical-middle"></i>Team Lunch Celebration

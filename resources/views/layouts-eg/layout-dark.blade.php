@@ -56,7 +56,7 @@ data-bs-theme="dark"
                         <h3 class="text-dark fw-bold d-flex align-items-center gap-2 mb-0">9,431 <span class="badge text-danger bg-danger-subtle fs-12"><i class="ri-arrow-down-line"></i>45.00%</span></h3>
                     </div> <!-- end col -->
                     <div class="col-6 text-end">
-                        <div id="new_sale" class="apex-charts"></div>
+                        <div id="new_buy" class="apex-charts"></div>
                     </div> <!-- end col -->
                 </div> <!-- end row-->
             </div> <!-- end card body -->
@@ -74,7 +74,7 @@ data-bs-theme="dark"
                         <h3 class="text-dark fw-bold d-flex align-items-center gap-2 mb-0">$78.3M <span class="badge text-success bg-success-subtle fs-12"><i class="ri-arrow-up-line"></i>8.76%</span></h3>
                     </div> <!-- end col -->
                     <div class="col-6 text-end">
-                        <div id="invoiced_sales" class="apex-charts"></div>
+                        <div id="invoiced_buys" class="apex-charts"></div>
                     </div> <!-- end col -->
                 </div> <!-- end row-->
             </div> <!-- end card body -->
@@ -86,7 +86,7 @@ data-bs-theme="dark"
         <div class="card overflow-hidden">
             <div class="card-header d-flex justify-content-between align-items-center pb-1">
                 <div>
-                    <h4 class="card-title">Sales Analytic</h4>
+                    <h4 class="card-title">Buy Analytic</h4>
                 </div>
                 <div class="dropdown">
                     <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded" data-bs-toggle="dropdown" aria-expanded="false">
@@ -108,7 +108,7 @@ data-bs-theme="dark"
                 </div>
                 <div class="row align-items-top text-center">
                     <div class="col-lg-12">
-                        <div class="apex-charts mt-2" id="sales_analytic"></div>
+                        <div class="apex-charts mt-2" id="buy_analytic"></div>
                     </div>
 
                 </div>
@@ -266,7 +266,7 @@ data-bs-theme="dark"
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center pb-1">
                 <div>
-                    <h4 class="card-title">Most Sales Location</h4>
+                    <h4 class="card-title">Most Buy Location</h4>
                 </div>
                 <div class="dropdown">
                     <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded" data-bs-toggle="dropdown" aria-expanded="false">
@@ -287,7 +287,7 @@ data-bs-theme="dark"
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12">
-                        <div id="most-sales-location" class="mt-3" style="height: 322px">
+                        <div id="most-buy-location" class="mt-3" style="height: 322px">
                         </div>
                     </div>
                 </div>
@@ -326,7 +326,7 @@ data-bs-theme="dark"
     <div class="col-xl-3 col-lg-6">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Weekly Sales</h4>
+                <h4 class="card-title">Weekly Buys</h4>
             </div>
             <div class="card-body">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -357,7 +357,7 @@ data-bs-theme="dark"
                     </button>
                 </div>
 
-                <div id="sales_funnel" class="apex-charts mt-4"></div>
+                <div id="buy_funnel" class="apex-charts mt-4"></div>
             </div>
             <div class="card-footer border-top d-flex align-items-center justify-content-between">
                 <p class="text-muted fw-medium fs-15 mb-0"><span class="text-dark me-1">Total Property Seals : </span>5,746</p>

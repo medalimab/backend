@@ -81,7 +81,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-header d-flex  justify-content-between align-items-center border-0">
-                        <h4 class="card-title">Sales Funnel</h4>
+                        <h4 class="card-title">Buy Funnel</h4>
                         <div class="dropdown">
                             <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded" data-bs-toggle="dropdown" aria-expanded="false">
                                 This Month
@@ -98,7 +98,7 @@
                     </div>
                     <div class="card-body">
                         <div class="mx-n3">
-                            <div id="sales_funnel" data-colors="#604ae3" class="apex-charts mb-3"></div>
+                            <div id="buy_funnel" data-colors="#604ae3" class="apex-charts mb-3"></div>
                         </div>
                     </div>
                     <div class="card-footer p-0 border-top">
@@ -161,7 +161,7 @@
                                     <p class="fs-16 text-dark fw-medium mb-1">$12,223.78</p>
                                 </div>
                                 <div class="col-lg-3 col-4">
-                                    <p class="mb-1 text-muted"><i class='ri-circle-fill fs-6 text-warning'></i> Sales</p>
+                                    <p class="mb-1 text-muted"><i class='ri-circle-fill fs-6 text-warning'></i> Buy</p>
                                     <p class="fs-16 text-dark fw-medium mb-1">$56,131</p>
                                 </div>
                                 <div class="col-lg-3 col-4">
