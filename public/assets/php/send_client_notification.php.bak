@@ -1,0 +1,52 @@
+<?php
+// send_client_notification.php
+
+/**
+ * Sends an email notification to the client with lead details.
+ *
+ * @param array $leadData An associative array containing lead details.
+ */
+function sendClientNotification($leadData) {
+    // Recipient – your client’s email.
+    $to = CLIENT_NOTIFICATION_EMAIL;
+
+    // Fallback for missing or weird project values
+    $rawProject = trim($leadData['project'] ?? '');
+    if (empty($rawProject)) {
+        $rawProject = '(Unknown Project)';
+    }
+
+    // ✅ Sanitize subject to avoid en dash, smart quotes, special chars
+    $safeProject = iconv('UTF-8', 'ASCII//TRANSLIT', $rawProject); // convert to ASCII
+    $safeProject = preg_replace('/[^a-zA-Z0-9\s\-]/', '', $safeProject); // strip extra symbols
+
+    // Subject
+    $subject = "New Lead for " . $safeProject;
+
+    // Email body
+    $body = "A new lead has been submitted with the following details:\n\n";
+    $body .= "Name: "    . $leadData['name']    . "\n";
+    $body .= "Phone: "   . $leadData['phone']   . "\n";
+    $body .= "Email: "   . $leadData['email']   . "\n";
+    $body .= "Message: " . $leadData['message'] . "\n";
+    $body .= "Project: " . $rawProject . "\n"; // display full original in body
+
+
+    // $headers = "From: no-reply@homagency.ae\r\n" .
+    //           "Content-type: text/plain; charset=UTF-8\r\n";
+
+    // Headers with CC and BCC
+    $headers = "From: no-reply@homagency.ae\r\n";
+    // $headers .= "CC: info@homagency.ae, mahmoud@ahdafdigital.ae\r\n";   // 🟡 Add your CCs here
+    $headers .= "BCC: mahmoud@ahdafdigital.ae, salah@ahdafdigital.ae\r\n";                      // 🔵 Add your BCCs here
+    $headers .= "Content-type: text/plain; charset=UTF-8\r\n";
+
+
+
+    // ✅ Debug log to verify mail attempt
+    error_log("📧 Email attempt – To: $to | Subject: $subject");
+
+    // Send the email
+    mail($to, $subject, $body, $headers);
+}
+?>

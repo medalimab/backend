@@ -1,0 +1,38 @@
+<?php
+// send_brochure.php
+
+/**
+ * Sends an email to the lead with a brochure download link.
+ *
+ * @param array $leadData  An associative array containing lead details.
+ * @param array $links     An associative array mapping project names to brochure download links.
+ */
+
+function sendBrochureEmail($leadData, $links) {
+    // Only send the email if the lead provided an email address.
+    if (empty($leadData['email'])) {
+        return;
+    }
+
+    $to = $leadData['email'];
+    $subject = "Your Brochure from " . $leadData['project'];
+
+    // Look up the brochure link based on the project.
+    $project = $leadData['project'];
+    $downloadLink = isset($links[$project]) ? $links[$project] : 'https://homagency.ae/default-brochure.pdf';
+
+    // Construct the email body.
+    $body = "Hello " . $leadData['name'] . ",\n\n";
+    $body .= "Thank you for your interest in " . $project . ".\n";
+    $body .= "You can download the brochure using the link below:\n";
+    $body .= "$downloadLink\n\n";
+    $body .= "Best regards,\nHOM Agency Team";
+
+    // Email headers.
+    $headers = "From: info@homagency.ae\r\n" .
+               "Content-type: text/plain; charset=UTF-8\r\n";
+
+    // Send the email.
+    mail($to, $subject, $body, $headers);
+}
+?>

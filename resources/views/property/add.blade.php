@@ -1,0 +1,316 @@
+@extends('layouts.vertical', ['title' => 'Add Property', 'subTitle' => 'Real Estate'])
+
+@section('css')
+@vite(['node_modules/choices.js/public/assets/styles/choices.min.css'])
+@endsection
+
+@section('content')
+@if (session('error'))
+    <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+        {{ session('error') }}
+    </div>
+@endif
+
+
+<form action="{{ route('properties.store') }}" method="POST" enctype="multipart/form-data">
+@csrf
+
+<div class="row">
+    <div class="col-xl-3 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="position-relative">
+                    <img src="/images/properties/p-1.jpg" alt="" class="img-fluid rounded bg-light">
+                    <span class="position-absolute top-0 end-0 p-1">
+                        <span class="badge bg-success text-light fs-13">For Rent</span>
+                    </span>
+                </div>
+                <div class="mt-3">
+                    <h4 class="mb-1">Preview Info</h4>
+                    <p class="mb-1 text-muted">Optional preview content</p>
+                </div>
+            </div>
+            <div class="card-footer bg-light-subtle">
+                <div class="row g-2">
+                    <div class="col-lg-6">
+                        <button type="submit" class="btn btn-outline-primary w-100">Create Property</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <a href="{{ route('properties.index') }}" class="btn btn-danger w-100">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-9 col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Property Photo</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="image" class="form-label">Property Image</label>
+                    <input type="file" name="images[]" class="form-control" id="images" multiple>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Property Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        <label for="property-name" class="form-label">Property Name</label>
+                        <input type="text" id="property-name" name="property_name" class="form-control" placeholder="Name" required>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <label for="property-id" class="form-label">Property ID</label>
+                        <input type="text" id="property-id" name="property_id" class="form-control" placeholder="Property ID" required>
+                        @error('property_id')
+                            <span class="text-red-500 text-sm mt-1" style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>                    
+                    <div class="col-lg-6 mb-3" id="property-categories-group">
+                        <label for="property-categories" class="form-label">Property Type</label>
+                        <select class="form-control" id="property-categories" name="property_type" required>
+                            <option value="" disabled selected hidden>Choose property type...</option>
+                            <option value="Villas">Villas</option>
+                            <option value="Residences">Residences</option>
+                            <option value="Bungalow">Bungalow</option>
+                            <option value="Apartment">Apartment</option>
+                            <option value="Penthouse">Penthouse</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 mb-3" id="property-statu-group">
+                        <label for="property-for" class="form-label">Status</label>
+                        <select class="form-control" id="property-status" name="property_status" required>
+                            <option value="" disabled selected hidden>Choose property status...</option>
+                            <option value="Sale">Sale</option>
+                            <option value="Rent">Rent</option>
+                            <option value="off-plan">Off Plan</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-4 mb-3" id="property-size-group">
+                        <label for="property-square-foot" class="form-label">Property Size</label>
+                        <input type="number" id="property-size" name="property_size" class="form-control" placeholder="Property Size" required>
+                    </div>
+
+
+                    <div class="col-lg-4 mb-3">
+                        <label for="property-bedroom" class="form-label">Bedrooms</label>
+                        <input type="number" id="property-bedroom" name="bedrooms" class="form-control" placeholder="Number of bedrooms" required>
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label for="property-bathroom" class="form-label">Bathrooms</label>
+                        <input type="number" id="property-bathroom" name="bathrooms" class="form-control" placeholder="Number of bathrooms" required >
+                    </div>
+                    <div class="col-lg-4 mb-3" id="garage-field-group">
+                        <label for="property-for" class="form-label">Garage</label>
+                        <input type="number" id="property-garage" name="garage" class="form-control" placeholder="Garage" required >
+
+                    </div>
+                    <div class="col-lg-4 mb-3" id="completion-group">
+                        <label for="property-for" class="form-label">Completion</label>
+                        <select class="form-control" id="completion-field" name="property_completion" required>
+                            <option value="Ready">Ready</option>
+                            <option value="off-plan">off plan</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 mb-3">
+                        <label for="property-for" class="form-label" id="furnishing_group">Furnishing</label>
+                        <select class="form-control" id="furnishing-field" name="property_furnishing" required>
+                            <option value="" disabled selected hidden>Select furnishing status...</option> 
+                            <option value="Furnished" >Furnished</option>
+                            <option value="Unfurnished">Unfurnished</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 mb-3">
+                        <label for="property-price" class="form-label">Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">AED</span>
+                            <input type="number" id="property-price" name="price" class="form-control" placeholder="000" required>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-3" id="year-built-group">
+                        <label for="property_year_build" class="form-label">Year Built</label>
+                        <input type="number" id="year-built-field" name="year_built" class="form-control" placeholder="year of Built" >
+                    </div>
+                    <div class="col-lg-4 mb-3" id="handover-date-group">
+                        <label for="property-handover_date" class="form-label">Handover Date</label>
+                        <textarea  id="handover-date" name="handover_date" class="form-control" ></textarea>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <label for="property-address" class="form-label">Address</label>
+                        <textarea class="form-control" id="property-address" name="address" rows="2" placeholder="Enter address" required></textarea>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write description..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Validated Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        <label for="property-name" class="form-label">Developer</label>
+                        <input type="text" id="property-developer" name="developer" class="form-control" placeholder="Name">
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label for="property-Usage" class="form-label">Usage</label>
+                        <select class="form-control" id="property-categories" name="property_usage">
+                            <option value="unkonwn">others</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label for="property-built_up_area" class="form-label">Build up area</label>
+                        <div class="input-group">
+                            <span class="input-group-text">sqft</span>
+                            <input type="number" id="property-built_up_area" name="property_built_up_area" class="form-control" placeholder="build up area">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label for="property-for" class="form-label">parking availabilty</label>
+                        <select class="form-control" id="property-for" name="property_parking_availability">
+                            <option value="Available">Available</option>
+                            <option value="Unavailable">Unavailable</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Building Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        <label for="property-name" class="form-label">Building Name</label>
+                        <input type="text" id="building-name" name="building_name" class="form-control" placeholder="Building Name">
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label for="building-parking_spaces" class="form-label">Total parking spaces</label>
+                        <input type="number" id="building-parking_spaces" name="building_parking_spaces" class="form-control" placeholder="total parking spaces">
+
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label for="building_area" class="form-label">Total Building Area</label>
+                        <div class="input-group">
+                            <span class="input-group-text">sqft</span>
+                            <input type="number" id="building_area" name="building_area" class="form-control" placeholder="Building area">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label for="elevators" class="form-label">Elevators</label>
+                        <input type="number" id="number_elevators" name="number_elevators" class="form-control" placeholder="Number of elevators">
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label for="swimming_pool" class="form-label">Swimming Pool</label>
+                        <input type="number" id="swiming-pool" name="swiming_pool" class="form-control" placeholder="Swimming Pool">
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label for="retail-centers" class="form-label">Retail centers</label>
+                        <input type="number" id="retail-centers" name="retail_centers" class="form-control" placeholder="Number Retail Centers">
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label for="total-floors" class="form-label">Total Floors</label>
+                        <input type="number" id="total-floors" name="total_floors" class="form-control" placeholder="Total Floors">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Property Attachments</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="pdf" class="form-label">PDF Document</label>
+                    <input type="file" name="pdf" class="form-control" id="pdf" accept="application/pdf">
+                    <small class="text-danger d-none" id="pdf-error">File must be less than 10 MB</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+</form>
+
+@endsection
+
+@section('script-bottom')
+@vite(['resources/js/components/form-fileupload.js'])
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const statusSelect = document.getElementById('property-status');
+        const yearBuiltGroup = document.getElementById('year-built-group');
+        const handoverDateGroup = document.getElementById('handover-date-group');
+        const yearBuiltInput = document.getElementById('year-built-field');
+        const handoverDateInput = document.getElementById('handover-date');
+    
+        function toggleFields() {
+            const selected = statusSelect.value;
+    
+            if (selected === 'off-plan') {
+                // Show Handover Date
+                handoverDateGroup.style.display = 'block';
+                handoverDateInput.required = true;
+    
+                // Hide Year Built
+                yearBuiltGroup.style.display = 'none';
+                yearBuiltInput.required = false;
+                yearBuiltInput.value = '';
+            } else {
+                // Show Year Built
+                yearBuiltGroup.style.display = 'block';
+                yearBuiltInput.required = true;
+    
+                // Hide Handover Date
+                handoverDateGroup.style.display = 'none';
+                handoverDateInput.required = false;
+                handoverDateInput.value = '';
+            }
+        }
+    
+        toggleFields(); // Run on initial load
+        statusSelect.addEventListener('change', toggleFields); // Run on change
+    });
+
+    document.getElementById('pdf').addEventListener('change', function() {
+        const file = this.files[0];
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        const errorMsg = document.getElementById('pdf-error');
+
+        if (file && file.size > maxSize) {
+            errorMsg.classList.remove('d-none');
+            this.value = ''; // clear the input
+        } else {
+            errorMsg.classList.add('d-none');
+        }
+    });
+    </script>
+
+@endsection
