@@ -41,6 +41,8 @@ class Property extends Model
         'user_id',
         'pdf',
         'agent_id',
+        'dld_permit_number',
+        'dld_permit_qr',
     ];
 
     public function agent()
