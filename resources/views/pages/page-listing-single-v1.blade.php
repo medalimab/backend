@@ -396,21 +396,7 @@
 						<p>{{ $property->address }}</p>
 					</div>
 				</div>
-				<div class="col-lg-5 col-xl-4">
-					<div class="single_property_social_share">
-						<div class="price float-left fn-400">
-							<h2>{{ number_format($property->price, 0, '.', ',') }} AED </h2>
-						</div>
-						<div class="spss mt20 text-right tal-400">
-							<ul class="mb0">
-								<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-								<li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-								{{-- <li class="list-inline-item"><a href="#"><span class="flaticon-share"></span></a></li> --}}
-								<li class="list-inline-item"><a href="#"><span class="flaticon-printer"></span></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				
 				<div class="d-block d-lg-none mt-3">
 					<div class="sidebar_listing_list">
 						<div class="sidebar_advanced_search_widget">
@@ -1157,24 +1143,37 @@
 				</div>
 				<div class="col-lg-4 col-xl-4 mt50 order-1 order-lg-2">
 					<div class="sidebar_listing_list d-none d-lg-block">
-						<div class="sidebar_advanced_search_widget">
-							<div class="sl_creator">
-								<div class="media">
-									<img class="mr-3" src="{{ asset('HOM_LOGO.png') }}" alt="HOM LOGO " />
-								</div>
-							</div>
-							<ul class="contact-icons prop_details mb0">
-								<li class="list-inline-item">
-								  <a href="#" class="icon-rect"><img src="{{ asset('icon_mail.png') }}" alt="mail Icon" class="icon"></a>
-								</li>
-								<li class="list-inline-item">
-								  <a href="#" class="icon-rect"><img src="{{ asset('icon_call.png') }}" alt="call Icon" class="icon"></a>
-								</li>
-								<li class="list-inline-item">
-								  <a href="#" class="icon-rect"><img src="{{ asset('whatsapp.png') }}" alt="whatsup Icon" class="icon"></a>
-								</li>
-							  </ul>
-						</div>
+																	@if($property->agent)
+																	<div class="sidebar_advanced_search_widget">
+																			<div class="sl_creator">
+																					<div class="media">
+																							<img class="mr-3 rounded-circle" src="{{ asset('storage/' . $property->agent->photo) }}" alt="{{ $property->agent->name }}" style="width:70px;height:70px;object-fit:cover;" />
+																							<div class="media-body align-self-center">
+																									<span class="text-primary fw-bold" style="font-size:15px;">Contact Agent</span>
+																									<div class="mt-1 mb-1" style="font-size:16px; color:#222; font-weight:500;">{{ $property->agent->full_name }}</div>
+																									@if(!empty($property->agent->coordinates))
+																										<small class="text-muted d-block mt-1"><i class="fa fa-map-marker mr-1"></i> {{ $property->agent->coordinates }}</small>
+																									@endif
+																							</div>
+																					</div>
+																			</div>
+																			<ul class="contact-icons prop_details mb0">
+																					@if($property->agent->email)
+																					<li class="list-inline-item">
+																						<a href="mailto:{{ $property->agent->email }}" class="icon-rect"><img src="{{ asset('icon_mail.png') }}" alt="mail Icon" class="icon"></a>
+																					</li>
+																					@endif
+																					@if($property->agent->phone)
+																					<li class="list-inline-item">
+																						<a href="tel:{{ $property->agent->phone }}" class="icon-rect"><img src="{{ asset('icon_call.png') }}" alt="call Icon" class="icon"></a>
+																					</li>
+																					@endif
+																					<li class="list-inline-item">
+																						<a href="https://wa.me/{{ $property->agent->phone }}" class="icon-rect"><img src="{{ asset('whatsapp.png') }}" alt="whatsup Icon" class="icon"></a>
+																					</li>
+																				</ul>
+																	</div>
+																	@endif
 					</div>
 					<div class="sidebar_listing_list">
 						<div class="sidebar_advanced_search_widget">
