@@ -56,9 +56,9 @@
                     </a>
                     <div class="collapse" id="sidebarProperty">
                          <ul class="nav sub-navbar-nav">
-                              <li class="sub-nav-item">
-                                   <a class="sub-nav-link" href="{{ route('second', ['property', 'grid'])}}">Property Grid</a>
-                              </li>
+                                   {{-- <li class="sub-nav-item">
+                                        <a class="sub-nav-link" href="{{ route('second', ['property', 'grid'])}}">Property Grid</a>
+                                   </li> --}}
                               <li class="sub-nav-item">
                                    <a class="sub-nav-link" href="{{ route('second', ['property', 'list'])}}">Property List</a>
                               </li>
