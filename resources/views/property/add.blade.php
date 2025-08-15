@@ -12,6 +12,15 @@
 @endif
 
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="{{ route('properties.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 
@@ -50,8 +59,8 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="image" class="form-label">Property Image</label>
-                    <input type="file" name="images[]" class="form-control" id="images" multiple>
+                    <label for="images" class="form-label">Property Images (min 5)</label>
+                    <input type="file" name="images[]" class="form-control" id="images" accept="image/*" multiple>
                 </div>
             </div>
         </div>
@@ -379,6 +388,17 @@
                     <label for="pdf" class="form-label">PDF Document</label>
                     <input type="file" name="pdf" class="form-control" id="pdf" accept="application/pdf">
                     <small class="text-danger d-none" id="pdf-error">File must be less than 10 MB</small>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">DLD Permit</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="dld_permit_number" class="form-label">Permit Number</label>
+                    <input type="text" name="dld_permit_number" id="dld_permit_number" class="form-control" placeholder="Enter DLD Permit Number">
                 </div>
             </div>
         </div>
