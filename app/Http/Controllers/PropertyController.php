@@ -53,7 +53,12 @@ class PropertyController extends Controller
             public function store(Request $request)
             {
                 Log::info('Property Store Request Received:', $request->all());
-            
+
+                // Correction amenities : transformer en string si array
+                if (is_array($request->amenities)) {
+                    $request->merge(['amenities' => implode(',', $request->amenities)]);
+                }
+
                 try {
                     $validated = $request->validate([
                         'property_name' => 'required|string|max:255',
@@ -66,17 +71,14 @@ class PropertyController extends Controller
                         'property_size' => 'required|integer',
                         'building_area' => 'nullable|numeric',
                         'year_built' => 'nullable|integer',
-                        'handover_date' => 'nullable|string', // Change this if handling specific formats like "Q4 2028"
+                        'handover_date' => 'nullable|string',
                         'bedrooms' => 'required|integer',
                         'bathrooms' => 'required|integer',
                         'garage' => 'nullable|integer',
                         'property_type' => 'required|string|max:100',
                         'property_status' => 'required|string|max:100',
-                        // 'property_completion' supprimé
                         'amenities' => 'nullable|string',
                         'property_furnishing' => 'required|string',
-                        'images' => 'required|array|min:5|max:30',
-                        'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
                         'property_built_up_area'=> 'required|integer',
                         'property_parking_availability'=> 'nullable|string',
                         'building_name'=> 'nullable|string',
@@ -86,6 +88,7 @@ class PropertyController extends Controller
                         'retail_centers'=> 'nullable|integer',
                         'total_floors'=> 'nullable|integer',
                         'pdf' => 'nullable|mimes:pdf|max:10240',
+                        'dld_permit_number' => 'nullable|string',
                     ], [
                         'property_id.unique' => 'This Property ID already exists. Please choose a different one.',
                     ]);
@@ -94,9 +97,24 @@ class PropertyController extends Controller
             
                     $validated['user_id'] = Auth::id();
             
+                    // Génération du QR code DLD Permit
+                    if ($request->dld_permit_number) {
+                        try {
+                            $qrCode = new \Endroid\QrCode\QrCode($request->dld_permit_number);
+                            $writer = new \Endroid\QrCode\Writer\PngWriter();
+                            $result = $writer->write($qrCode);
+                            $filename = 'dld_qr/' . uniqid() . '.png';
+                            \Illuminate\Support\Facades\Storage::disk('public')->put($filename, $result->getString());
+                            $validated['dld_permit_qr'] = $filename;
+                        } catch (\Exception $e) {
+                            Log::error('QR code generation failed: ' . $e->getMessage());
+                        }
+                    }
+
+                    // Création de la propriété sans image principale
                     $property = Property::create($validated);
-            
-                    // Handle images
+
+                    // Enregistrement des images liées
                     if ($request->hasFile('images')) {
                         foreach ($request->file('images') as $imageFile) {
                             $imagePath = $imageFile->store('properties', 'public');
@@ -105,7 +123,7 @@ class PropertyController extends Controller
                             ]);
                         }
                     }
-            
+
                     // Handle PDF
                     if ($request->hasFile('pdf')) {
                         $pdfPath = $request->file('pdf')->store('pdfs', 'public');
@@ -120,7 +138,7 @@ class PropertyController extends Controller
                     return back()->withErrors($e->errors())->withInput();
                 } catch (\Exception $e) {
                     Log::error('Property Creation Failed: ' . $e->getMessage());
-                    return back()->with('error', 'Something went wrong!');
+                    return back()->with('error', $e->getMessage())->withInput();
                 }
             }
             
@@ -153,7 +171,6 @@ class PropertyController extends Controller
 
         public function search(Request $request)
         {   
-            Log::info("search request",$request->all());
             $query = Property::query();
             
             // Apply filters based on form inputs
