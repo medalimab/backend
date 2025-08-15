@@ -89,8 +89,11 @@ class PropertyController extends Controller
                         'total_floors'=> 'nullable|integer',
                         'pdf' => 'nullable|mimes:pdf|max:10240',
                         'dld_permit_number' => 'nullable|string',
+                        'agent_id' => 'required|exists:agents,id',
                     ], [
                         'property_id.unique' => 'This Property ID already exists. Please choose a different one.',
+                        'agent_id.required' => 'Veuillez sélectionner un agent.',
+                        'agent_id.exists' => 'L agent sélectionné n existe pas.',
                     ]);
             
                     Log::info('Validation Passed');
