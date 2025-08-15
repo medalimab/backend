@@ -97,8 +97,11 @@ class PropertyController extends Controller
             
                     $validated['user_id'] = Auth::id();
             
-                    // Génération du QR code DLD Permit
-                    if ($request->dld_permit_number) {
+                    // Gestion upload ou génération du QR code DLD Permit
+                    if ($request->hasFile('dld_permit_qr')) {
+                        $qrPath = $request->file('dld_permit_qr')->store('dld_qr', 'public');
+                        $validated['dld_permit_qr'] = $qrPath;
+                    } elseif ($request->dld_permit_number) {
                         try {
                             $qrCode = new \Endroid\QrCode\QrCode($request->dld_permit_number);
                             $writer = new \Endroid\QrCode\Writer\PngWriter();
