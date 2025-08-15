@@ -400,6 +400,10 @@
                     <label for="dld_permit_number" class="form-label">Permit Number</label>
                     <input type="text" name="dld_permit_number" id="dld_permit_number" class="form-control" placeholder="Enter DLD Permit Number">
                 </div>
+                <div class="mb-3">
+                    <label for="dld_permit_qr" class="form-label">QR Code (upload)</label>
+                    <input type="file" name="dld_permit_qr" id="dld_permit_qr" class="form-control" accept="image/*">
+                </div>
             </div>
         </div>
     </div>
