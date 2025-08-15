@@ -92,7 +92,9 @@
                 <div class="position-relative">
                     <!-- <img src="{{ asset('assets/' . $property->image) }}" alt="" class="img-fluid rounded"> -->
                     @if($property->images->isNotEmpty())
-                         <img class="img-fluid rounded" src="{{ asset('storage/' . $property->images->first()->image_url) }}" alt="Property image">
+                        @foreach($property->images as $img)
+                            <img class="img-fluid rounded mb-2" src="{{ asset('storage/' . $img->image_url) }}" alt="Property image">
+                        @endforeach
                     @endif
                     <span class="position-absolute top-0 start-0 p-2">
                         <span class="badge bg-warning text-light px-2 py-1 fs-13">{{ $property->property_status }}</span>
