@@ -90,6 +90,7 @@
                          </ul>
                     </div>
                </li>
+               {{--
                <li class="nav-item">
                     <a class="nav-link menu-arrow" href="#sidebarProjects" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProjects">
                          <span class="nav-icon">
@@ -111,6 +112,7 @@
                          </ul>
                     </div>
                </li>
+               --}}
 
                <!-- <li class="nav-item">
                     <a class="nav-link menu-arrow" href="#sidebarAgents" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAgents">
