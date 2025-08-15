@@ -8,7 +8,58 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class PropertyController extends Controller
+{
+    // Affiche le formulaire d'édition
+    public function edit($id)
     {
+        $property = Property::findOrFail($id);
+        return view('property.edit', compact('property'));
+    }
+
+    // Met à jour la propriété
+    public function update(Request $request, $id)
+    {
+        $property = Property::findOrFail($id);
+        $validated = $request->validate([
+            'property_name' => 'required|string|max:255',
+            'property_id' => 'required|string|max:100',
+            'description' => 'nullable|string',
+            'address' => 'required|string|max:255',
+            'developer' => 'nullable|string|max:255',
+            'property_usage' => 'nullable|string|max:255',
+            'price' => 'required|numeric',
+            'property_size' => 'required|integer',
+            'building_area' => 'nullable|numeric',
+            'year_built' => 'nullable|integer',
+            'handover_date' => 'nullable|string',
+            'bedrooms' => 'required|integer',
+            'bathrooms' => 'required|integer',
+            'garage' => 'nullable|integer',
+            'property_type' => 'required|string|max:100',
+            'property_status' => 'required|string|max:100',
+            'amenities' => 'nullable|string',
+            'property_furnishing' => 'required|string',
+            'property_built_up_area'=> 'required|integer',
+            'property_parking_availability'=> 'nullable|string',
+            'building_name'=> 'nullable|string',
+            'building_parking_spaces'=> 'nullable|integer',
+            'number_elevators'=> 'nullable|integer',
+            'swimming_pool'=> 'nullable|integer',
+            'retail_centers'=> 'nullable|integer',
+            'total_floors'=> 'nullable|integer',
+            'agent_id' => 'required|exists:agents,id',
+        ]);
+        $property->update($validated);
+        return redirect()->route('properties.list')->with('success', 'Property updated successfully!');
+    }
+
+    // Supprime la propriété
+    public function destroy($id)
+    {
+        $property = Property::findOrFail($id);
+        $property->delete();
+        return redirect()->route('properties.list')->with('success', 'Property deleted successfully!');
+    }
 
         public function showHomePage()
         {
