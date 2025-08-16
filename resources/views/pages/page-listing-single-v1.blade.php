@@ -598,6 +598,35 @@
 								</div>
 							</div>
 						</div>
+
+						<!-- Insert this section after Building Information and before Property Attachments -->
+<div class="col-lg-12">
+  <div class="additional_details">
+    <div class="row">
+      <div class="col-lg-12">
+        <h4 class="mb15">Amenities</h4>
+      </div>
+      <div class="col-md-6 col-lg-6">
+				<ul class="list-unstyled">
+											@php
+												$amenities = [];
+												if (!empty($property->amenities)) {
+													$amenities = explode(',', $property->amenities);
+												}
+											@endphp
+											@forelse($amenities as $amenity)
+												<li><span><i class="fa fa-check text-success mr-2" aria-hidden="true"></i>{{ trim($amenity) }}</span></li>
+											@empty
+												<li>Aucune amenity renseignée</li>
+											@endforelse
+				</ul>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
 						<div class="col-lg-12">
 							<div class="property_attachment_area">
 								<h4 class="mb30">Property Attachments</h4>
