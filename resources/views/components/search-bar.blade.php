@@ -189,6 +189,11 @@
       overflow: hidden;
       border: 1px solid #ddd;
     }
+    
+    /* Masquer les status tabs mobiles sur desktop */
+    .mobile-status-tabs {
+      display: none;
+    }
     .status {
   padding: 8px 16px;
   cursor: pointer;
@@ -318,15 +323,127 @@
     }
     .btn-reset { background: #f5f5f5; color: #333; }
   .btn-done { background: #1E3A8A; color: #fff; }
+  
+  /* ========== MOBILE RESPONSIVE STYLES ========== */
+  @media (max-width: 768px) {
+    .search-bar {
+      margin: 5px;
+      padding: 10px;
+      border-radius: 12px;
+    }
+    
+    /* Layout vertical pour mobile */
+    .top-row {
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    /* Masquer le bouton "Buy" sur mobile */
+    .tab {
+      display: none;
+    }
+    
+    /* Afficher les status tabs mobiles */
+    .mobile-status-tabs {
+      display: flex !important;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    
+    /* Afficher les status tabs en haut sur mobile */
+    .status-tabs {
+      order: -1; /* Place les status tabs avant location */
+      margin-bottom: 10px;
+    }
+    
+    .location {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px; /* Évite le zoom automatique */
+    }
+    
+    .btn-search {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+    }
+    
+    /* Bottom row vertical */
+    .bottom-row {
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+      order: 1; /* Place après location et search button */
+    }
+    
+    /* Masquer les status-tabs du bottom-row sur mobile */
+    .bottom-row .status-tabs {
+      display: none;
+    }
+    
+    /* Dropdowns pleine largeur mobile */
+    .dropdown {
+      width: 100%;
+      padding: 12px;
+      justify-content: center;
+      font-size: 15px;
+      /* Masquer tous les dropdowns sur mobile */
+      display: none !important;
+    }
+    
+    /* Masquer aussi les contenus dropdown sur mobile */
+    .dropdown-content,
+    .dropdown-content.large {
+      display: none !important;
+    }
+    
+    /* Simplifier le bottom-row puisque plus de dropdowns */
+    .bottom-row {
+      display: none !important; /* Masquer complètement la section bottom */
+    }
+  }
+  
+  /* Extra petits écrans (iPhones, etc.) */
+  @media (max-width: 480px) {
+    .search-bar {
+      margin: 2px;
+      padding: 8px;
+    }
+    
+    .dropdown-content {
+      width: calc(100vw - 20px) !important;
+      padding: 10px;
+    }
+    
+    .pill {
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+    
+    .status {
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+  }
   </style>
 </head>
 <body>
 
 <form method="GET" action="{{ route('properties.search') }}">
 <div class="search-bar">
+  <!-- Input caché unique pour listing_status -->
+  <input type="hidden" name="listing_status" id="listingStatusInput" value="All">
+  
   <!-- Top Row -->
   <div class="top-row">
     <div class="tab active">Buy</div>
+    
+    <!-- Status tabs pour mobile (cachées sur desktop) -->
+    <div class="status-tabs mobile-status-tabs">
+      <div class="status active" onclick="setStatus('All')">All</div>
+      <div class="status" onclick="setStatus('Ready')">Ready</div>
+      <div class="status" onclick="setStatus('Off-Plan')">Off-Plan</div>
+    </div>
     
     <input class="location" type="text" name="location" placeholder="Enter location">
     <button class="btn-search" type="submit">Search</button>
@@ -335,7 +452,6 @@
   <!-- Bottom Row -->
   <div class="bottom-row">
     <div class="status-tabs">
-      <input type="hidden" name="listing_status" id="listingStatusInput" value="All">
       <div class="status active" onclick="setStatus('All')">All</div>
       <div class="status" onclick="setStatus('Ready')">Ready</div>
       <div class="status" onclick="setStatus('Off-Plan')">Off-Plan</div>
@@ -444,81 +560,163 @@
 </form>
 
 <script>
-// Met à jour le champ caché listing_status selon le bouton cliqué
-function setStatus(val) {
-  document.getElementById('listingStatusInput').value = val;
-}
-// Met à jour le champ caché beds
-function setBeds(val) {
-  document.getElementById('bedsInput').value = val;
-}
-// Met à jour le champ caché baths
-function setBaths(val) {
-  document.getElementById('bathsInput').value = val;
-}
-// Fonction pour soumettre le formulaire de recherche (bouton Done)
-function submitSearch() {
-  document.querySelector('form').submit();
-}
+// Protection contre les conflits jQuery
+(function() {
+  'use strict';
+  
 // Navigation active sur les boutons All, Ready, Off-Plan
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.status-tabs .status').forEach(function(btn) {
+  // Gérer tous les boutons status (mobile et desktop)
+  document.querySelectorAll('.status').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      document.querySelectorAll('.status-tabs .status').forEach(function(b) {
+      console.log('Status button clicked:', this.textContent);
+      
+      // Retirer la classe active de tous les boutons status
+      document.querySelectorAll('.status').forEach(function(b) {
         b.classList.remove('active');
       });
-      btn.classList.add('active');
+      
+      // Ajouter la classe active au bouton cliqué
+      this.classList.add('active');
     });
   });
 });
-function showOptions(type) {
-  document.querySelectorAll('.options').forEach(opt => opt.classList.remove('active'));
-  document.querySelectorAll('.tab-sub').forEach(tab => tab.classList.remove('active'));
-  if(type === 'residential') {
-    document.querySelector('.options.residential').classList.add('active');
-    document.querySelector('.tab-sub:nth-child(1)').classList.add('active');
-  } else {
-    document.querySelector('.options.commercial').classList.add('active');
-    document.querySelector('.tab-sub:nth-child(2)').classList.add('active');
+
+// Dropdown open/close logic pour Property Type, Bedroom et Bath
+document.addEventListener('DOMContentLoaded', function() {
+  // Ne pas initialiser les dropdowns sur mobile
+  if (window.innerWidth <= 768) {
+    console.log('Mobile detected - dropdowns disabled');
+    return;
   }
-  // Empêche la fermeture du dropdown lors du changement d'onglet
+  
+  // Vérifier que les dropdowns existent avant d'ajouter les event listeners
+  var dropdowns = document.querySelectorAll('.dropdown');
+  
+  if(dropdowns.length > 0) {
+    dropdowns.forEach(function(drop) {
+      var content = drop.querySelector('.dropdown-content');
+      if(content) {
+        drop.addEventListener('click', function(e) {
+          e.stopPropagation();
+          // Ferme tous les autres dropdowns
+          var allDropdownContent = document.querySelectorAll('.dropdown-content');
+          if(allDropdownContent.length > 0) {
+            allDropdownContent.forEach(function(dc) {
+              if(dc !== content && dc) dc.style.display = 'none';
+            });
+          }
+          // Toggle ce dropdown
+          if(content.style.display === 'block') {
+            content.style.display = 'none';
+          } else {
+            content.style.display = 'block';
+          }
+        });
+        // Empêche la fermeture lors du clic sur les onglets ou options
+        content.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      }
+    });
+    
+    // Ferme le dropdown au clic extérieur
+    document.addEventListener('click', function(e) {
+      var allDropdownContent = document.querySelectorAll('.dropdown-content');
+      if(allDropdownContent.length > 0) {
+        allDropdownContent.forEach(function(dc) {
+          if(dc) dc.style.display = 'none';
+        });
+      }
+    });
+  }
+});
+
+})(); // Fin du wrapper de protection
+
+// Fonctions globales nécessaires pour onclick
+window.setStatus = function(val) {
+  console.log('setStatus called with:', val);
+  var input = document.getElementById('listingStatusInput');
+  if(input) {
+    input.value = val;
+    console.log('Input value set to:', input.value);
+  } else {
+    console.error('Input element not found!');
+  }
+};
+
+window.setBeds = function(val) {
+  var input = document.getElementById('bedsInput');
+  if(input) {
+    input.value = val;
+    console.log('Beds set to:', val);
+  }
+};
+
+window.setBaths = function(val) {
+  var input = document.getElementById('bathsInput');
+  if(input) {
+    input.value = val;
+    console.log('Baths set to:', val);
+  }
+};
+
+window.submitSearch = function() {
+  var form = document.querySelector('form');
+  if(form) {
+    form.submit();
+  }
+};
+
+window.resetPills = function() {
+  var bedsInput = document.getElementById('bedsInput');
+  if(bedsInput) bedsInput.value = '';
+  
+  var bathsInput = document.getElementById('bathsInput');
+  if(bathsInput) bathsInput.value = '';
+  
+  var allPills = document.querySelectorAll('.pill');
+  if(allPills.length > 0) {
+    allPills.forEach(function(pill) {
+      pill.classList.remove('active');
+    });
+  }
+  
+  console.log('Pills reset');
+};
+
+window.showOptions = function(type) {
+  var allOptions = document.querySelectorAll('.options');
+  var allTabs = document.querySelectorAll('.tab-sub');
+  
+  if(allOptions.length > 0) {
+    allOptions.forEach(opt => opt.classList.remove('active'));
+  }
+  
+  if(allTabs.length > 0) {
+    allTabs.forEach(tab => tab.classList.remove('active'));
+  }
+  
+  if(type === 'residential') {
+    var residentialOptions = document.querySelector('.options.residential');
+    var firstTab = document.querySelector('.tab-sub:nth-child(1)');
+    
+    if(residentialOptions) residentialOptions.classList.add('active');
+    if(firstTab) firstTab.classList.add('active');
+  } else {
+    var commercialOptions = document.querySelector('.options.commercial');
+    var secondTab = document.querySelector('.tab-sub:nth-child(2)');
+    
+    if(commercialOptions) commercialOptions.classList.add('active');
+    if(secondTab) secondTab.classList.add('active');
+  }
+  
   var parentDropdown = document.querySelector('.dropdown-content.large');
   if(parentDropdown) {
     parentDropdown.style.display = 'block';
   }
-}
-
-// Dropdown open/close logic pour Property Type, Bedroom et Bath
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.dropdown').forEach(function(drop) {
-    var content = drop.querySelector('.dropdown-content');
-    if(content) {
-      drop.addEventListener('click', function(e) {
-        e.stopPropagation();
-        // Ferme tous les autres dropdowns
-        document.querySelectorAll('.dropdown-content').forEach(function(dc) {
-          if(dc !== content) dc.style.display = 'none';
-        });
-        // Toggle ce dropdown
-        if(content.style.display === 'block') {
-          content.style.display = 'none';
-        } else {
-          content.style.display = 'block';
-        }
-      });
-      // Empêche la fermeture lors du clic sur les onglets ou options
-      content.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
-    }
-  });
-  // Ferme le dropdown au clic extérieur
-  document.addEventListener('click', function(e) {
-    document.querySelectorAll('.dropdown-content').forEach(function(dc) {
-      dc.style.display = 'none';
-    });
-  });
-});
+};
 </script>
 
 </body>
