@@ -567,27 +567,27 @@
 									<div class="col-md-6 col-lg-6">
 										<ul class="list-inline-item">
 											<li><p>Building Name :</p></li>
-											<li><p>total floors</p></li>
-											<li><p>retail centers</p></li>
-											<li><p>Swimming Pools</p></li>
+																					<li><p>Total Building Area (sqft) :</p></li>
+																					<li><p>Elevators :</p></li>
+																					
+											
+											
 										</ul>
 										<ul class="list-inline-item">
-											<li><p><span>{{$property->building_name}}</span></p></li>
-											<li><p><span>{{$property->total_floors}}</span></p></li>
-											<li><p><span>{{$property->retail_centers??0}} </span></p></li>
-											<li><p><span>{{$property->swimming_pool??0}}</span></p></li>
+																					<li><p><span>{{$property->building_name}}</span></p></li>
+																					<li><p><span>{{$property->building_area ?? 0}}</span></p></li>
+																					<li><p><span>{{$property->number_elevators ?? 0}}</span></p></li>
+																					
+											
+											
 										</ul>
 									</div>
 									<div class="col-md-6 col-lg-6">
 										<ul class="list-inline-item">
-											<li><p>Usage :</p></li>
-											<li><p>Parking Availabilty :</p></li>
-											<li><p>Equipment :</p></li>
+											<li><p>Total Floors : </p></li>
 										</ul>
 										<ul class="list-inline-item">
-											<li><p><span>{{$property->property_usage}}</span></p></li>
-											<li><p><span>{{$property->property_parking_availability}}</span></p></li>
-											<li><p><span>Grill - Gas</span></p></li>
+										<li><p><span>{{$property->total_floors ?? 0}}</span></p></li>
 										</ul>
 									</div>
 
