@@ -39,6 +39,7 @@
     <!-- Favicon -->
     <link href="{{ asset('images/home/icon_hom.png') }}" rel="icon" type="image/x-icon" />
   </head>
+   
   <body>
   
   <!-- Google Tag Manager (noscript) -->
@@ -250,207 +251,15 @@
                     Own a Piece of Dubai’s Future – Explore Off-Plan & Ready
                     Homes
                   </p>
+                  @include('components.search-bar')
                 </div>
-                <div class="home_adv_srch_opt mt-4">
-                  <div class="tab-content home1_adsrchfrm" id="pills-tabContent" style="margin-top: 150px;">
-                    <div class="tab-pane fade show active" id="pills-buy" role="tabpanel" aria-labelledby="pills-buy-tab">
-                      <div class="property-search-bar">
-                        <form class="search-form d-flex flex-wrap align-items-center gap-2">
-                          
-                          <!-- Property Type -->
-                          <select class="toggle-prop-type" name="listing_status">
-                            <option value="All" {{ request('listing_status') == 'All' ? 'selected' : '' }}>All</option>
-                            <option value="Buy" {{ request('listing_status') == 'Buy' ? 'selected' : '' }}>Buy</option>
-                            <option value="Rent" {{ request('listing_status') == 'Rent' ? 'selected' : '' }}>Rent</option>
-                          </select>
-                
-                          <!-- Location -->
-                          <input type="text" class="form-control w-auto" placeholder="Enter location" />
-                
-                          <!-- Completion Status Toggle -->
-                          <div class="filter-toggle-group">
-                            <input type="hidden" name="property_completion" id="propertyCompletionInput" value="All">
-                            <button class="toggle active" data-value="All">All</button>
-                            <button class="toggle" data-value="Ready">Ready</button>
-                            <button class="toggle" data-value="Off-plan">Off Plan</button>
-                          </div>
-                
-                          <!-- Home Type -->
-                          <select class="toggle-prop-type" name="home_type">
-                            <option hidden value="" disabled selected>Home Type</option>
-                            <option value="Residences">Residential</option>
-                            <option value="Villas">Villas</option>
-                            <option value="Bungalow">Bungalow</option>
-                            <option value="Apartment">Apartment</option>
-                            <option value="Penthouse">Penthouse</option>
-                          </select>
-    
-                
-                          <div class="dropdown-wrapper">
-                            <button class="toggle-prop-type" id="bedsBathsBtn" type="button">Beds & Baths</button>
-                            <!-- Beds & Baths Dropdown -->
-                            <div class="beds-baths-dropdown" id="bedsBathsDropdown">
-                              <div class="filter-group">
-                                <label><strong>Beds</strong></label>
-                                <div class="pill-group" id="bedOptions">
-                                  <input type="hidden" name="beds" id="bedsInput">
-                                  <button class="pill">Studio</button>
-                                  <button class="pill">1</button>
-                                  <button class="pill">2</button>
-                                  <button class="pill">3</button>
-                                  <button class="pill">4</button>
-                                  <button class="pill">5</button>
-                                  <button class="pill">6</button>
-                                  <button class="pill">7</button>
-                                  <button class="pill">8+</button>
-                                </div>
-                              </div>
-    
-                              <div class="filter-group">
-                                <label><strong>Baths</strong></label>
-                                <div class="pill-group" id="bathOptions">
-                                  <input type="hidden" name="baths" id="bathsInput">
-                                  <button class="pill">1</button>
-                                  <button class="pill">2</button>
-                                  <button class="pill">3</button>
-                                  <button class="pill">4</button>
-                                  <button class="pill">5</button>
-                                  <button class="pill">6+</button>
-                                </div>
-                              </div>
-    
-                              <div class="dropdown-actions">
-                                <button class="btn-outline" type="button" onclick="resetPills()">Reset</button>
-                                <button class="btn-filled" type="button" onclick="hideDropdown()">Done</button>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- More Filters (Dropdown simulated) -->
-                          <div class="dropdown-wrapper">
-                            <button class="toggle-prop-type icon-btn" id="moreFiltersBtn" type="button">More Filters <span class="icon">&#9881;</span></button>
-                            <div class="beds-baths-dropdown" id="moreFiltersDropdown">
-                              <div class="filter-group">
-                                <label><strong>Price AED</strong></label>
-                                <div class="input-more-filter-group">
-                                  <div class="input-more-filter-input">
-                                    <label for="mini_price">Minimum</label>
-                                    <input type="text" name="mini_price" class="input-more-filter" placeholder="0" />
-                                  </div>
-                                  <div class="input-more-filter-input">
-                                    <label for="max_price">Maximum</label>
-                                    <input type="text" name="max_price" class="input-more-filter" placeholder="0" />
-                                  </div>
-                                </div>
-                              </div>
-    
-                              <div class="filter-group">
-                                <label><strong>Area (sqft)</strong></label>
-                                <div class="input-more-filter-group">
-                                  <div class="input-more-filter-input">
-                                    <label for="mini_area">Minimum</label>
-                                    <input type="number" name="mini_area" class="input-more-filter" placeholder="0" />
-                                  </div>
-                                  <div class="input-more-filter-input">
-                                    <label for="max_area">Maximum</label>
-                                    <input type="number" name="max_area" class="input-more-filter" placeholder="0" />
-                                  </div>
-                                </div>
-                              </div>
-    
-                              <div class="filter-group">
-                                <label><strong>Keywords</strong></label>
-                                <div class="input-more-filter-group">
-                                  <div class="input-more-filter-input">
-                                    <input type="text" name="keywords" class="input-more-filter-one-option" placeholder="Add relevant keywords" />
-                                  </div>
-                                </div>
-                              </div>
-    
-                              <div class="filter-group">
-                                <label><strong>Developer</strong></label>
-                                <div class="input-more-filter-group">
-                                  <div class="input-more-filter-input">
-                                    <input type="text" name="developer" class="input-more-filter-one-option" placeholder="Select a developer" />
-                                  </div>
-                                </div>
-                              </div>
-    
-                              <div class="dropdown-actions">
-                                <button class="btn-outline" type="button" onclick="resetPills()">Reset</button>
-                                <button class="btn-filled" type="button" onclick="hideDropdown()">Done</button>
-                              </div>
-                            </div>
-                          </div>
-                
-                          <!-- Save Search -->
-                          <a href="#" class="btn btn-link">Save Search</a>
-                        </form>
-                
-                        <!-- Beds & Baths Dropdown -->
-                        <div class="bg-light p-3 rounded shadow-sm mt-2 d-none" id="bedsBathsDropdown">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <strong>Beds</strong>
-                              <div class="d-flex flex-wrap gap-1 mt-1" id="bedOptions">
-                                <button class="btn btn-outline-secondary btn-sm pill">Studio</button>
-                                <button class="btn btn-outline-secondary btn-sm pill">1</button>
-                                <button class="btn btn-outline-secondary btn-sm pill">2</button>
-                                <button class="btn btn-outline-secondary btn-sm pill">3</button>
-                                <button class="btn btn-outline-secondary btn-sm pill">4</button>
-                                <button class="btn btn-outline-secondary btn-sm pill">5+</button>
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <strong>Baths</strong>
-                              <div class="d-flex flex-wrap gap-1 mt-1" id="bathOptions">
-                                <button class="btn btn-outline-secondary btn-sm pill">1</button>
-                                <button class="btn btn-outline-secondary btn-sm pill">2</button>
-                                <button class="btn btn-outline-secondary btn-sm pill">3</button>
-                                <button class="btn btn-outline-secondary btn-sm pill">4+</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                
-                        <!-- More Filters Dropdown -->
-                        <div class="bg-light p-3 rounded shadow-sm mt-2 d-none" id="moreFiltersDropdown">
-                          <div class="row g-2">
-                            <div class="col-md-6">
-                              <label>Price (AED)</label>
-                              <div class="d-flex gap-2">
-                                <input type="text" class="form-control" placeholder="Min" />
-                                <input type="text" class="form-control" placeholder="Max" />
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <label>Area (sqft)</label>
-                              <div class="d-flex gap-2">
-                                <input type="number" class="form-control" placeholder="Min" />
-                                <input type="number" class="form-control" placeholder="Max" />
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <label>Keywords</label>
-                              <input type="text" class="form-control" placeholder="e.g. pool, garden" />
-                            </div>
-                            <div class="col-md-6">
-                              <label>Developer</label>
-                              <input type="text" class="form-control" placeholder="Developer name" />
-                            </div>
-                          </div>
-                        </div>
-                
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
               </div>
             </div>
           </div>
         </div>
       </section>
 
+  
       <!-- Feature Properties -->
       <section id="feature-property" class="feature-property bgc-f7">
         <div class="container ovh">
@@ -492,74 +301,13 @@
                         <div class="details">
                           <div class="tc_content">
                             <p class="text-thm">{{ $property->property_type }}</p>
-                            <h4>{{ $property->property_name }}</h4>
-                            <p>
-                              <span class="flaticon-placeholder"></span>
-                              {{ $property->address }}
-                            </p>
-                            <ul class="prop_details mb0">
-                              <li class="list-inline-item">
-                                <span>Beds: {{ $property->bedrooms }}</span>
-                              </li>
-                              <li class="list-inline-item">
-                                <span>Baths: {{ $property->bathrooms }}</span>
-                              </li>
-                              <li class="list-inline-item">
-                                <span>Sq Ft: {{ $property->property_built_up_area }}</span>
-                              </li>
-                            </ul>
-                          </div>
-
-                          <div class="fp_footer">
-                            <ul class="fp_meta float-left mb0">
-                              <li class="list-inline-item"></li>
-                              <li class="list-inline-item">
-                                @if ($property->property_status == 'off-plan')
-                                  <span>Handover Date: {{ $property->handover_date }}</span>
-                                @elseif ($property->property_status == 'Buy')
-                                  <span>Year of Built: {{ $property->year_built }}</span>
-                                @endif
-                              </li>
-                            </ul>
+                            <!-- Ajoute ici les autres infos de la propriété -->
                           </div>
                         </div>
                       </div>
                     </a>
                   </div>
                 @endforeach
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- Why Chose Us -->
-      <section id="why-chose" class="whychose_us bgc-f7 pb30">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6 offset-lg-3">
-              <div class="main-title text-center">
-                <h2>Why Choose Us</h2>
-                <p>We provide full service at every step.</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-lg-4 col-xl-4">
-              <div class="why_chose_us">
-                <div class="icon">
-                  <span class="flaticon-high-five"></span>
-                </div>
-                <div class="details">
-                  <h4>Expert Guidance & Market Insights</h4>
-                  <p>
-                    Get in-depth knowledge of Dubai’s real estate market and
-                    personalized investment advice
-                  </p>
-                </div>
-              </div>
-            </div>
             <div class="col-md-6 col-lg-4 col-xl-4">
               <div class="why_chose_us">
                 <div class="icon">
