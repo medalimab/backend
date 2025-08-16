@@ -51,7 +51,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-            </div>
+						</div>
+						
+
+					
             <a href="{{ route('properties.homepage') }}" class="navbar_brand float-left dn-smd">
               <img
                 class="logo1 img-fluid"
@@ -608,6 +611,24 @@
 								@endif
 							</div>
 						</div>
+
+							<div class="col-lg-12">
+							<div class="property_attachment_area">
+								<h4 class="mb30">DLD Permit QR Code</h4>
+								@if($property->dld_permit_qr)
+									<div class="iba_container style2">
+										<img src="{{ asset('storage/' . $property->dld_permit_qr) }}" alt="QR Code DLD" style="max-width:180px;max-height:180px;">
+										<div class="details mt-2">
+											<h5>Scan DLD Permit</h5>
+										</div>
+									</div>
+								@else
+									<p>No QR code available.</p>
+								@endif
+							</div>
+						</div>
+
+
 						<!-- <div class="col-lg-12">
 							<div class="application_statics mt30">
 								<div class="row">
