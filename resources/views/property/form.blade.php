@@ -327,8 +327,7 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label for="dld_permit_number" class="form-label">Permit Number</label>
-                        <input type="text" name="dld_permit_number" class="form-control" id="dld_permit_number" value="{{ $isEdit ? $property->dld_permit_number : old('dld_permit_number') }}">
+                       
                         <label for="dld_permit_qr" class="form-label">QR Code (upload ou généré)</label>
                         <input type="file" name="dld_permit_qr" id="dld_permit_qr" class="form-control" accept="image/*">
                     </div>
