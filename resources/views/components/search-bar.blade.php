@@ -7,6 +7,68 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
 
+/*bath style 
+
+/* Beds & Baths dropdown */
+.beds-baths-dropdown {
+  padding: 16px;
+  border-radius: 8px;
+  background: #fff;
+  max-width: 400px;
+}
+
+/* Groupes Beds / Baths */
+.filter-group {
+  margin-bottom: 15px;
+}
+
+.filter-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Pills style */
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  padding: 8px 14px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: #f9f9f9;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+
+.pill:hover {
+  background: #e8f5e9;
+  border-color: #1E3A8A;
+}
+
+.pill.active {
+  background: #1E3A8A;
+  color: white;
+  border-color: #1E3A8A;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -54,7 +116,7 @@
 }
 
 .btn-done {
-  background: #1abc9c;
+  background: #1E3A8A;
   color: #fff;
 }
 
@@ -90,7 +152,7 @@
       transition: 0.2s;
       color: #2c3e50;
     }
-    .tab.active { background: #e8f5e9; color: #2e7d32; }
+  .tab.active { background: #e8f5e9; color: #1E3A8A; }
     .location {
       flex: 1;
       padding: 10px 15px;
@@ -103,7 +165,7 @@
       font-size: 0.95rem;
     }
     .btn-search {
-      background: #1abc9c;
+      background: #1E3A8A;
       border: none;
       padding: 10px 20px;
       border-radius: 6px;
@@ -112,7 +174,10 @@
       cursor: pointer;
       transition: 0.2s;
     }
-    .btn-search:hover { background: #16a085; }
+  .btn-search:hover { background: #1E3A8A; color: #fff; }
+  .btn-done:hover { background: #16306b; color: #fff; }
+  .btn-reset:hover { background: #1E3A8A; color: #fff; }
+  .tab:hover { background: #1E3A8A; color: #fff; }
 
     /* Ligne du bas */
     .bottom-row { display: flex; align-items: center; gap: 10px; }
@@ -125,18 +190,23 @@
       border: 1px solid #ddd;
     }
     .status {
-      padding: 8px 16px;
-      cursor: pointer;
-      font-weight: 600;
-      color: #555;
-      transition: 0.2s;
-      background: #fff;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #555;
+  transition: 0.2s;
+  background: #fff;
+}
+.status:hover {
+  background: #1E3A8A;
+  color: #fff;
+}
     }
-    .status.active { background: #e8f5e9; color: #2e7d32; }
+  .status.active { background: #e8f5e9; color: #1E3A8A; }
 
     /* Dropdown */
-    
-    .dropdown:hover { border-color: #1abc9c; }
+
+    .dropdown:hover { border-color: #1E3A8A; }
 
    /* Chaque dropdown devient un conteneur relatif */
 .dropdown {
@@ -190,6 +260,7 @@
       margin-bottom: 10px;
     }
     .tab-sub {
+  .tab-sub:hover { background: #1E3A8A; color: #fff; }
       flex: 1;
       text-align: center;
       padding: 8px;
@@ -198,8 +269,8 @@
       border-radius: 6px 6px 0 0;
     }
     .tab-sub.active {
-      background: #e8f5e9;
-      color: #2e7d32;
+  background: #e8f5e9;
+  color: #1E3A8A;
     }
 
     /* Options */
@@ -246,26 +317,28 @@
   width: 100%;
     }
     .btn-reset { background: #f5f5f5; color: #333; }
-    .btn-done { background: #1abc9c; color: #fff; }
+  .btn-done { background: #1E3A8A; color: #fff; }
   </style>
 </head>
 <body>
 
+<form method="GET" action="{{ route('properties.search') }}">
 <div class="search-bar">
   <!-- Top Row -->
   <div class="top-row">
     <div class="tab active">Buy</div>
-    <div class="tab"></div>
-    <div class="location"><i class="fas fa-map-marker-alt"></i> Enter location</div>
-    <button class="btn-search">Search</button>
+    
+    <input class="location" type="text" name="location" placeholder="Enter location">
+    <button class="btn-search" type="submit">Search</button>
   </div>
 
   <!-- Bottom Row -->
   <div class="bottom-row">
     <div class="status-tabs">
-      <div class="status active">All</div>
-      <div class="status">Ready</div>
-      <div class="status">Off-Plan</div>
+      <input type="hidden" name="listing_status" id="listingStatusInput" value="All">
+      <div class="status active" onclick="setStatus('All')">All</div>
+      <div class="status" onclick="setStatus('Ready')">Ready</div>
+      <div class="status" onclick="setStatus('Off-Plan')">Off-Plan</div>
     </div>
 
     <!-- Property Type -->
@@ -279,28 +352,28 @@
 
         <!-- Residential -->
         <div class="options residential active">
-          <label><input type="checkbox" name="res[]" value="Apartment" /> Apartment</label>
-          <label><input type="checkbox" name="res[]" value="Townhouse" /> Townhouse</label>
-          <label><input type="checkbox" name="res[]" value="Villa Compound" /> Villa Compound</label>
-          <label><input type="checkbox" name="res[]" value="Land" /> Land</label>
-          <label><input type="checkbox" name="res[]" value="Building" /> Building</label>
-          <label><input type="checkbox" name="res[]" value="Villa" /> Villa</label>
-          <label><input type="checkbox" name="res[]" value="Penthouse" /> Penthouse</label>
-          <label><input type="checkbox" name="res[]" value="Hotel Apartment" /> Hotel Apartment</label>
-          <label><input type="checkbox" name="res[]" value="Floor" /> Floor</label>
+          <label><input type="checkbox" name="home_type[]" value="Apartment" /> Apartment</label>
+          <label><input type="checkbox" name="home_type[]" value="Townhouse" /> Townhouse</label>
+          <label><input type="checkbox" name="home_type[]" value="Villa Compound" /> Villa Compound</label>
+          <label><input type="checkbox" name="home_type[]" value="Land" /> Land</label>
+          <label><input type="checkbox" name="home_type[]" value="Building" /> Building</label>
+          <label><input type="checkbox" name="home_type[]" value="Villa" /> Villa</label>
+          <label><input type="checkbox" name="home_type[]" value="Penthouse" /> Penthouse</label>
+          <label><input type="checkbox" name="home_type[]" value="Hotel Apartment" /> Hotel Apartment</label>
+          <label><input type="checkbox" name="home_type[]" value="Floor" /> Floor</label>
         </div>
 
         <!-- Commercial -->
         <div class="options commercial">
-          <label><input type="checkbox" name="com[]" value="Office" /> Office</label>
-          <label><input type="checkbox" name="com[]" value="Shop" /> Shop</label>
-          <label><input type="checkbox" name="com[]" value="Warehouse" /> Warehouse</label>
-          <label><input type="checkbox" name="com[]" value="Labour Camp" /> Labour Camp</label>
-          <label><input type="checkbox" name="com[]" value="Bulk Unit" /> Bulk Unit</label>
-          <label><input type="checkbox" name="com[]" value="Factory" /> Factory</label>
-          <label><input type="checkbox" name="com[]" value="Mixed Use Land" /> Mixed Use Land</label>
-          <label><input type="checkbox" name="com[]" value="Showroom" /> Showroom</label>
-          <label><input type="checkbox" name="com[]" value="Other Commercial" /> Other Commercial</label>
+          <label><input type="checkbox" name="home_type[]" value="Office" /> Office</label>
+          <label><input type="checkbox" name="home_type[]" value="Shop" /> Shop</label>
+          <label><input type="checkbox" name="home_type[]" value="Warehouse" /> Warehouse</label>
+          <label><input type="checkbox" name="home_type[]" value="Labour Camp" /> Labour Camp</label>
+          <label><input type="checkbox" name="home_type[]" value="Bulk Unit" /> Bulk Unit</label>
+          <label><input type="checkbox" name="home_type[]" value="Factory" /> Factory</label>
+          <label><input type="checkbox" name="home_type[]" value="Mixed Use Land" /> Mixed Use Land</label>
+          <label><input type="checkbox" name="home_type[]" value="Showroom" /> Showroom</label>
+          <label><input type="checkbox" name="home_type[]" value="Other Commercial" /> Other Commercial</label>
         </div>
 
         <div class="actions">
@@ -311,15 +384,54 @@
     </div>
 
     <!-- Beds & Baths -->
-    <div class="dropdown">Beds & Baths <i class="fas fa-chevron-down"></i></div>
+    <!-- Beds & Baths -->
+<div class="dropdown">
+  Beds & Baths <i class="fas fa-chevron-down"></i>
+  <div class="dropdown-content large beds-baths-dropdown">
+    <div class="filter-group">
+      <label><strong>Beds</strong></label>
+      <div class="pill-group" id="bedOptions">
+        <input type="hidden" name="beds" id="bedsInput">
+        <button class="pill" type="button" onclick="setBeds('Studio')">Studio</button>
+        <button class="pill" type="button" onclick="setBeds('1')">1</button>
+        <button class="pill" type="button" onclick="setBeds('2')">2</button>
+        <button class="pill" type="button" onclick="setBeds('3')">3</button>
+        <button class="pill" type="button" onclick="setBeds('4')">4</button>
+        <button class="pill" type="button" onclick="setBeds('5')">5</button>
+        <button class="pill" type="button" onclick="setBeds('6')">6</button>
+        <button class="pill" type="button" onclick="setBeds('7')">7</button>
+        <button class="pill" type="button" onclick="setBeds('8+')">8+</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label><strong>Baths</strong></label>
+      <div class="pill-group" id="bathOptions">
+        <input type="hidden" name="baths" id="bathsInput">
+        <button class="pill" type="button" onclick="setBaths('1')">1</button>
+        <button class="pill" type="button" onclick="setBaths('2')">2</button>
+        <button class="pill" type="button" onclick="setBaths('3')">3</button>
+        <button class="pill" type="button" onclick="setBaths('4')">4</button>
+        <button class="pill" type="button" onclick="setBaths('5')">5</button>
+        <button class="pill" type="button" onclick="setBaths('6+')">6+</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-reset" type="button" onclick="resetPills()">Reset</button>
+      <button class="btn-done" type="button" onclick="submitSearch()">Done</button>
+    </div>
+  </div>
+</div>
+
 
     <!-- Price -->
     <div class="dropdown">
       Price (AED) <i class="fas fa-chevron-down"></i>
       <div class="dropdown-content large">
         <div class="price-inputs">
-          <input type="number" placeholder="Minimum" />
-          <input type="number" placeholder="Maximum" />
+          <input type="number" name="mini_price" placeholder="Minimum" />
+          <input type="number" name="max_price" placeholder="Maximum" />
         </div>
         <div class="actions">
           <button class="btn-reset">Reset</button>
@@ -329,8 +441,36 @@
     </div>
   </div>
 </div>
+</form>
 
 <script>
+// Met à jour le champ caché listing_status selon le bouton cliqué
+function setStatus(val) {
+  document.getElementById('listingStatusInput').value = val;
+}
+// Met à jour le champ caché beds
+function setBeds(val) {
+  document.getElementById('bedsInput').value = val;
+}
+// Met à jour le champ caché baths
+function setBaths(val) {
+  document.getElementById('bathsInput').value = val;
+}
+// Fonction pour soumettre le formulaire de recherche (bouton Done)
+function submitSearch() {
+  document.querySelector('form').submit();
+}
+// Navigation active sur les boutons All, Ready, Off-Plan
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.status-tabs .status').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.status-tabs .status').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      btn.classList.add('active');
+    });
+  });
+});
 function showOptions(type) {
   document.querySelectorAll('.options').forEach(opt => opt.classList.remove('active'));
   document.querySelectorAll('.tab-sub').forEach(tab => tab.classList.remove('active'));
