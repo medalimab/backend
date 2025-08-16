@@ -471,6 +471,7 @@
 									<div class="col-md-6 col-lg-6 ">
 										<ul class="list-inline-item">
 											<li><p>Property ID :</p></li>
+											{{--<li><p>Property Category :</p></li>--}}
 											<li><p>Price :</p></li>
 											<li><p>Property Size :</p></li>
 											<li><p>
@@ -483,6 +484,8 @@
 										</ul>
 										<ul class="list-inline-item">
 											<li><p><span>{{ $property->property_id }}</span></p></li>
+											{{-- <li><p><span>{{ $property->property_main_type }}</span></p></li> --}}
+											
 											<li><p><span>{{ $property->price }}</span></p></li>
 											<li><p><span>{{ $property->property_size }} Sq Ft</span></p></li>
 											<li><p>
@@ -501,14 +504,14 @@
 										<ul class="list-inline-item">
 											<li><p>Bedrooms :</p></li>
 											<li><p>Bathrooms :</p></li>
-											<li><p>Garage :</p></li>
-											<li><p>Garage Size :</p></li>
+											<li><p>Total Parking Spaces :</p></li>
+											
 										</ul>
 										<ul class="list-inline-item">
 											<li><p><span>{{$property->bedrooms}} </span></p></li>
 											<li><p><span>{{$property->bathrooms}} </span></p></li>
-											<li><p><span>{{$property->garage}} </span></p></li>
-											<li><p><span>200 SqFt</span></p></li>
+											<li><p><span>{{ $property->building_parking_spaces }} </span></p></li>
+											
 										</ul>
 									</div>
 									<div class="col-md-6 col-lg-6 col-xl-4">
@@ -519,6 +522,7 @@
 										<ul class="list-inline-item">
 											<li><p><span>{{$property->property_type}} </span></p></li>
 											<li><p><span>{{$property->property_status}} </span></p></li>
+											<li><p><span>{{$property->property_parking_space}} </span></p></li>
 										</ul>
 									</div>
 								</div>
@@ -533,25 +537,25 @@
 									<div class="col-md-6 col-lg-6">
 										<ul class="list-inline-item">
 											<li><p>Developer :</p></li>
-											<li><p>Ownership :</p></li>
+											
 											<li><p>Built up Area :</p></li>
 										</ul>
 										<ul class="list-inline-item">
 											<li><p><span>{{$property->developer}}</span></p></li>
-											<li><p><span>{{$property->user->name}}</span></p></li>
+											
 											<li><p><span>{{$property->property_built_up_area}}</span></p></li>
 										</ul>
 									</div>
 									<div class="col-md-6 col-lg-6">
 										<ul class="list-inline-item">
-											<li><p>Usage :</p></li>
+											
 											<li><p>Parking Availabilty :</p></li>
-											<li><p>Equipment :</p></li>
+											
 										</ul>
 										<ul class="list-inline-item">
-											<li><p><span>{{$property->property_usage}}</span></p></li>
+											
 											<li><p><span>{{$property->property_parking_availability}}</span></p></li>
-											<li><p><span>Grill - Gas</span></p></li>
+											
 										</ul>
 									</div>
 
