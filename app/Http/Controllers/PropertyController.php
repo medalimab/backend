@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Log;
 
 class PropertyController extends Controller
 {
+    // Affiche le formulaire d'ajout
+    public function create()
+    {
+        return view('property.add');
+    }
+
     // Affiche le formulaire d'édition
     public function edit($id)
     {
@@ -20,7 +26,9 @@ class PropertyController extends Controller
     public function update(Request $request, $id)
     {
         $property = Property::findOrFail($id);
-        $validated = $request->validate([
+        
+        // Validation conditionnelle pour handover_date
+        $rules = [
             'property_name' => 'required|string|max:255',
             'property_id' => 'required|string|max:100',
             'description' => 'nullable|string',
@@ -31,7 +39,7 @@ class PropertyController extends Controller
             'property_size' => 'required|integer',
             'building_area' => 'nullable|numeric',
             'year_built' => 'nullable|integer',
-            'handover_date' => 'nullable|string',
+            'handover_date' => $request->property_status === 'Off-plan' ? 'required|string|max:100' : 'nullable|string|max:100',
             'bedrooms' => 'required|integer',
             'bathrooms' => 'required|integer',
             'garage' => 'nullable|integer',
@@ -48,7 +56,13 @@ class PropertyController extends Controller
             'retail_centers'=> 'nullable|integer',
             'total_floors'=> 'nullable|integer',
             'agent_id' => 'required|exists:agents,id',
-        ]);
+        ];
+
+        $messages = [
+            'handover_date.required' => 'La date de livraison est obligatoire pour les propriétés Off-plan.',
+        ];
+
+        $validated = $request->validate($rules, $messages);
         $property->update($validated);
         return redirect()->route('properties.list')->with('success', 'Property updated successfully!');
     }
@@ -112,7 +126,8 @@ class PropertyController extends Controller
                 }
 
                 try {
-                    $validated = $request->validate([
+                    // Validation conditionnelle pour handover_date
+                    $rules = [
                         'property_name' => 'required|string|max:255',
                         'property_id' => 'required|string|max:100|unique:properties,property_id',
                         'description' => 'nullable|string',
@@ -123,7 +138,7 @@ class PropertyController extends Controller
                         'property_size' => 'required|integer',
                         'building_area' => 'nullable|numeric',
                         'year_built' => 'nullable|integer',
-                        'handover_date' => 'nullable|string',
+                        'handover_date' => $request->property_status === 'Off-plan' ? 'required|string|max:100' : 'nullable|string|max:100',
                         'bedrooms' => 'required|integer',
                         'bathrooms' => 'required|integer',
                         'garage' => 'nullable|integer',
@@ -142,11 +157,16 @@ class PropertyController extends Controller
                         'pdf' => 'nullable|mimes:pdf|max:10240',
                         'dld_permit_number' => 'nullable|string',
                         'agent_id' => 'required|exists:agents,id',
-                    ], [
+                    ];
+
+                    $messages = [
                         'property_id.unique' => 'This Property ID already exists. Please choose a different one.',
                         'agent_id.required' => 'Veuillez sélectionner un agent.',
                         'agent_id.exists' => 'L agent sélectionné n existe pas.',
-                    ]);
+                        'handover_date.required' => 'La date de livraison est obligatoire pour les propriétés Off-plan.',
+                    ];
+
+                    $validated = $request->validate($rules, $messages);
             
                     Log::info('Validation Passed');
             

@@ -125,9 +125,10 @@
                             <label for="property_year_build" class="form-label">Year Built</label>
                             <input type="number" id="year-built-field" name="year_built" class="form-control" placeholder="year of Built" value="{{ $isEdit ? $property->year_built : old('year_built') }}">
                         </div>
-                        <div class="col-lg-4 mb-3" id="handover-date-group">
-                            <label for="property-handover_date" class="form-label">Handover Date</label>
-                            <textarea  id="handover-date" name="handover_date" class="form-control">{{ $isEdit ? $property->handover_date : old('handover_date') }}</textarea>
+                        <div class="col-lg-4 mb-3" id="handover-date-group" style="display: none;">
+                            <label for="property-handover_date" class="form-label">Date de Livraison <span class="text-muted">(Off-plan)</span></label>
+                            <input type="text" id="handover-date" name="handover_date" class="form-control" placeholder="Ex: Q2 2027, Décembre 2026, etc." value="{{ $isEdit ? $property->handover_date : old('handover_date') }}">
+                            <small class="text-muted">Indiquez la période de livraison prévue</small>
                         </div>
                         <div class="col-lg-12 mb-3">
                             <label for="property-address" class="form-label">Address</label>
@@ -340,6 +341,168 @@
 @section('script-bottom')
 @vite(['resources/js/components/form-fileupload.js'])
 <script>
-    // ... JS dynamique du formulaire add.blade.php ...
+    // Ajout du filtrage dynamique pour les deux listes
+    document.addEventListener('DOMContentLoaded', function () {
+        const mainTypeSelect = document.getElementById('property-main-type');
+        const typeSelect = document.getElementById('property-type');
+        const residentialTypes = [
+            'Apartment', 'Villa', 'Townhouse', 'Penthouse', 'Villa Compound', 'Hotel Apartment', 'Land', 'Floor', 'Building'
+        ];
+        const commercialTypes = [
+            'Office', 'Shop', 'Warehouse', 'Labour Camp', 'Villa', 'Bulk Unit', 'Land', 'Floor', 'Building', 'Factory', 'Industrial Land', 'Mixed Use Land', 'Showroom', 'Other Commercial'
+        ];
+
+        function updateTypeOptions() {
+            const selectedMain = mainTypeSelect.value;
+            let options = '<option value="" disabled selected hidden>Select property type...</option>';
+            
+            if (selectedMain === 'Residential') {
+                residentialTypes.forEach(t => {
+                    const isSelected = @json($isEdit ? $property->property_type : '') === t;
+                    options += `<option value="${t}" ${isSelected ? 'selected' : ''}>${t}</option>`;
+                });
+            } else if (selectedMain === 'Commercial') {
+                commercialTypes.forEach(t => {
+                    const isSelected = @json($isEdit ? $property->property_type : '') === t;
+                    options += `<option value="${t}" ${isSelected ? 'selected' : ''}>${t}</option>`;
+                });
+            }
+            typeSelect.innerHTML = options;
+        }
+
+        mainTypeSelect.addEventListener('change', updateTypeOptions);
+        updateTypeOptions();
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const statusSelect = document.getElementById('property-status');
+        const yearBuiltGroup = document.getElementById('year-built-group');
+        const handoverDateGroup = document.getElementById('handover-date-group');
+        const yearBuiltInput = document.getElementById('year-built-field');
+        const handoverDateInput = document.getElementById('handover-date');
+        const propertyTypeSelect = document.getElementById('property-type');
+
+        console.log('Elements found:', {
+            statusSelect: !!statusSelect,
+            handoverDateGroup: !!handoverDateGroup,
+            yearBuiltGroup: !!yearBuiltGroup
+        });
+
+        // Section Building Information (carte complète)
+        const buildingCard = Array.from(document.querySelectorAll('.card-title')).find(e => e.textContent.trim() === 'Building Information')?.closest('.card');
+        const bedroomsField = document.getElementById('property-bedroom');
+        const bathroomsField = document.getElementById('property-bathroom');
+        const furnishingField = document.getElementById('furnishing-field');
+        const garageField = document.getElementById('property-garage');
+        const plotAreaField = document.getElementById('property-size');
+
+        function toggleFields() {
+            const selectedStatus = statusSelect ? statusSelect.value : '';
+            const selectedType = propertyTypeSelect ? propertyTypeSelect.value : '';
+
+            console.log('Toggle fields called - Status:', selectedStatus, 'Type:', selectedType);
+
+            // Statut Off-plan : handover visible, year built caché
+            if (selectedStatus === 'Off-plan') {
+                console.log('Showing handover date field');
+                if (handoverDateGroup) {
+                    handoverDateGroup.style.display = 'block';
+                }
+                if (handoverDateInput) {
+                    handoverDateInput.required = true;
+                }
+                if (yearBuiltGroup) {
+                    yearBuiltGroup.style.display = 'none';
+                }
+                if (yearBuiltInput) {
+                    yearBuiltInput.required = false;
+                    yearBuiltInput.value = '';
+                }
+            } else {
+                console.log('Hiding handover date field');
+                if (yearBuiltGroup) {
+                    yearBuiltGroup.style.display = 'block';
+                }
+                if (yearBuiltInput) {
+                    yearBuiltInput.required = false; // Pas obligatoire pour les autres statuts
+                }
+                if (handoverDateGroup) {
+                    handoverDateGroup.style.display = 'none';
+                }
+                if (handoverDateInput) {
+                    handoverDateInput.required = false;
+                    handoverDateInput.value = '';
+                }
+            }
+
+            // Filtrage par type (même logique que add.blade.php)
+            if (selectedType === 'Villa' || selectedType === 'Townhouse' || selectedType === 'Villa Compound') {
+                if (buildingCard) buildingCard.style.display = 'none';
+                bedroomsField?.closest('.col-lg-4').style.setProperty('display', 'block', 'important');
+                bathroomsField?.closest('.col-lg-4').style.setProperty('display', 'block', 'important');
+                furnishingField?.closest('.col-lg-4').style.setProperty('display', 'block', 'important');
+                garageField?.closest('.col-lg-4, .col-lg-6').style.setProperty('display', 'block', 'important');
+                plotAreaField?.closest('.col-lg-6').style.setProperty('display', 'block', 'important');
+            }
+            else if (selectedType === 'Apartment' || selectedType === 'Penthouse' || selectedType === 'Hotel Apartment') {
+                if (buildingCard) buildingCard.style.display = 'block';
+                bedroomsField?.closest('.col-lg-4').style.setProperty('display', 'block', 'important');
+                bathroomsField?.closest('.col-lg-4').style.setProperty('display', 'block', 'important');
+                furnishingField?.closest('.col-lg-4').style.setProperty('display', 'block', 'important');
+                garageField?.closest('.col-lg-4, .col-lg-6').style.setProperty('display', 'block', 'important');
+                plotAreaField?.closest('.col-lg-6').style.setProperty('display', 'block', 'important');
+            }
+            else if (selectedType === 'Plot' || selectedType === 'Land' || selectedType === 'Industrial Land' || selectedType === 'Mixed Use Land') {
+                if (buildingCard) buildingCard.style.display = 'none';
+                bedroomsField?.closest('.col-lg-4').style.setProperty('display', 'none', 'important');
+                bathroomsField?.closest('.col-lg-4').style.setProperty('display', 'none', 'important');
+                furnishingField?.closest('.col-lg-4').style.setProperty('display', 'none', 'important');
+                garageField?.closest('.col-lg-4, .col-lg-6').style.setProperty('display', 'none', 'important');
+                plotAreaField?.closest('.col-lg-6').style.setProperty('display', 'block', 'important');
+            }
+            else {
+                if (buildingCard) buildingCard.style.display = 'block';
+                bedroomsField?.closest('.col-lg-4').style.setProperty('display', 'block', 'important');
+                bathroomsField?.closest('.col-lg-4').style.setProperty('display', 'block', 'important');
+                furnishingField?.closest('.col-lg-4').style.setProperty('display', 'block', 'important');
+                garageField?.closest('.col-lg-4, .col-lg-6').style.setProperty('display', 'block', 'important');
+                plotAreaField?.closest('.col-lg-6').style.setProperty('display', 'block', 'important');
+            }
+        }
+
+        toggleFields(); // Initial call
+        
+        // Add event listeners with null checks
+        if (statusSelect) {
+            statusSelect.addEventListener('change', function() {
+                console.log('Status changed to:', this.value);
+                toggleFields();
+            });
+        }
+        
+        if (propertyTypeSelect) {
+            propertyTypeSelect.addEventListener('change', function() {
+                console.log('Type changed to:', this.value);
+                toggleFields();
+            });
+        }
+
+        // Debug: Initial status
+        console.log('Initial status:', statusSelect ? statusSelect.value : 'not found');
+    });
+
+    // PDF file size validation
+    document.getElementById('pdf')?.addEventListener('change', function() {
+        const file = this.files[0];
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        const errorMsg = document.getElementById('pdf-error');
+
+        if (file && file.size > maxSize) {
+            errorMsg?.classList.remove('d-none');
+            this.value = ''; // clear the input
+        } else {
+            errorMsg?.classList.add('d-none');
+        }
+    });
 </script>
 @endsection

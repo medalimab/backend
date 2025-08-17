@@ -2,6 +2,14 @@
 
 @section('css')
 @vite(['node_modules/choices.js/public/assets/styles/choices.min.css'])
+<style>
+.show-field {
+    display: block !important;
+}
+.hide-field {
+    display: none !important;
+}
+</style>
 @endsection
 
 @section('content')
@@ -144,9 +152,10 @@
                         <label for="property_year_build" class="form-label">Year Built</label>
                         <input type="number" id="year-built-field" name="year_built" class="form-control" placeholder="year of Built" >
                     </div>
-                    <div class="col-lg-4 mb-3" id="handover-date-group">
-                        <label for="property-handover_date" class="form-label">Handover Date</label>
-                        <textarea  id="handover-date" name="handover_date" class="form-control" ></textarea>
+                    <div class="col-lg-4 mb-3" id="handover-date-group" style="display: none;">
+                        <label for="property-handover_date" class="form-label">Date de Livraison <span class="text-muted">(Off-plan)</span></label>
+                        <input type="text" id="handover-date" name="handover_date" class="form-control" placeholder="Ex: Q2 2027, Décembre 2026, etc.">
+                        <small class="text-muted">Indiquez la période de livraison prévue</small>
                     </div>
                     <div class="col-lg-12 mb-3">
                         <label for="property-address" class="form-label">Address</label>
@@ -448,75 +457,131 @@
         const yearBuiltInput = document.getElementById('year-built-field');
         const handoverDateInput = document.getElementById('handover-date');
         const propertyTypeSelect = document.getElementById('property-type');
-    // Section Building Information (carte complète)
-    const buildingCard = Array.from(document.querySelectorAll('.card-title')).find(e => e.textContent.trim() === 'Building Information')?.closest('.card');
+
+        // Section Building Information (carte complète)
+        const buildingCard = Array.from(document.querySelectorAll('.card-title')).find(e => e.textContent.trim() === 'Building Information')?.closest('.card');
         const bedroomsField = document.getElementById('property-bedroom');
         const bathroomsField = document.getElementById('property-bathroom');
         const furnishingField = document.getElementById('furnishing-field');
         const garageField = document.getElementById('property-garage');
         const plotAreaField = document.getElementById('property-size');
 
+        console.log('Add form - Elements found:', {
+            statusSelect: !!statusSelect,
+            handoverDateGroup: !!handoverDateGroup,
+            yearBuiltGroup: !!yearBuiltGroup,
+            bedroomsField: !!bedroomsField,
+            bathroomsField: !!bathroomsField,
+            furnishingField: !!furnishingField,
+            garageField: !!garageField,
+            plotAreaField: !!plotAreaField
+        });
+
         function toggleFields() {
-            const selectedStatus = statusSelect.value;
-            const selectedType = propertyTypeSelect.value;
+            const selectedStatus = statusSelect ? statusSelect.value : '';
+            const selectedType = propertyTypeSelect ? propertyTypeSelect.value : '';
+
+            console.log('Add form - Toggle fields called - Status:', selectedStatus, 'Type:', selectedType);
 
             // Statut Off-plan : handover visible, year built caché
             if (selectedStatus === 'Off-plan') {
-                handoverDateGroup.style.display = 'block';
-                handoverDateInput.required = true;
-                yearBuiltGroup.style.display = 'none';
-                yearBuiltInput.required = false;
-                yearBuiltInput.value = '';
+                console.log('Add form - Showing handover date field');
+                if (handoverDateGroup) {
+                    handoverDateGroup.classList.remove('hide-field');
+                    handoverDateGroup.classList.add('show-field');
+                    handoverDateGroup.style.setProperty('display', 'block', 'important');
+                }
+                if (handoverDateInput) {
+                    handoverDateInput.required = true;
+                }
+                if (yearBuiltGroup) {
+                    yearBuiltGroup.classList.remove('show-field');
+                    yearBuiltGroup.classList.add('hide-field');
+                }
+                if (yearBuiltInput) {
+                    yearBuiltInput.required = false;
+                    yearBuiltInput.value = '';
+                }
             } else {
-                yearBuiltGroup.style.display = 'block';
-                yearBuiltInput.required = true;
-                handoverDateGroup.style.display = 'none';
-                handoverDateInput.required = false;
-                handoverDateInput.value = '';
+                console.log('Add form - Hiding handover date field');
+                if (yearBuiltGroup) {
+                    yearBuiltGroup.classList.remove('hide-field');
+                    yearBuiltGroup.classList.add('show-field');
+                }
+                if (yearBuiltInput) {
+                    yearBuiltInput.required = true;
+                }
+                if (handoverDateGroup) {
+                    handoverDateGroup.classList.remove('show-field');
+                    handoverDateGroup.classList.add('hide-field');
+                    handoverDateGroup.style.setProperty('display', 'none', 'important');
+                }
+                if (handoverDateInput) {
+                    handoverDateInput.required = false;
+                    handoverDateInput.value = '';
+                }
             }
 
             // Filtrage par type
             // Villas/Townhouses
             if (selectedType === 'Villa' || selectedType === 'Townhouse' || selectedType === 'Villa Compound') {
                 if (buildingCard) buildingCard.style.display = 'none';
-                bedroomsField.closest('.col-lg-4').style.display = 'block';
-                bathroomsField.closest('.col-lg-4').style.display = 'block';
-                furnishingField.closest('.col-lg-4').style.display = 'block';
-                garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
-                plotAreaField.closest('.col-lg-6').style.display = 'block';
+                if (bedroomsField) bedroomsField.closest('.col-lg-4').style.display = 'block';
+                if (bathroomsField) bathroomsField.closest('.col-lg-4').style.display = 'block';
+                if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
+                if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
+                if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
             }
             // Apartments
             else if (selectedType === 'Apartment' || selectedType === 'Penthouse' || selectedType === 'Hotel Apartment') {
                 if (buildingCard) buildingCard.style.display = 'block';
-                bedroomsField.closest('.col-lg-4').style.display = 'block';
-                bathroomsField.closest('.col-lg-4').style.display = 'block';
-                furnishingField.closest('.col-lg-4').style.display = 'block';
-                garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
-                plotAreaField.closest('.col-lg-6').style.display = 'block';
+                if (bedroomsField) bedroomsField.closest('.col-lg-4').style.display = 'block';
+                if (bathroomsField) bathroomsField.closest('.col-lg-4').style.display = 'block';
+                if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
+                if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
+                if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
             }
             // Plots/Land
             else if (selectedType === 'Plot' || selectedType === 'Land' || selectedType === 'Industrial Land' || selectedType === 'Mixed Use Land') {
                 if (buildingCard) buildingCard.style.display = 'none';
-                bedroomsField.closest('.col-lg-4').style.display = 'none';
-                bathroomsField.closest('.col-lg-4').style.display = 'none';
-                furnishingField.closest('.col-lg-4').style.display = 'none';
-                garageField.closest('.col-lg-4, .col-lg-6').style.display = 'none';
-                plotAreaField.closest('.col-lg-6').style.display = 'block';
+                if (bedroomsField) bedroomsField.closest('.col-lg-4').style.display = 'none';
+                if (bathroomsField) bathroomsField.closest('.col-lg-4').style.display = 'none';
+                if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'none';
+                if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'none';
+                if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
             }
             // Autres types : afficher tout
             else {
                 if (buildingCard) buildingCard.style.display = 'block';
-                bedroomsField.closest('.col-lg-4').style.display = 'block';
-                bathroomsField.closest('.col-lg-4').style.display = 'block';
-                furnishingField.closest('.col-lg-4').style.display = 'block';
-                garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
-                plotAreaField.closest('.col-lg-6').style.display = 'block';
+                if (bedroomsField) bedroomsField.closest('.col-lg-4').style.display = 'block';
+                if (bathroomsField) bathroomsField.closest('.col-lg-4').style.display = 'block';
+                if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
+                if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
+                if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
             }
         }
 
-        toggleFields(); // Initial
-        statusSelect.addEventListener('change', toggleFields);
-        propertyTypeSelect.addEventListener('change', toggleFields);
+        toggleFields(); // Initial call
+        
+        // Add event listeners with null checks
+        if (statusSelect) {
+            statusSelect.addEventListener('change', function() {
+                console.log('Add form - Status changed to:', this.value);
+                toggleFields();
+            });
+        } else {
+            console.error('Add form - Status select not found!');
+        }
+        
+        if (propertyTypeSelect) {
+            propertyTypeSelect.addEventListener('change', function() {
+                console.log('Add form - Type changed to:', this.value);
+                toggleFields();
+            });
+        }
+
+        // Debug: Initial status
+        console.log('Add form - Initial status:', statusSelect ? statusSelect.value : 'not found');
     });
 
     document.getElementById('pdf').addEventListener('change', function() {
