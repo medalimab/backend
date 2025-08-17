@@ -262,95 +262,115 @@
 
   
       <!-- Feature Properties -->
-      <section id="feature-property" class="feature-property bgc-f7">
-        <div class="container ovh">
-          <div class="row">
-            <div class="col-lg-6 offset-lg-3">
-              <div class="main-title text-center mb40">
-                <h2>Featured Properties</h2>
-                <p>Handpicked properties by our team.</p>
-              </div>
-            </div>
-
-            <div class="col-lg-12">
-              <!-- Indicateur de résultats -->
-              <div id="results-indicator" class="mb-3" style="display: none;">
-                <div class="alert alert-info">
-                  <i class="fa fa-info-circle"></i> 
-                  <span id="results-count">0</span> propriété(s) trouvée(s)
-                </div>
-              </div>
-              
-              <div id="property-results-container" class="feature_property_slider">
-                @foreach ($properties as $property)
-                  @php $carouselId = 'carousel-' . $property->id; @endphp
-                  <div class="item">
-                    <a href="{{ route('properties.show_details_home', ['id' => $property->id]) }}">
-                      <div class="feat_property">
-                        <div class="thumb">
-                          <div id="{{ $carouselId }}" class="carousel slide" data-ride="carousel" data-interval="false">
-                            <div class="carousel-inner">
-                              @foreach ($property->images as $index => $image)
-                                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                  <img class="d-block w-100" 
-                                       src="{{ asset('storage/' . $image->image_url) }}" 
-                                       alt="Property image {{ $index + 1 }}"
-                                       onerror="this.src='{{ asset('images/property/fp1.jpg') }}'; this.onerror=null;">
-                                </div>
-                              @endforeach
-                            </div>
-                            <a class="carousel-control-prev" href="#{{ $carouselId }}" role="button" data-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#{{ $carouselId }}" role="button" data-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </div>
-                        </div>
-
-                        <div class="details">
-                          <div class="tc_content">
-                            <p class="text-thm">{{ $property->property_type }}</p>
-                            <!-- Ajoute ici les autres infos de la propriété -->
-                          </div>
-                        </div>
-                      </div>
-                    </a>
+      <section id="feature-property-carousel" class="feature-property bgc-f7 py-5">
+        <div class="container">
+          <div class="main-title text-center mb-4">
+            <h2>Featured Properties</h2>
+            <p>Handpicked properties by our team.</p>
+          </div>
+          <!-- Tabs filtrage version mobile -->
+          <div class="tabs d-flex gap-2 justify-content-center mb-4">
+            <div class="tab active">All</div>
+            <div class="tab">Ready</div>
+            <div class="tab">Off Plan</div>
+          </div>
+          <!-- Carousel -->
+          <div class="carousel-container position-relative">
+            <!-- Flèche gauche supprimée -->
+            <div class="arrow right">&#10095;</div>
+            <div class="cards d-flex gap-3 overflow-auto pb-2" id="carousel">
+              @foreach($properties->take(8) as $property)
+                <div class="card" style="min-width:250px;max-width:280px;">
+                  @php
+                    $img = $property->images->first()->image_url ?? null;
+                    if ($img && !str_starts_with($img, 'http')) {
+                      $img = asset('storage/' . (str_starts_with($img, 'properties/') ? $img : 'properties/' . ltrim($img, '/')));
+                    }
+                  @endphp
+                  <img src="{{ $img ?? 'https://via.placeholder.com/300x160' }}" alt="{{ $property->property_name }}" class="w-100" style="height:160px;object-fit:cover;">
+                  <div class="card-content p-3">
+                    <h3 class="mb-1">{{ $property->property_name }}</h3>
+                    <p class="mb-1">{{ $property->property_type }}</p>
+                    <p class="mb-1">{{ $property->address }}</p>
+                    <div class="price-handover d-flex justify-content-between mt-2">
+                      <span class="price">AED {{ number_format($property->price) }}</span>
+                      <span class="handover">{{ $property->handover_date ?? '' }}</span>
+                    </div>
                   </div>
-                @endforeach
-            <div class="col-md-6 col-lg-4 col-xl-4">
-              <div class="why_chose_us">
-                <div class="icon">
-                  <span class="flaticon-home-1"></span>
+                  <a href="https://wa.me/?text=I'm%20interested%20in%20{{ urlencode($property->property_name) }}" class="whatsapp" target="_blank">WhatsApp</a>
                 </div>
-                <div class="details">
-                  <h4>Handpicked Dubai Property Deals</h4>
-                  <p>
-                    Access a curated portfolio of premium off-plan and ready
-                    properties across prime locations.
-                  </p>
-                </div>
-              </div>
+              @endforeach
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-4">
-              <div class="why_chose_us">
-                <div class="icon">
-                  <span class="flaticon-profit"></span>
-                </div>
-                <div class="details">
-                  <h4>Hassle-Free Investment & Financing</h4>
-                  <p>
-                    Enjoy flexible payment plans and seamless transactions for a
-                    smooth property ownership experience.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <button class="view-all mt-4">View all </button>
           </div>
         </div>
+        <style>
+          .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+          .tab { padding: 8px 16px; border: 1px solid #ccc; border-radius: 8px; cursor: pointer; background: #fff; }
+          .tab.active { background: #e8f7f1; color: #1a7f5a; border-color: #1a7f5a; }
+          .carousel-container { position: relative; max-width: 1200px; margin: 0 auto; }
+          .cards {
+            display: flex;
+            gap: 20px;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            padding-bottom: 10px;
+            width: calc(4 * 280px + 3 * 20px); /* 4 cartes + 3 gaps */
+            min-width: 0;
+            margin: 0 auto;
+          }
+          .cards::-webkit-scrollbar { display: none; }
+          @media (max-width: 1200px) {
+            .carousel-container { max-width: 100vw; }
+            .cards { width: 100vw; }
+          }
+          @media (max-width: 900px) {
+            .cards { width: calc(2 * 280px + 1 * 20px); }
+          }
+          @media (max-width: 600px) {
+            .cards { width: calc(1 * 280px); }
+          }
+          .card { min-width: 250px; max-width: 280px; background: #fff; border: 1px solid #ddd; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); flex-shrink: 0; }
+          .card-content { padding: 12px 16px; }
+          .card h3 { margin: 0; font-size: 16px; font-weight: bold; }
+          .card p { margin: 4px 0; font-size: 13px; color: #555; }
+          .price-handover { display: flex; justify-content: space-between; margin-top: 10px; font-size: 14px; font-weight: bold; }
+          .price { color: #1a7f5a; }
+          .handover { color: #333; }
+          .whatsapp { display: flex; align-items: center; justify-content: center; background: #e8f7f1; color: #1a7f5a; border-radius: 8px; padding: 8px; margin: 12px 16px; text-decoration: none; font-size: 14px; font-weight: bold; }
+          .whatsapp:hover { background: #d1f0e3; }
+          .arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.95); border: 1px solid #1a7f5a; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 22px; color: #1a7f5a; box-shadow: 0 2px 8px rgba(0,0,0,0.18); z-index: 2; }
+          .arrow:hover { background: #e8f7f1; color: #155c3f; border-color: #155c3f; }
+          .arrow.left { left: 10px; }
+          .arrow.right { right: 10px; }
+          @media (max-width: 768px) {
+            .arrow { width: 36px; height: 36px; font-size: 18px; }
+            .arrow.left { left: 2px; }
+            .arrow.right { right: 2px; }
+          }
+          .view-all { margin: 30px auto 0; display: block; padding: 10px 18px; border-radius: 8px; border: 1px solid #ccc; background: #f1f8fa; font-weight: bold; cursor: pointer; }
+        </style>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.getElementById("carousel");
+            const rightArrow = document.querySelector(".arrow.right");
+            if (carousel && rightArrow) {
+              rightArrow.addEventListener("click", function() {
+                carousel.scrollBy({ left: 300, behavior: "smooth" });
+              });
+            }
+          });
+          // Tabs activation
+          const tabs = document.querySelectorAll(".tab");
+          tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+              tabs.forEach(t => t.classList.remove("active"));
+              tab.classList.add("active");
+            });
+          });
+        </script>
       </section>
+      
 
       <!-- Our Testimonials -->
       <section id="our-testimonials" class="our-testimonial">
