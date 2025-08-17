@@ -109,7 +109,7 @@
                 <a href="/about"><span class="title">About</span></a>
               </li>
               <li>
-                <a href="#"><span class="title">Explore</span></a>
+                <a href="#"><span class="title">Explore</span><span class="arrow"></span></a>
                 <ul class="sub-menu">
                   <li><a href="/faq">Faq</a></li>
                 </ul>
