@@ -8,6 +8,48 @@
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" />
     <link href="https://cdn.jsdelivr.net/npm/flaticon/font/flaticon.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+      /* Style spécifique pour le sous-menu Explore */
+      .ace-responsive-menu .sub-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        min-width: 150px;
+        z-index: 9999;
+      }
+      
+      .ace-responsive-menu li:hover .sub-menu,
+      .ace-responsive-menu li.menu-active .sub-menu {
+        display: block !important;
+      }
+      
+      .ace-responsive-menu .sub-menu li {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .ace-responsive-menu .sub-menu li a {
+        padding: 10px 15px;
+        display: block;
+        color: #333;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      
+      .ace-responsive-menu .sub-menu li a:hover {
+        background-color: #f5f5f5;
+        color: #007bff;
+      }
+      
+      /* S'assurer que le parent du sous-menu a la position relative */
+      .ace-responsive-menu > li {
+        position: relative;
+      }
+    </style>
     <link href="images/home/icon_hom.png" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
 <link href="images/home/icon_hom.png" sizes="128x128" rel="shortcut icon" />
     <title>FindHouse - Real Estate HTML Template</title>
@@ -68,10 +110,8 @@
               </li>
               <li>
                 <a href="#"><span class="title">Explore</span></a>
-                <ul>
-                  <li><a href="page-faq.html">Faq</a></li>
-                  <!-- <li><a href="page-blog-v1.html">Blog</a></li> -->
-                  <!-- <li><a href="page-blog-single.html">Single Post</a></li> -->
+                <ul class="sub-menu">
+                  <li><a href="/faq">Faq</a></li>
                 </ul>
               </li>
               <li class="last">
@@ -513,6 +553,45 @@
     <script type="text/javascript" src="{{asset('js/timepicker.js')}}"></script>
     <!-- Custom script for all pages -->
     <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+    <script>
+      // Debug script pour le menu Explore
+      $(document).ready(function() {
+        console.log('Document ready - checking menu initialization');
+        
+        // Vérifier si le menu responsive est initialisé
+        if ($('#respMenu').length) {
+          console.log('Menu found');
+          
+          // Ajouter un listener spécifique pour le menu Explore
+          $('#respMenu li:has(> a > span:contains("Explore"))').on('click', function(e) {
+            console.log('Explore menu clicked');
+            
+            // S'assurer que le sous-menu est visible
+            const submenu = $(this).find('.sub-menu');
+            if (submenu.length) {
+              console.log('Sub-menu found, toggling visibility');
+              submenu.slideToggle();
+            }
+          });
+          
+          // Ajouter un hover handler aussi
+          $('#respMenu li:has(> a > span:contains("Explore"))').on('mouseenter', function() {
+            console.log('Explore menu hovered');
+            const submenu = $(this).find('.sub-menu');
+            if (submenu.length) {
+              submenu.stop().slideDown();
+            }
+          }).on('mouseleave', function() {
+            const submenu = $(this).find('.sub-menu');
+            if (submenu.length) {
+              submenu.stop().slideUp();
+            }
+          });
+        } else {
+          console.log('Menu not found');
+        }
+      });
+    </script>
     <script>
       let navbar = document.querySelector('.header-nav');
       let searchBar = document.querySelector('.grid_list_search_result');

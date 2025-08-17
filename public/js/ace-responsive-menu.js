@@ -68,9 +68,13 @@ Email : samson3d@gmail.com
         // Main function 
         return this.each(function () {
             // Function for Horizontal menu on mouseenter
-            $aceMenu.on('mouseover', '> li a', function () {
+            $aceMenu.on('mouseover', '> li a', function (e) {
                 if ($aceMenu.hasClass('collapse') === true) {
                     return false;
+                }
+                // Empêche la navigation si le lien a un sous-menu
+                if ($(this).parent().children('.sub-menu').length > 0) {
+                    e.preventDefault();
                 }
                 $(this).off('click', '> li a');
                 $(this).parent('li').siblings().children('.sub-menu').stop(true, true).slideUp($animationSpeed).removeClass('slide').removeAttr('style').stop();
@@ -89,7 +93,11 @@ Email : samson3d@gmail.com
             //End of Horizontal menu function
 
             // Function for Vertical/Responsive Menu on mouse click
-            $aceMenu.on('click', '> li a', function () {
+            $aceMenu.on('click', '> li a', function (e) {
+                // Empêche la navigation si le lien a un sous-menu
+                if ($(this).parent().children('.sub-menu').length > 0) {
+                    e.preventDefault();
+                }
                 if ($aceMenu.hasClass('collapse') === false) {
                     //return false;
                 }
