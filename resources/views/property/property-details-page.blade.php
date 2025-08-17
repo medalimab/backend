@@ -116,7 +116,7 @@
                     <a href="#">Listing List</a>
                     <!-- Level Three-->
                     <ul>
-                      <li><a href="page-listing-list.html">List V1</a></li>
+                      <li><a href="{{ route('properties.show_listing_page_client') }}">List V1</a></li>
                     </ul>
                   </li>
                   <li>

@@ -638,7 +638,7 @@
                   <li><a href="page-about.html">About Us</a></li>
                   <li><a href="page-contact.html">Contact Us</a></li>
 
-                  <li><a href="page-listing-list.html">Listing</a></li>
+                  <li><a href="{{ route('properties.show_listing_page_client') }}">Listing</a></li>
                   <li><a href="page-faq.html">FAQ</a></li>
                   <li><a href="page-terms.html">Terms & Conditions</a></li>
                   <li><a href="page-terms.html">Privacy Policy</a></li>
