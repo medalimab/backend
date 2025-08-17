@@ -50,10 +50,10 @@
                 <!-- Responsive Menu Structure-->
                 <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
                     <li>
-                        <a href="https://homagency.ae/"><span class="title">Home</span></a>
+                        <a href="/"><span class="title">Home</span></a>
                     </li>
                     <li>
-                        <a href="page-listing-list.html"><span class="title">Listing</span></a>
+                        <a href="/listing_page"><span class="title">Listing</span></a>
                     </li>
                     <li>
                         <a href="/about"><span class="title">About</span></a>
@@ -61,8 +61,8 @@
                     <li>
                         <a href="#"><span class="title">Explore</span></a>
                         <ul>
-                            <li><a href="page-faq.html">Faq</a></li>
-                            <li><a href="page-blog-v1.html">Blog</a></li>
+                            <li><a href="/faq">Faq</a></li>
+                           
                         </ul>
                     </li>
                     <li class="last">
@@ -79,18 +79,18 @@
             <div class="header stylehome1">
                 <div class="d-flex justify-content-between">
                     <a class="mobile-menu-trigger" href="#menu"><img src="{{ asset('images/dark-nav-icon.svg') }}" alt=""></a>
-                    <a class="nav_logo_img" href="https://homagency.ae/Home-page"><img class="img-fluid mt20" src="{{ asset('images/header-logo2.png') }}" alt="header-logo2.png"></a>
+                    <a class="nav_logo_img" href="/"><img class="img-fluid mt20" src="{{ asset('images/header-logo2.png') }}" alt="header-logo2.png"></a>
                     <a class="mobile-menu-reg-link" href="page-register.html"><span class="flaticon-user"></span></a>
                 </div>
             </div>
         </div><!-- /.mobile-menu -->
         <nav id="menu" class="stylehome1">
             <ul>
-                <li><a href="https://homagency.ae/Home-page">Home</a></li>
-                <li><a href="page-listing-list.html">Listing</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/listing_page">Listing</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="page-blog-v1.html">Blog</a></li>
-                <li><a href="page-faq.html">FAQ</a></li>
+                <li><a href="/faq">FAQ</a></li>
                 <li><a href="/contact">Contact</a></li>
                 <li><a href="page-login.html"><span class="flaticon-user"></span> Login</a></li>
                 <li><a href="page-register.html"><span class="flaticon-edit"></span> Register</a></li>
@@ -214,8 +214,8 @@
                         <ul class="list-unstyled">
                             <li><a href="/about">About Us</a></li>
                             <li><a href="/contact">Contact Us</a></li>
-                            <li><a href="page-listing-list.html">Listing</a></li>
-                            <li><a href="page-faq.html">FAQ</a></li>
+                            <li><a href="/listing_page">Listing</a></li>
+                            <li><a href="/faq">FAQ</a></li>
                             <li><a href="page-terms.html">Terms & Conditions</a></li>
                             <li><a href="page-terms.html">Privacy Policy</a></li>
                         </ul>
@@ -262,8 +262,8 @@
                 <div class="col-lg-6 col-xl-6">
                     <div class="footer_menu_widget">
                         <ul>
-                            <li class="list-inline-item"><a href="https://homagency.ae/Home-page">Home</a></li>
-                            <li class="list-inline-item"><a href="page-listing-list.html">Listing</a></li>
+                            <li class="list-inline-item"><a href="/">Home</a></li>
+                            <li class="list-inline-item"><a href="/listing_page">Listing</a></li>
                             <li class="list-inline-item"><a href="page-service.html">Service</a></li>
                             <li class="list-inline-item"><a href="page-blog-v1.html">Blog</a></li>
                             <li class="list-inline-item"><a href="/contact">Contact</a></li>
