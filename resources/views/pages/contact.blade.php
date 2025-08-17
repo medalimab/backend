@@ -56,7 +56,7 @@
                         <a href="page-listing-list.html"><span class="title">Listing</span></a>
                     </li>
                     <li>
-                        <a href="page-about.html"><span class="title">About</span></a>
+                        <a href="/about"><span class="title">About</span></a>
                     </li>
                     <li>
                         <a href="#"><span class="title">Explore</span></a>
@@ -88,7 +88,7 @@
             <ul>
                 <li><a href="https://homagency.ae/Home-page">Home</a></li>
                 <li><a href="page-listing-list.html">Listing</a></li>
-                <li><a href="page-about.html">About</a></li>
+                <li><a href="/about">About</a></li>
                 <li><a href="page-blog-v1.html">Blog</a></li>
                 <li><a href="page-faq.html">FAQ</a></li>
                 <li><a href="/contact">Contact</a></li>
@@ -212,7 +212,7 @@
                     <div class="footer_qlink_widget">
                         <h4>Quick Links</h4>
                         <ul class="list-unstyled">
-                            <li><a href="page-about.html">About Us</a></li>
+                            <li><a href="/about">About Us</a></li>
                             <li><a href="/contact">Contact Us</a></li>
                             <li><a href="page-listing-list.html">Listing</a></li>
                             <li><a href="page-faq.html">FAQ</a></li>

@@ -87,7 +87,7 @@
                 </a>
               </li>
               <li>
-                <a href="{{asset('page-about.html')}}"><span class="title">About</span></a>
+				<a href="/about"><span class="title">About</span></a>
               </li>
               <li>
                 <a href="#"><span class="title">Explore</span></a>
@@ -241,7 +241,7 @@
                     <li><a href="page-shop-order.html">Order</a></li>
                   </ul>
                 </li>
-                <li><a href="page-about.html">About Us</a></li>
+				<li><a href="/about">About Us</a></li>
                 <li><a href="page-gallery.html">Gallery</a></li>
                 <li><a href="page-faq.html">Faq</a></li>
                 <li><a href="page-login.html">LogIn</a></li>

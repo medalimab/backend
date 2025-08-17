@@ -241,7 +241,7 @@
                       <li><a href="page-shop-order.html">Order</a></li>
                     </ul>
                   </li>
-                  <li><a href="page-about.html">About Us</a></li>
+                  <li><a href="/about">About Us</a></li>
                   <li><a href="page-gallery.html">Gallery</a></li>
                   <li><a href="page-faq.html">Faq</a></li>
                   <li><a href="page-login.html">LogIn</a></li>
@@ -720,7 +720,7 @@
                     <li><a href="page-shop-order.html">Order</a></li>
                   </ul>
                 </li>
-                <li><a href="page-about.html">About Us</a></li>
+                <li><a href="/about">About Us</a></li>
                 <li><a href="page-gallery.html">Gallery</a></li>
                 <li><a href="page-faq.html">Faq</a></li>
                 <li><a href="page-login.html">LogIn</a></li>
