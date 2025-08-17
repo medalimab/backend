@@ -19,7 +19,7 @@ require __DIR__ . '/auth.php';
 Route::get('/', function () {
     return redirect()->route('properties.homepage');
 });
-    Route::view('/faq', 'pages.faq')->name('faq');
+    Route::get('/faq', [\App\Http\Controllers\FaqController::class, 'show'])->name('faq');
     Route::view('/register', 'pages.register')->name('register');
 Route::get('/', [PropertyController::class, 'showHomePage'])->name('properties.homepage');
     Route::view('/terms', 'pages.terms')->name('terms');
