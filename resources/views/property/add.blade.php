@@ -153,9 +153,9 @@
                         <input type="number" id="year-built-field" name="year_built" class="form-control" placeholder="year of Built" >
                     </div>
                     <div class="col-lg-4 mb-3" id="handover-date-group" style="display: none;">
-                        <label for="property-handover_date" class="form-label">Date de Livraison <span class="text-muted">(Off-plan)</span></label>
+                        <label for="property-handover_date" class="form-label">HandOver <span class="text-muted">(Off-plan)</span></label>
                         <input type="text" id="handover-date" name="handover_date" class="form-control" placeholder="Ex: Q2 2027, Décembre 2026, etc.">
-                        <small class="text-muted">Indiquez la période de livraison prévue</small>
+                        <small class="text-muted">Enter the expected handover period</small>
                     </div>
                     <div class="col-lg-12 mb-3">
                         <label for="property-address" class="form-label">Address</label>
