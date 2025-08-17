@@ -263,7 +263,7 @@
                 </ul>
               </li>
               <li class="last">
-                <a href="page-contact.html"
+                <a href="/contact"
                   ><span class="title">Contact</span></a
                 >
               </li>
@@ -733,7 +733,7 @@
                 <li><a href="page-ui-element.html">UI Elements</a></li>
               </ul>
             </li>
-            <li><a href="page-contact.html">Contact</a></li>
+            <li><a href="/contact">Contact</a></li>
             <li>
               <a href="page-login.html"
                 ><span class="flaticon-user"></span> Login</a

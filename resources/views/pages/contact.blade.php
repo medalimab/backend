@@ -66,7 +66,7 @@
                         </ul>
                     </li>
                     <li class="last">
-                        <a href="page-contact.html"><span class="title">Contact</span></a>
+                        <a href="/contact"><span class="title">Contact</span></a>
                     </li>
                 </ul>
             </nav>
@@ -91,7 +91,7 @@
                 <li><a href="page-about.html">About</a></li>
                 <li><a href="page-blog-v1.html">Blog</a></li>
                 <li><a href="page-faq.html">FAQ</a></li>
-                <li><a href="page-contact.html">Contact</a></li>
+                <li><a href="/contact">Contact</a></li>
                 <li><a href="page-login.html"><span class="flaticon-user"></span> Login</a></li>
                 <li><a href="page-register.html"><span class="flaticon-edit"></span> Register</a></li>
             </ul>
@@ -213,7 +213,7 @@
                         <h4>Quick Links</h4>
                         <ul class="list-unstyled">
                             <li><a href="page-about.html">About Us</a></li>
-                            <li><a href="page-contact.html">Contact Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
                             <li><a href="page-listing-list.html">Listing</a></li>
                             <li><a href="page-faq.html">FAQ</a></li>
                             <li><a href="page-terms.html">Terms & Conditions</a></li>
@@ -266,7 +266,7 @@
                             <li class="list-inline-item"><a href="page-listing-list.html">Listing</a></li>
                             <li class="list-inline-item"><a href="page-service.html">Service</a></li>
                             <li class="list-inline-item"><a href="page-blog-v1.html">Blog</a></li>
-                            <li class="list-inline-item"><a href="page-contact.html">Contact</a></li>
+                            <li class="list-inline-item"><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>

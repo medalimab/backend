@@ -117,7 +117,7 @@
                 </ul>
               </li>
               <li class="last">
-                <a href="page-contact.html"
+                <a href="/contact"
                   ><span class="title">Contact</span></a>
               </li>
             </ul>
@@ -218,7 +218,7 @@
                 <li><a href="page-ui-element.html">UI Elements</a></li>
               </ul>
             </li>
-            <li><a href="page-contact.html">Contact</a></li>
+            <li><a href="/contact">Contact</a></li>
             <li>
               <a href="page-login.html"
                 ><span class="flaticon-user"></span> Login</a
@@ -789,7 +789,7 @@
                 <h4>Quick Links</h4>
                 <ul class="list-unstyled">
                   <li><a href="page-about.html">About Us</a></li>
-                  <li><a href="page-contact.html">Contact Us</a></li>
+                  <li><a href="/contact">Contact Us</a></li>
 
                   <li><a href="{{ route('properties.show_listing_page_client') }}">Listing</a></li>
                   <li><a href="page-faq.html">FAQ</a></li>
