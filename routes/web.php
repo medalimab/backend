@@ -1,3 +1,7 @@
+// Page de contact
+Route::get('/contact', function () {
+    return view('pages.contact');
+})->name('contact');
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -36,6 +40,10 @@ Route::middleware('auth')->group(function () {
 });
 
 // 🧠 Wildcard Route Handlers (for dynamic pages)
+// Page de contact (doit être avant les routes catch-all)
+Route::get('/contact', function () {
+    return view('pages.contact');
+})->name('contact');
 Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');
 Route::get('{first}/{second}', [RoutingController::class, 'secondLevel'])->name('second');
 Route::get('{any}', [RoutingController::class, 'root'])
