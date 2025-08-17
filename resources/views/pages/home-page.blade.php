@@ -266,7 +266,7 @@
         <div class="container">
           <div class="main-title text-center mb-4">
             <h2>Featured Properties</h2>
-            <p>Handpicked properties by our team.</p>
+            
           </div>
           <!-- Tabs filtrage version mobile -->
           <div class="tabs d-flex gap-2 justify-content-center mb-4">
@@ -275,12 +275,13 @@
             <div class="tab">Off Plan</div>
           </div>
           <!-- Carousel -->
+          <div class="carousel-separator" style="height:32px;"></div>
           <div class="carousel-container position-relative">
             <!-- Flèche gauche supprimée -->
             <div class="arrow right">&#10095;</div>
             <div class="cards d-flex gap-3 overflow-auto pb-2" id="carousel">
               @foreach($properties->take(8) as $property)
-                <div class="card" style="min-width:250px;max-width:280px;">
+                <div class="card" data-status="{{ strtolower($property->property_status) }}" style="min-width:250px;max-width:280px;">
                   @php
                     $img = $property->images->first()->image_url ?? null;
                     if ($img && !str_starts_with($img, 'http')) {
@@ -301,13 +302,16 @@
                 </div>
               @endforeach
             </div>
-            <button class="view-all mt-4">View all </button>
+            <button class="view-all mt-4" onclick="window.location.href='{{ route('properties.show_listing_page_client') }}'">View all</button>
+
           </div>
         </div>
         <style>
-          .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+          .tabs { display: flex; gap: 10px; margin-bottom: 40px; }
+          .carousel-separator { width:100%; height:32px; background:transparent; }
           .tab { padding: 8px 16px; border: 1px solid #ccc; border-radius: 8px; cursor: pointer; background: #fff; }
-          .tab.active { background: #e8f7f1; color: #1a7f5a; border-color: #1a7f5a; }
+          .tab.active { background: #fff; color: #1E3A8A; border-color: #1E3A8A; }
+          .tab.active:hover { background: #f1f8fa; color: #1E3A8A; border-color: #1E3A8A; }
           .carousel-container { position: relative; max-width: 1200px; margin: 0 auto; }
           .cards {
             display: flex;
@@ -335,12 +339,12 @@
           .card h3 { margin: 0; font-size: 16px; font-weight: bold; }
           .card p { margin: 4px 0; font-size: 13px; color: #555; }
           .price-handover { display: flex; justify-content: space-between; margin-top: 10px; font-size: 14px; font-weight: bold; }
-          .price { color: #1a7f5a; }
+          .price { color: #1E3A8A; }
           .handover { color: #333; }
           .whatsapp { display: flex; align-items: center; justify-content: center; background: #e8f7f1; color: #1a7f5a; border-radius: 8px; padding: 8px; margin: 12px 16px; text-decoration: none; font-size: 14px; font-weight: bold; }
           .whatsapp:hover { background: #d1f0e3; }
-          .arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.95); border: 1px solid #1a7f5a; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 22px; color: #1a7f5a; box-shadow: 0 2px 8px rgba(0,0,0,0.18); z-index: 2; }
-          .arrow:hover { background: #e8f7f1; color: #155c3f; border-color: #155c3f; }
+          .arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.95); border: 1px solid #1E3A8A; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 22px; color: #1E3A8A; box-shadow: 0 2px 8px rgba(0,0,0,0.18); z-index: 2; }
+          .arrow:hover { background: #e8f7f1; color: #1E3A8A; border-color: #1E3A8A; }
           .arrow.left { left: 10px; }
           .arrow.right { right: 10px; }
           @media (max-width: 768px) {
@@ -359,13 +363,26 @@
                 carousel.scrollBy({ left: 300, behavior: "smooth" });
               });
             }
-          });
-          // Tabs activation
-          const tabs = document.querySelectorAll(".tab");
-          tabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-              tabs.forEach(t => t.classList.remove("active"));
-              tab.classList.add("active");
+            // Tabs activation + filtrage
+            const tabs = document.querySelectorAll(".tab");
+            tabs.forEach(tab => {
+              tab.addEventListener("click", () => {
+                tabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                const status = tab.textContent.trim().toLowerCase();
+                const cards = carousel.querySelectorAll('.card');
+                cards.forEach(card => {
+                  if (status === 'all') {
+                    card.style.display = '';
+                  } else if (status === 'ready' && card.dataset.status === 'ready') {
+                    card.style.display = '';
+                  } else if ((status === 'off plan' || status === 'off-plan') && (card.dataset.status === 'off-plan' || card.dataset.status === 'off plan')) {
+                    card.style.display = '';
+                  } else {
+                    card.style.display = 'none';
+                  }
+                });
+              });
             });
           });
         </script>
