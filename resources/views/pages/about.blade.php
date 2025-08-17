@@ -60,16 +60,16 @@
                             <a href="/listing_page"><span class="title">Listing</span></a>
                         </li>
                         <li>
-                            <a href="page-about.html"><span class="title">About</span></a>
+                            <a href="/about"><span class="title">About</span></a>
                         </li>
                         <li>
                             <a href="#"><span class="title">Explore</span></a>
                             <ul>
-                                <li><a href="page-faq.html">Faq</a></li>
+                                <li><a href="/faq">Faq</a></li>
                             </ul>
                         </li>
                         <li class="last">
-                            <a href="page-contact.html"><span class="title">Contact</span></a>
+                            <a href="/contact"><span class="title">Contact</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -809,7 +809,7 @@
                                 <li class="list-inline-item"><a href="/">Home</a></li>
                                 <li class="list-inline-item"><a href="/listing_page">Listing</a></li>
                                 <li class="list-inline-item"><a href="page-blog-v1.html">Blog</a></li>
-                                <li class="list-inline-item"><a href="page-contact.html">Contact</a></li>
+                                <li class="list-inline-item"><a href="/contact">Contact</a></li>
                             </ul>
                         </div>
                     </div>
