@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta
       name="keywords"
       content="advanced custom search, agency, agent, business, clean, corporate, directory, google maps, homes, idx agent, listing properties, membership packages, property, real broker, real estate, real estate agent, real estate agency, realtor"
@@ -272,7 +273,15 @@
             </div>
 
             <div class="col-lg-12">
-              <div class="feature_property_slider">
+              <!-- Indicateur de résultats -->
+              <div id="results-indicator" class="mb-3" style="display: none;">
+                <div class="alert alert-info">
+                  <i class="fa fa-info-circle"></i> 
+                  <span id="results-count">0</span> propriété(s) trouvée(s)
+                </div>
+              </div>
+              
+              <div id="property-results-container" class="feature_property_slider">
                 @foreach ($properties as $property)
                   @php $carouselId = 'carousel-' . $property->id; @endphp
                   <div class="item">
@@ -283,7 +292,10 @@
                             <div class="carousel-inner">
                               @foreach ($property->images as $index => $image)
                                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                  <img class="d-block w-100" src="{{ asset('storage/' . $image->image_url) }}" alt="Property image {{ $index + 1 }}">
+                                  <img class="d-block w-100" 
+                                       src="{{ asset('storage/' . $image->image_url) }}" 
+                                       alt="Property image {{ $index + 1 }}"
+                                       onerror="this.src='{{ asset('images/property/fp1.jpg') }}'; this.onerror=null;">
                                 </div>
                               @endforeach
                             </div>
@@ -754,38 +766,293 @@
     <script src="js/swiper-css.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+      // Protection globale contre les erreurs JavaScript
+      window.addEventListener('error', function(e) {
+        console.error('JavaScript Error intercepted:', e.error);
+        console.log('Error details:', {
+          message: e.message,
+          filename: e.filename,
+          lineno: e.lineno,
+          colno: e.colno,
+          stack: e.error ? e.error.stack : null
+        });
+        return true; // Empêche l'affichage de l'erreur dans la console du navigateur
+      });
+
       document.addEventListener('DOMContentLoaded', () => {
-        const allDropdowns = Array.from(document.querySelectorAll('.beds-baths-dropdown'));
+        const allDropdowns = Array.from(document.querySelectorAll('.beds-baths-dropdown')) || [];
+        
+        console.log('Page loaded, dropdowns found:', allDropdowns.length);
 
         function setupDropdown(triggerId, dropdownId) {
           const trigger = document.getElementById(triggerId);
           const dropdown = document.getElementById(dropdownId);
 
-          trigger?.addEventListener('click', (e) => {
+          // Vérifier que les éléments existent
+          if (!trigger || !dropdown) {
+            console.warn(`Elements not found: ${triggerId} or ${dropdownId}`);
+            return;
+          }
+
+          trigger.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
 
             // Close other dropdowns
-            allDropdowns.forEach(dd => {
-              dd.style.display = (dd.id === dropdownId && dd.style.display !== 'block') ? 'block' : 'none';
-            });
+            if (allDropdowns && Array.isArray(allDropdowns)) {
+              allDropdowns.forEach(dd => {
+                if (dd) {
+                  dd.style.display = (dd.id === dropdownId && dd.style.display !== 'block') ? 'block' : 'none';
+                }
+              });
+            }
           });
 
           document.addEventListener('click', (e) => {
-            if (!dropdown.contains(e.target) && !trigger.contains(e.target)) {
+            if (dropdown && trigger && !dropdown.contains(e.target) && !trigger.contains(e.target)) {
               dropdown.style.display = 'none';
             }
           });
         }
 
-        function attachPillHandler(selector, onClick) {
-          document.querySelectorAll(selector).forEach(pill => {
-            pill.addEventListener('click', (e) => {
-              e.preventDefault();
-              onClick(pill);
-              fetchProperties();
+        // Fonction fetchProperties sécurisée
+        function fetchProperties() {
+          try {
+            console.log('=== FETCH PROPERTIES START ===');
+            
+            // Afficher un indicateur de chargement
+            const container = document.getElementById('property-results-container');
+            if (container) {
+              container.innerHTML = '<div class="text-center p-4"><div class="spinner-border" role="status"><span class="sr-only">Chargement...</span></div><p>Recherche en cours...</p></div>';
+              console.log('Loading indicator displayed');
+            } else {
+              console.error('Container property-results-container not found!');
+            }
+            
+            // Récupérer les valeurs des filtres
+            const propertyCompletionInput = document.getElementById('propertyCompletionInput');
+            const bedsInput = document.getElementById('bedsInput');
+            const bathsInput = document.getElementById('bathsInput');
+            
+            console.log('Form elements:', {
+              propertyCompletionInput: propertyCompletionInput ? propertyCompletionInput.value : 'NOT FOUND',
+              bedsInput: bedsInput ? bedsInput.value : 'NOT FOUND',
+              bathsInput: bathsInput ? bathsInput.value : 'NOT FOUND'
             });
+            
+            const formData = new FormData();
+            
+            // Ajouter les paramètres de recherche
+            if (propertyCompletionInput && propertyCompletionInput.value) {
+              formData.append('property_completion', propertyCompletionInput.value);
+              console.log('Added property_completion:', propertyCompletionInput.value);
+            }
+            
+            if (bedsInput && bedsInput.value) {
+              formData.append('beds', bedsInput.value);
+              console.log('Added beds:', bedsInput.value);
+            }
+            
+            if (bathsInput && bathsInput.value) {
+              formData.append('baths', bathsInput.value);
+              console.log('Added baths:', bathsInput.value);
+            }
+            
+            // Vérifier le token CSRF
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            console.log('CSRF Token:', csrfToken ? 'Found' : 'NOT FOUND');
+            
+            console.log('Starting fetch request to /properties/search');
+            
+            // Effectuer la recherche
+            fetch('/properties/search', {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'X-CSRF-TOKEN': csrfToken || '',
+                'X-Requested-With': 'XMLHttpRequest'
+              }
+            })
+            .then(response => {
+              console.log('Response received:', response.status, response.statusText);
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then(data => {
+              console.log('=== SEARCH RESULTS ===', data);
+              updatePropertyDisplay(data);
+              console.log('=== FETCH PROPERTIES END ===');
+            })
+            .catch(error => {
+              console.error('=== SEARCH ERROR ===', error);
+              if (container) {
+                container.innerHTML = '<div class="text-center p-4"><h4>Erreur de recherche</h4><p>' + error.message + '</p></div>';
+              }
+            });
+            
+          } catch (error) {
+            console.error('=== FETCH PROPERTIES ERROR ===', error);
+          }
+        }
+        
+        // Fonction pour mettre à jour l'affichage des propriétés
+        function updatePropertyDisplay(data) {
+          try {
+            console.log('=== UPDATE DISPLAY START ===');
+            console.log('Updating property display with:', data);
+            
+            const container = document.getElementById('property-results-container');
+            if (!container) {
+              console.error('❌ Property container not found');
+              return;
+            }
+            
+            console.log('✅ Container found:', container);
+            
+            // Destroy existing Owl Carousel if it exists
+            const $container = $(container);
+            if ($container.hasClass('owl-loaded')) {
+              console.log('🦉 Destroying existing Owl Carousel');
+              $container.trigger('destroy.owl.carousel');
+              $container.removeClass('owl-carousel owl-loaded owl-drag');
+              $container.find('.owl-stage-outer').children().unwrap();
+            }
+            
+            if (data.html) {
+              // Utiliser le HTML fourni par le backend
+              container.innerHTML = data.html;
+              console.log('✅ HTML updated, new length:', container.innerHTML.length);
+              console.log(`✅ Updated display with ${data.count} properties`);
+              
+              // Mettre à jour l'indicateur de résultats
+              const indicator = document.getElementById('results-indicator');
+              const countSpan = document.getElementById('results-count');
+              if (indicator && countSpan) {
+                countSpan.textContent = data.count;
+                indicator.style.display = 'block';
+                console.log(`📊 Results indicator updated: ${data.count} properties`);
+              }
+              
+            } else if (data.properties) {
+              // Fallback: construire le HTML manuellement
+              container.innerHTML = buildPropertyHTML(data.properties);
+              console.log(`Built HTML for ${data.properties.length} properties`);
+            } else {
+              // Aucune propriété trouvée
+              container.innerHTML = '<div class="text-center p-4"><h4>Aucune propriété trouvée</h4><p>Essayez de modifier vos critères de recherche.</p></div>';
+              console.log('❌ No properties found');
+              
+              // Mettre à jour l'indicateur de résultats
+              const indicator = document.getElementById('results-indicator');
+              const countSpan = document.getElementById('results-count');
+              if (indicator && countSpan) {
+                countSpan.textContent = '0';
+                indicator.style.display = 'block';
+                console.log('📊 Results indicator updated: 0 properties');
+              }
+            }
+            
+            // Reinitialize Owl Carousel
+            console.log('🦉 Reinitializing Owl Carousel');
+            $container.owlCarousel({
+              loop: true,
+              margin: 30,
+              dots: true,
+              nav: true, // Activer la navigation
+              rtl: false,
+              autoplayHoverPause: true,
+              autoplay: true, // Activer le défilement automatique
+              autoplayTimeout: 4000, // 4 secondes entre chaque slide
+              singleItem: true,
+              smartSpeed: 1200,
+              navText: [
+                '<i class="fa fa-arrow-left"></i>',
+                '<i class="fa fa-arrow-right"></i>'
+              ],
+              responsive: {
+                0: { items: 1, center: false },
+                480: { items: 1, center: false },
+                600: { items: 1, center: false },
+                768: { items: 2 },
+                992: { items: 2 },
+                1200: { items: 2 },
+                1280: { items: 3 }
+              }
+            });
+            
+            console.log('✅ Owl Carousel reinitialized');
+            
+            // Scroll vers la section des propriétés après le filtrage
+            setTimeout(() => {
+              const propertySection = document.getElementById('property-results-container');
+              if (propertySection) {
+                propertySection.scrollIntoView({ 
+                  behavior: 'smooth', 
+                  block: 'start' 
+                });
+                console.log('📍 Scrolled to property results section');
+              }
+            }, 500); // Attendre que le carousel soit complètement initialisé
+            
+            console.log('=== UPDATE DISPLAY END ===');
+            
+          } catch (error) {
+            console.error('❌ Error updating display:', error);
+          }
+        }
+        
+        // Fonction pour construire le HTML des propriétés (fallback)
+        function buildPropertyHTML(properties) {
+          if (!properties || properties.length === 0) {
+            return '<div class="text-center p-4"><h4>Aucune propriété trouvée</h4></div>';
+          }
+          
+          let html = '';
+          properties.forEach(property => {
+            html += `
+              <div class="item">
+                <div class="feat_property">
+                  <div class="thumb">
+                    <img class="d-block w-100" 
+                         src="/storage/${property.images && property.images[0] ? property.images[0].image_url : 'properties/default.jpg'}" 
+                         alt="${property.property_name}"
+                         onerror="this.src='/images/property/fp1.jpg'; this.onerror=null;">
+                  </div>
+                  <div class="details">
+                    <div class="tc_content">
+                      <h4>${property.property_name}</h4>
+                      <p><span class="flaticon-placeholder"></span> ${property.address}</p>
+                      <a class="fp_price" href="#">$${property.price} <small>/mo</small></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
           });
+          return html;
+        }
+
+        function attachPillHandler(selector, onClick) {
+          try {
+            const elements = document.querySelectorAll(selector);
+            if (elements && elements.length > 0) {
+              elements.forEach(pill => {
+                if (pill) {
+                  pill.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    onClick(pill);
+                    fetchProperties();
+                  });
+                }
+              });
+            } else {
+              console.warn(`No elements found for selector: ${selector}`);
+            }
+          } catch (error) {
+            console.error(`Error attaching pill handler for ${selector}:`, error);
+          }
         }
 
         function hideDropdowns() {
@@ -807,31 +1074,78 @@
 
         // Handle bed selection
         attachPillHandler('#bedOptions .pill', (pill) => {
-          document.getElementById('bedsInput').value = pill.textContent.trim();
+          const bedsInput = document.getElementById('bedsInput');
+          if (bedsInput && pill) {
+            bedsInput.value = pill.textContent.trim();
+          }
         });
 
         // Handle bath selection
         attachPillHandler('#bathOptions .pill', (pill) => {
-          document.getElementById('bathsInput').value = pill.textContent.trim();
+          const bathsInput = document.getElementById('bathsInput');
+          if (bathsInput && pill) {
+            bathsInput.value = pill.textContent.trim();
+          }
         });
 
         // Handle status toggles
         const statusButtons = document.querySelectorAll('.filter-toggle-group .toggle');
         const propertyCompletionInput = document.getElementById('propertyCompletionInput');
 
-        statusButtons.forEach(button => {
-          button.addEventListener('click', (e) => {
-            e.preventDefault();
-            statusButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            propertyCompletionInput.value = button.getAttribute('data-value').trim();
-            fetchProperties();
+        if (statusButtons && statusButtons.length > 0 && propertyCompletionInput) {
+          statusButtons.forEach(button => {
+            if (button) {
+              button.addEventListener('click', (e) => {
+                e.preventDefault();
+                statusButtons.forEach(btn => btn && btn.classList.remove('active'));
+                button.classList.add('active');
+                const dataValue = button.getAttribute('data-value');
+                if (dataValue) {
+                  propertyCompletionInput.value = dataValue.trim();
+                  fetchProperties();
+                }
+              });
+            }
           });
-        });
+        } else {
+          console.warn('Status buttons or propertyCompletionInput not found');
+        }
+
+        // Fonctions utilitaires globales
+        function hideDropdowns() {
+          try {
+            if (allDropdowns && Array.isArray(allDropdowns)) {
+              allDropdowns.forEach(dd => {
+                if (dd) {
+                  dd.style.display = 'none';
+                }
+              });
+            }
+          } catch (error) {
+            console.error('Error hiding dropdowns:', error);
+          }
+        }
+
+        function resetPills() {
+          try {
+            const allPills = document.querySelectorAll('.pill');
+            if (allPills && allPills.length > 0) {
+              allPills.forEach(pill => {
+                if (pill && pill.classList) {
+                  pill.classList.remove('active');
+                }
+              });
+            }
+            console.log('Pills reset');
+          } catch (error) {
+            console.error('Error resetting pills:', error);
+          }
+        }
 
         // Expose these functions globally if needed
         window.hideDropdowns = hideDropdowns;
         window.resetPills = resetPills;
+        window.fetchProperties = fetchProperties;
       });
     </script>
 

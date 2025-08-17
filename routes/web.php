@@ -16,6 +16,7 @@ Route::get('/', [PropertyController::class, 'showHomePage'])->name('properties.h
 Route::get('/listing_page', [PropertyController::class, 'show_listing_page_client'])->name('properties.show_listing_page_client');
 Route::get('/listing_page/home_details/{id}', [PropertyController::class, 'show_details_home'])->name('properties.show_details_home');
 Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
+Route::post('/properties/search', [PropertyController::class, 'search'])->name('properties.search.post');
 
 // 🔒 Authenticated Routes
 Route::middleware('auth')->group(function () {

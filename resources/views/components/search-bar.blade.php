@@ -433,6 +433,7 @@
 <div class="search-bar">
   <!-- Input caché unique pour listing_status -->
   <input type="hidden" name="listing_status" id="listingStatusInput" value="All">
+  <input type="hidden" name="property_completion" id="propertyCompletionInput" value="All">
   
   <!-- Top Row -->
   <div class="top-row">
@@ -637,13 +638,29 @@ document.addEventListener('DOMContentLoaded', function() {
 // Fonctions globales nécessaires pour onclick
 window.setStatus = function(val) {
   console.log('setStatus called with:', val);
-  var input = document.getElementById('listingStatusInput');
-  if(input) {
-    input.value = val;
-    console.log('Input value set to:', input.value);
-  } else {
-    console.error('Input element not found!');
+  
+  // Rediriger directement vers la page de listing avec le filtre
+  const baseUrl = '/listing_page';
+  let filterParam = '';
+  
+  switch(val) {
+    case 'Ready':
+      filterParam = 'ready';
+      break;
+    case 'Off-Plan':
+      filterParam = 'off-plan';
+      break;
+    case 'All':
+    default:
+      filterParam = 'all';
+      break;
   }
+  
+  const url = `${baseUrl}?filter=${filterParam}`;
+  console.log('Redirecting to:', url);
+  
+  // Redirection immédiate
+  window.location.href = url;
 };
 
 window.setBeds = function(val) {

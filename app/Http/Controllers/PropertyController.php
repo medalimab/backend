@@ -63,9 +63,10 @@ class PropertyController extends Controller
 
         public function showHomePage()
         {
-            Log::info("In show method with property ID");
+            Log::info("In showHomePage method");
             $properties = Property::orderBy('created_at', 'desc')->get();
-        
+            Log::info("Properties count: " . $properties->count());
+            
             return view('pages.home-page', compact('properties'));
         }
         public function show($id)
@@ -200,11 +201,57 @@ class PropertyController extends Controller
             }
             
             
-        public function show_listing_page_client() {
-            $properties = Property::with('images')->orderBy('created_at', 'desc')->get() ; // Or find something specific
-            Log::info('Properties Retrieved:', $properties->toArray());
+        public function show_listing_page_client(Request $request) {
+            $query = Property::with('images')->orderBy('created_at', 'desc');
+            
+            // Appliquer le filtre selon le type demandé
+            $filterType = $request->get('filter', 'all');
+            $totalCount = $query->count(); // Compter avant filtrage pour debug
+            
+            Log::info("Listing page filter applied", [
+                'filter_type' => $filterType,
+                'total_properties' => $totalCount
+            ]);
+            
+            switch($filterType) {
+                case 'ready':
+                    $query->where(function($q) {
+                        $q->whereIn('property_status', ['Buy', 'Rent'])
+                          ->where(function($subQuery) {
+                              $subQuery->whereNull('handover_date')
+                                      ->orWhere('handover_date', '<=', now());
+                          });
+                    });
+                    Log::info("Applied Ready filter: Buy/Rent properties with handover_date <= now or null");
+                    break;
+                    
+                case 'off-plan':
+                    $query->where('handover_date', '>', now());
+                    Log::info("Applied Off-Plan filter: properties with handover_date > now");
+                    break;
+                    
+                case 'all':
+                default:
+                    // Pas de filtre, toutes les propriétés
+                    Log::info("Applied All filter: no restrictions");
+                    break;
+            }
+            
+            $properties = $query->get();
+            $filteredCount = $properties->count();
+            
+            Log::info('Properties Retrieved after filter:', [
+                'filter_type' => $filterType,
+                'total_properties' => $totalCount,
+                'filtered_count' => $filteredCount,
+                'properties_sample' => $properties->take(2)->pluck('property_name', 'id')->toArray()
+            ]);
+            
             return view('pages.listing-page', [
-                'properties' => $properties
+                'properties' => $properties,
+                'filter_type' => $filterType,
+                'total_count' => $totalCount,
+                'filtered_count' => $filteredCount
             ]);
         }
         public function show_details_home($id)
@@ -228,68 +275,97 @@ class PropertyController extends Controller
 
         public function search(Request $request)
         {   
+            Log::info('Search request received', $request->all());
+            
             $query = Property::query();
             
             // Apply filters based on form inputs
-            if ($request->filled('listing_status')&& $request->listing_status !== 'All') {
-                if($request->listing_status =="Buy"){
+            if ($request->filled('listing_status') && $request->listing_status !== 'All') {
+                if($request->listing_status == "Buy"){
                     $query->where('property_status', "Buy");
                 }
-                if($request->listing_status =="Rent"){
+                if($request->listing_status == "Rent"){
                     $query->where('property_status', "Rent");
                 }
-                if($request->listing_status =="off-plan"){
+                if($request->listing_status == "off-plan"){
                     $query->where('property_status', "off-plan");
                 }
-
+            }
+            
+            // Nouveau filtrage pour property_completion (Ready/Off-Plan/All)
+            if ($request->filled('property_completion') && $request->property_completion !== 'All') {
+                Log::info('Filtering by property_completion: ' . $request->property_completion);
                 
-                
+                if ($request->property_completion == 'Ready') {
+                    // Ready = Buy ou Rent avec handover_date passée ou nulle
+                    $query->where(function($q) {
+                        $q->whereIn('property_status', ['Buy', 'Rent'])
+                          ->where(function($subQ) {
+                              $subQ->whereNull('handover_date')
+                                   ->orWhere('handover_date', '<=', now()->format('Y-m-d'));
+                          });
+                    });
+                } elseif ($request->property_completion == 'Off-Plan') {
+                    // Off-Plan = propriétés avec handover_date future ou status off-plan
+                    $query->where(function($q) {
+                        $q->where('property_status', 'off-plan')
+                          ->orWhere('handover_date', '>', now()->format('Y-m-d'));
+                    });
+                }
             }
         
             if ($request->filled('location')) {
                 $query->where('address', 'like', '%' . $request->location . '%');
             }
 
-            // Filtrage property_completion supprimé
-            if ($request->filled('home_type') ) {
+            if ($request->filled('home_type')) {
                 $query->where('property_type', $request->home_type);
             }
-            if ($request->filled('beds') ) {
+            
+            if ($request->filled('beds')) {
                 $query->where('bedrooms', $request->beds);
             }
-            if ($request->filled('baths') ) {
+            
+            if ($request->filled('baths')) {
                 $query->where('bathrooms', $request->baths);
             }
+            
             if ($request->filled('mini_price')) {
                 $query->where('price', '>=', (int)$request->mini_price);
             }
+            
             if ($request->filled('max_price')) {
                 $query->where('price', '<=', (int)$request->max_price);
             }
+            
             if ($request->filled('mini_area')) {
                 $query->where('property_built_up_area', '>=', (int)$request->mini_area);
             }
+            
             if ($request->filled('max_area')) {
                 $query->where('property_built_up_area', '<=', (int)$request->max_area);
             }
+            
             if ($request->filled('developer')) {
                 $query->where('developer', 'LIKE', '%' . $request->developer . '%');
-
             }
         
-            // Add other filters...
-        
             $properties = $query->with('images', 'user')->get();
+            
+            Log::info('Search results count: ' . $properties->count());
         
             // Check if it's AJAX
             if ($request->ajax()) {
-                return view('properties.partials.property_list', compact('properties'))->render();
+                return response()->json([
+                    'status' => 'success',
+                    'properties' => $properties,
+                    'count' => $properties->count(),
+                    'html' => view('properties.partials.property_list', compact('properties'))->render()
+                ]);
             }
 
-            else {
             return view('pages.listing-page', [
                 'properties' => $properties
             ]);
-        }
         }
 }
