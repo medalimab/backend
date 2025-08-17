@@ -204,9 +204,11 @@ class PropertyController extends Controller
         public function show_listing_page_client(Request $request) {
             $query = Property::with('images')->orderBy('created_at', 'desc');
             
+            // Compter le total AVANT filtrage
+            $totalCount = Property::count();
+            
             // Appliquer le filtre selon le type demandé
             $filterType = $request->get('filter', 'all');
-            $totalCount = $query->count(); // Compter avant filtrage pour debug
             
             Log::info("Listing page filter applied", [
                 'filter_type' => $filterType,
@@ -215,19 +217,14 @@ class PropertyController extends Controller
             
             switch($filterType) {
                 case 'ready':
-                    $query->where(function($q) {
-                        $q->whereIn('property_status', ['Buy', 'Rent'])
-                          ->where(function($subQuery) {
-                              $subQuery->whereNull('handover_date')
-                                      ->orWhere('handover_date', '<=', now());
-                          });
-                    });
-                    Log::info("Applied Ready filter: Buy/Rent properties with handover_date <= now or null");
+                    // Modifier pour chercher 'Ready' au lieu de ['Buy', 'Rent']
+                    $query->where('property_status', 'Ready');
+                    Log::info("Applied Ready filter: properties with property_status = 'Ready'");
                     break;
                     
                 case 'off-plan':
-                    $query->where('handover_date', '>', now());
-                    Log::info("Applied Off-Plan filter: properties with handover_date > now");
+                    $query->where('property_status', 'Off-Plan');
+                    Log::info("Applied Off-Plan filter: properties with property_status = 'Off-Plan'");
                     break;
                     
                 case 'all':
@@ -239,6 +236,38 @@ class PropertyController extends Controller
             
             $properties = $query->get();
             $filteredCount = $properties->count();
+            
+            // Debug détaillé pour Ready filter
+            if ($filterType === 'ready') {
+                Log::info('READY FILTER DEBUG:', [
+                    'total_before_filter' => $totalCount,
+                    'filtered_count' => $filteredCount,
+                    'properties_details' => $properties->map(function($prop) {
+                        return [
+                            'id' => $prop->id,
+                            'name' => $prop->property_name,
+                            'status' => $prop->property_status,
+                            'handover_date' => $prop->handover_date,
+                            'handover_is_past' => $prop->handover_date ? ($prop->handover_date <= now() ? 'YES' : 'NO') : 'NULL',
+                        ];
+                    })->toArray()
+                ]);
+                
+                // Vérifier aussi toutes les propriétés pour voir pourquoi elles sont incluses
+                $allProperties = Property::select('id', 'property_name', 'property_status', 'handover_date')->get();
+                Log::info('ALL PROPERTIES FOR COMPARISON:', [
+                    'all_properties' => $allProperties->map(function($prop) {
+                        return [
+                            'id' => $prop->id,
+                            'name' => $prop->property_name,
+                            'status' => $prop->property_status,
+                            'handover_date' => $prop->handover_date,
+                            'should_be_ready' => in_array($prop->property_status, ['Buy', 'Rent']) && 
+                                               ($prop->handover_date === null || $prop->handover_date <= now()) ? 'YES' : 'NO'
+                        ];
+                    })->toArray()
+                ]);
+            }
             
             Log::info('Properties Retrieved after filter:', [
                 'filter_type' => $filterType,
