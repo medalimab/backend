@@ -1,7 +1,3 @@
-// Page de contact
-Route::get('/contact', function () {
-    return view('pages.contact');
-})->name('contact');
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -9,6 +5,13 @@ use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
+
+// Page À propos
+Route::get('/about', [AboutController::class, 'show'])->name('about');
+// Page de contact
+Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 
 require __DIR__ . '/auth.php';
 
@@ -16,7 +19,10 @@ require __DIR__ . '/auth.php';
 Route::get('/', function () {
     return redirect()->route('properties.homepage');
 });
+    Route::view('/faq', 'pages.faq')->name('faq');
+    Route::view('/register', 'pages.register')->name('register');
 Route::get('/', [PropertyController::class, 'showHomePage'])->name('properties.homepage');
+    Route::view('/terms', 'pages.terms')->name('terms');
 Route::get('/listing_page', [PropertyController::class, 'show_listing_page_client'])->name('properties.show_listing_page_client');
 Route::get('/listing_page/home_details/{id}', [PropertyController::class, 'show_details_home'])->name('properties.show_details_home');
 Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
@@ -44,6 +50,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact');
+// ...existing code...
+// Les routes catch-all doivent être placées à la fin pour ne pas interférer avec /about et /contact
 Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');
 Route::get('{first}/{second}', [RoutingController::class, 'secondLevel'])->name('second');
 Route::get('{any}', [RoutingController::class, 'root'])
