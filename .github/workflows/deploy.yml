@@ -2,14 +2,14 @@ name: Deploy to Server via SSH
 
 on:
   push:
-    branches:
-      - master
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
+          script: |
+            cd /home/homagency/htdocs/homagency.ae/backend/backend/
+            git pull origin master
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
         uses: actions/checkout@v4
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -18,11 +18,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
-          script: /home/homagency/htdocs/homagency.ae/backend/backend/
-            cd /chemin/vers/ton/projet
-            git pull origin master
-            composer install --no-interaction --prefer-dist --optimize-autoloader
-            php artisan migrate --force
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
+          
