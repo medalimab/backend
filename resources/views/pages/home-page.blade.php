@@ -557,15 +557,15 @@
       
 
       <!-- Carousel d'images pleine largeur -->
-      <section id="fullwidth-carousel" style="width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;background:#fff;">
+      <section id="fullwidth-carousel" class="fullwidth-section">
         <div class="container-fluid p-0">
           <div class="swiper fullwidth-swiper">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel1.jpg') }}" alt="Image 1" style="width:100%;height:320px;object-fit:cover;">
+                <img src="{{ asset('images/carousel1.jpg') }}" alt="Image 1" class="carousel-image">
               </div>
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel2.jpg') }}" alt="Image 2" style="width:100%;height:320px;object-fit:cover;">
+                <img src="{{ asset('images/carousel2.jpg') }}" alt="Image 2" class="carousel-image">
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -573,11 +573,85 @@
           </div>
         </div>
         <style>
-          #fullwidth-carousel { margin-bottom: 0; }
-          .fullwidth-swiper { width: 100vw; height: 320px; }
-          .fullwidth-swiper .swiper-slide img { width: 100%; height: 320px; object-fit: cover; }
+          /* Section fullwidth avec approche plus simple */
+          .fullwidth-section {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            position: relative;
+            background: #fff;
+            margin-bottom: 0;
+          }
+          
+          .fullwidth-swiper { 
+            width: 100%;
+            height: 320px; 
+            display: block;
+            overflow: hidden;
+          }
+          
+          .fullwidth-swiper .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            width: 100%;
+            height: 100%;
+          }
+          
+          .carousel-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+          }
+          
+          /* Tablettes et écrans moyens */
+          @media (max-width: 1024px) {
+            .fullwidth-swiper { height: 280px; }
+            .carousel-image { 
+              height: 280px;
+              object-fit: contain;
+            }
+          }
+          
+          /* Tablettes */
           @media (max-width: 768px) {
-            .fullwidth-swiper, .fullwidth-swiper .swiper-slide img { height: 180px; }
+            .fullwidth-swiper { 
+              height: 250px;
+            }
+            .carousel-image { 
+              height: 250px;
+              object-fit: contain;
+              object-position: center;
+            }
+          }
+          
+          /* Mobiles */
+          @media (max-width: 480px) {
+            .fullwidth-swiper { 
+              height: 200px;
+            }
+            .carousel-image { 
+              height: 200px;
+              object-fit: contain;
+            }
+          }
+          
+          /* Très petits écrans */
+          @media (max-width: 360px) {
+            .fullwidth-swiper { 
+              height: 180px;
+            }
+            .carousel-image { 
+              height: 180px;
+            }
+          }
+          
+          /* S'assurer qu'il n'y a pas de scroll horizontal */
+          body {
+            overflow-x: hidden;
           }
         </style>
         <script>
