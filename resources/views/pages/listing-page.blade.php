@@ -216,17 +216,17 @@
 
                       <input type="text" class="filter-input" placeholder="Enter location" name="location" />
 
+                      <input type="hidden" name="property_completion" id="propertyCompletionInput" value="All">
                       <div class="filter-toggle-group">
-                        <!-- Champ property_completion supprimé -->
-                        <button class="toggle active" data-value="All">All</button>
-                        <button class="toggle" data-value="Ready">Ready</button>
-                        <button class="toggle" data-value="Off-plan">Off Plan</button>
+                        <button class="toggle active" data-value="All" type="button">All</button>
+                        <button class="toggle" data-value="Ready" type="button">Ready</button>
+                        <button class="toggle" data-value="Off-Plan" type="button">Off Plan</button>
                       </div>
 
                       <select class="toggle-prop-type" name="home_type">
                         <option hidden value="" disabled selected>Home Type</option>
                         <option value="Residences">Residential</option>
-                        <option value="Villas">Villas</option>
+                        <option value="Villa">Villas</option>
                         <option value="Bungalow">Bungalow</option>
                         <option value="Apartment">Apartment</option>
                         <option value="Penthouse">Penthouse</option>
@@ -273,7 +273,7 @@
                       </div>
 
                       <div class="dropdown-wrapper">
-                        <button class="toggle-prop-type icon-btn" id="moreFiltersBtn" type="button">More Filters <span class="icon">&#9881;</span></button>
+                       
                         <div class="beds-baths-dropdown" id="moreFiltersDropdown">
                           <div class="filter-group">
                             <label><strong>Price AED</strong></label>
@@ -526,7 +526,7 @@
 
         // Handle status toggles
         const statusButtons = document.querySelectorAll('.filter-toggle-group .toggle');
-  // propertyCompletionInput supprimé
+        const propertyCompletionInput = document.getElementById('propertyCompletionInput');
 
         statusButtons.forEach(button => {
           button.addEventListener('click', (e) => {

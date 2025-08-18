@@ -344,16 +344,10 @@ class PropertyController extends Controller
             // Nouveau filtrage pour property_completion (Ready/Off-Plan/All)
             if ($request->filled('property_completion') && $request->property_completion !== 'All') {
                 Log::info('Filtering by property_completion: ' . $request->property_completion);
-                
+
                 if ($request->property_completion == 'Ready') {
-                    // Ready = Buy ou Rent avec handover_date passée ou nulle
-                    $query->where(function($q) {
-                        $q->whereIn('property_status', ['Buy', 'Rent'])
-                          ->where(function($subQ) {
-                              $subQ->whereNull('handover_date')
-                                   ->orWhere('handover_date', '<=', now()->format('Y-m-d'));
-                          });
-                    });
+                    // Ready = statut 'Ready' uniquement
+                    $query->where('property_status', 'Ready');
                 } elseif ($request->property_completion == 'Off-Plan') {
                     // Off-Plan = propriétés avec handover_date future ou status off-plan
                     $query->where(function($q) {
@@ -405,12 +399,8 @@ class PropertyController extends Controller
         
             // Check if it's AJAX
             if ($request->ajax()) {
-                return response()->json([
-                    'status' => 'success',
-                    'properties' => $properties,
-                    'count' => $properties->count(),
-                    'html' => view('properties.partials.property_list', compact('properties'))->render()
-                ]);
+                // Retourner uniquement le HTML du partial pour remplacer le grid
+                return view('properties.partials.property_list', compact('properties'))->render();
             }
 
             return view('pages.listing-page', [
