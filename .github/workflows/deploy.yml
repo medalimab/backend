@@ -18,7 +18,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
-          script: |
+          script: /home/homagency/htdocs/homagency.ae/backend/backend/
             cd /chemin/vers/ton/projet
             git pull origin master
             composer install --no-interaction --prefer-dist --optimize-autoloader
