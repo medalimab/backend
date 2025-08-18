@@ -60,6 +60,108 @@
       .ace-responsive-menu > li {
         position: relative;
       }
+      
+      /* Styles responsive pour le footer mobile */
+      @media (max-width: 768px) {
+        .footer_one {
+          padding: 40px 0;
+        }
+        
+        .footer_one .container {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        
+        .footer_one .row {
+          margin-left: 0;
+          margin-right: 0;
+        }
+        
+        .footer_one .col-sm-6,
+        .footer_one .col-md-6,
+        .footer_one .col-lg-3,
+        .footer_one .col-xl-3 {
+          padding-left: 0;
+          padding-right: 0;
+          margin-bottom: 30px;
+          width: 100%;
+          max-width: 100%;
+        }
+        
+        .footer_about_widget,
+        .footer_qlink_widget,
+        .footer_contact_widget,
+        .footer_social_widget {
+          text-align: center;
+          padding: 0 20px;
+        }
+        
+        .footer_about_widget h4,
+        .footer_qlink_widget h4,
+        .footer_contact_widget h4,
+        .footer_social_widget h4 {
+          font-size: 18px;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+        
+        .footer_qlink_widget ul,
+        .footer_contact_widget ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          text-align: center;
+        }
+        
+        .footer_qlink_widget ul li,
+        .footer_contact_widget ul li {
+          margin-bottom: 10px;
+        }
+        
+        .footer_social_widget ul {
+          text-align: center;
+          justify-content: center;
+        }
+        
+        .footer_mailchimp_form {
+          max-width: 300px;
+          margin: 0 auto;
+        }
+        
+        .footer_mailchimp_form .form-row {
+          justify-content: center;
+        }
+      }
+      
+      /* Styles pour très petits écrans */
+      @media (max-width: 480px) {
+        .footer_one {
+          padding: 30px 0;
+        }
+        
+        .footer_about_widget,
+        .footer_qlink_widget,
+        .footer_contact_widget,
+        .footer_social_widget {
+          padding: 0 10px;
+        }
+        
+        .footer_about_widget p,
+        .footer_qlink_widget ul li a,
+        .footer_contact_widget ul li a {
+          font-size: 14px;
+          line-height: 1.6;
+        }
+        
+        .footer_social_widget ul li {
+          margin: 0 8px;
+        }
+        
+        .footer_mailchimp_form .form-control {
+          font-size: 14px;
+          padding: 8px 12px;
+        }
+      }
     </style>
 
     <!-- Google Tag Manager -->
@@ -460,8 +562,7 @@
               </div>
             </div>
             <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+            
           </div>
         </div>
         <style>
@@ -832,7 +933,7 @@
       <section class="footer_one">
         <div class="container">
           <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 pr0 pl0">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
               <div class="footer_about_widget">
                 <h4>About HOM</h4>
                 <p>
@@ -842,7 +943,7 @@
                 </p>
               </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
               <div class="footer_qlink_widget">
                 <h4>Quick Links</h4>
                 <ul class="list-unstyled">
@@ -856,7 +957,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
               <div class="footer_contact_widget">
                 <h4>Contact Us</h4>
                 <ul class="list-unstyled">
@@ -870,7 +971,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
               <div class="footer_social_widget">
                 <h4>Follow us</h4>
                 <ul class="mb30">
