@@ -103,7 +103,7 @@
                 <div class="col-lg-5 col-xl-4">
                     <div class="contact_localtion">
                         <h4>Contact Us</h4>
-                        <p>Have a question, need advice, or ready to take the next step? We're here to assist you with all your real estate needs in Dubai. Reach out today — our team is just a call or message away.</p>
+                        <p>Have a question, need advice, or ready to take the next step? We're here to assist you with all your real estate needs in Dubai. Reach out today our team is just a call or message away.</p>
                         <div class="content_list">
                             <h5>Address</h5>
                             <p>Barsha Heights, Dubai. <br>United Arab Emirates.</p>

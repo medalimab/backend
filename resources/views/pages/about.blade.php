@@ -72,7 +72,7 @@
                             </p>
                             <p>
                                 At HOM Agency, we believe real estate is more than just
-                                transactions—it’s about building trust, creating lifestyles,
+                                transactions it’s about building trust, creating lifestyles,
                                 and helping people move into the future they envision. Since
                                 2015, we’ve proudly served individuals and families across
                                 Dubai, offering a seamless way to find properties they truly
@@ -80,8 +80,8 @@
                             </p>
                             <p>
                                 With our deep market knowledge, innovative tools, and
-                                client-first approach, we make every step—from search to
-                                sale—smooth and transparent. Whether you're buying your first
+                                client-first approach, we make every step from search to
+                                sale smooth and transparent. Whether you're buying your first
                                 apartment, selling a villa, or investing in the future, HOM
                                 Agency is your trusted partner at every turn.
                             </p>
