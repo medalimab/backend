@@ -150,6 +150,11 @@
           font-size: 14px;
           padding: 8px 12px;
         }
+        
+        /* Ajuster l'espacement du formulaire */
+        .form-row.align-items-center {
+          margin-right: -50px;
+        }
       }
     </style>
     <link href="images/home/icon_hom.png" sizes="128x128" rel="shortcut icon" type="image/x-icon" />

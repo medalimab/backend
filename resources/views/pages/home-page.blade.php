@@ -12,13 +12,15 @@
     <meta name="description" content="FindHouse - Real Estate HTML Template" />
     <meta name="CreativeLayers" content="ATFN" />
     <!-- css file -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <!--End CSS file-->
 
     <!-- Responsive stylesheet -->
-    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
       /* Style spécifique pour le sous-menu Explore */
       .ace-responsive-menu .sub-menu {
@@ -161,6 +163,11 @@
           font-size: 14px;
           padding: 8px 12px;
         }
+        
+        /* Ajuster l'espacement du formulaire */
+        .form-row.align-items-center {
+          margin-right: -50px;
+        }
       }
     </style>
 
@@ -206,7 +213,7 @@
             <div class="menu-toggle">
               <img
                 class="nav_logo_img img-fluid"
-                src="images/home/hom-nb.png"
+                src="{{ asset('images/home/hom-nb.png') }}"
                 alt="header-logo.png"
               />
               <button type="button" id="menu-btn">
@@ -218,13 +225,13 @@
             <a href="#" class="navbar_brand float-left dn-smd logo">
               <!-- Dual Logos: Blue and Light versions -->
               <img
-                src="images/home/web-logo.png"
+                src="{{ asset('images/home/web-logo.png') }}"
                 alt="Logo HOM Blueee"
                 class="logo-blue"
                 style="width: 120px; height: auto; max-width: 100%"
               />
               <img
-                src="images/home/hom-light-logo.png"
+                src="{{ asset('images/home/hom-light-logo.png') }}"
                 alt="Logo HOM Light"
                 class="logo-light"
                 style="width: 120px; height: auto; max-width: 100%"
@@ -291,12 +298,12 @@
           <div class="header stylehome1">
             <div class="d-flex justify-content-between">
               <a class="mobile-menu-trigger" href="#menu"
-                ><img src="images/dark-nav-icon.svg" alt=""
+                ><img src="{{ asset('images/dark-nav-icon.svg') }}" alt=""
               /></a>
               <a class="nav_logo_img" href="{{ route('properties.homepage') }}"
                 ><img
                   class="img-fluid mt20"
-                  src="images/header-logo2.png"
+                  src="{{ asset('images/header-logo2.png') }}"
                   alt="header-logo2.png"
               /></a>
               <a class="mobile-menu-reg-link" href="page-register.html"
@@ -397,7 +404,7 @@
       <section class="home-one home1-overlay home1_bgi1">
         <video autoplay muted loop playsinline>
           <source
-            src="images/background/homagency_video_banner.mp4"
+            src="{{ asset('images/background/homagency_video_banner.mp4') }}"
             type="video/mp4"
           />
           Your browser does not support HTML5 video.
@@ -555,10 +562,10 @@
           <div class="swiper fullwidth-swiper">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <img src="/images/carousel1.jpg" alt="Image 1" style="width:100%;height:320px;object-fit:cover;">
+                <img src="{{ asset('images/carousel1.jpg') }}" alt="Image 1" style="width:100%;height:320px;object-fit:cover;">
               </div>
               <div class="swiper-slide">
-                <img src="/images/carousel2.jpg" alt="Image 2" style="width:100%;height:320px;object-fit:cover;">
+                <img src="{{ asset('images/carousel2.jpg') }}" alt="Image 2" style="width:100%;height:320px;object-fit:cover;">
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -978,18 +985,26 @@
                   <li class="list-inline-item">
                     <a
                       href="https://www.facebook.com/people/HOM-Agency/61567611663846/#"
-                      ><i class="fa fa-facebook"></i
+                      ><i class="fab fa-facebook-f"></i
                     ></a>
                   </li>
-                  <!-- <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li> -->
+                  <li class="list-inline-item">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                  </li>
                   <li class="list-inline-item">
                     <a href="https://www.instagram.com/hom.uaeagency/"
-                      ><i class="fa fa-instagram"></i
+                      ><i class="fab fa-instagram"></i
                     ></a>
                   </li>
-                  <!-- <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li> -->
-                  <!-- <li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                  <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li> -->
+                  <li class="list-inline-item">
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#"><i class="fab fa-google"></i></a>
+                  </li>
                 </ul>
                 <h4>Subscribe</h4>
                 <form class="footer_mailchimp_form">
@@ -1004,7 +1019,7 @@
                     </div>
                     <div class="col-auto">
                       <button type="submit" class="btn btn-primary mb-2">
-                        <i class="fa fa-angle-right"></i>
+                        <i class="fas fa-angle-right"></i>
                       </button>
                     </div>
                   </div>
@@ -1045,33 +1060,33 @@
       <a class="scrollToHome" href="#"><i class="flaticon-arrows"></i></a>
     </div>
     <!-- Wrapper End -->
-    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
     <script
       type="text/javascript"
-      src="js/jquery-migrate-3.0.0.min.js"
+      src="{{ asset('js/jquery-migrate-3.0.0.min.js') }}"
     ></script>
-    <script type="text/javascript" src="js/popper.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.mmenu.all.js"></script>
-    <script type="text/javascript" src="js/ace-responsive-menu.js"></script>
-    <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
-    <script type="text/javascript" src="js/isotop.js"></script>
-    <script type="text/javascript" src="js/snackbar.min.js"></script>
-    <script type="text/javascript" src="js/simplebar.js"></script>
-    <script type="text/javascript" src="js/parallax.js"></script>
-    <script type="text/javascript" src="js/scrollto.js"></script>
+    <script type="text/javascript" src="{{ asset('js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.mmenu.all.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/ace-responsive-menu.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap-select.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/isotop.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/snackbar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/simplebar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/parallax.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/scrollto.js') }}"></script>
     <script
       type="text/javascript"
-      src="js/jquery-scrolltofixed-min.js"
+      src="{{ asset('js/jquery-scrolltofixed-min.js') }}"
     ></script>
-    <script type="text/javascript" src="js/jquery.counterup.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/slider.js"></script>
-    <script type="text/javascript" src="js/pricing-slider.js"></script>
-    <script type="text/javascript" src="js/timepicker.js"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.counterup.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/wow.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/slider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/pricing-slider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/timepicker.js') }}"></script>
 
     <!-- Custom script for all pages -->
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
     <script>
       // Debug script pour le menu Explore
       $(document).ready(function() {
@@ -1114,7 +1129,7 @@
     <!-- swiper CSS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <!-- Include your custom swiper initialization script -->
-    <script src="js/swiper-css.js"></script>
+    <script src="{{ asset('js/swiper-css.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       // Protection globale contre les erreurs JavaScript
@@ -1319,8 +1334,8 @@
               singleItem: true,
               smartSpeed: 1200,
               navText: [
-                '<i class="fa fa-arrow-left"></i>',
-                '<i class="fa fa-arrow-right"></i>'
+                '<i class="fas fa-arrow-left"></i>',
+                '<i class="fas fa-arrow-right"></i>'
               ],
               responsive: {
                 0: { items: 1, center: false },
