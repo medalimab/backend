@@ -435,11 +435,11 @@
             <h2>Featured Properties</h2>
             
           </div>
-          <!-- Tabs filtrage version mobile -->
-          <div class="tabs d-flex gap-2 justify-content-center mb-4">
-            <div class="tab active">All</div>
-            <div class="tab">Ready</div>
-            <div class="tab">Off Plan</div>
+          <!-- Tabs filtrage version mobile - FORCÉ VISIBLE -->
+          <div class="tabs d-flex gap-2 justify-content-center mb-4" style="display: flex !important; visibility: visible !important; opacity: 1 !important;">
+            <div class="tab active" style="display: inline-block !important; visibility: visible !important;">All</div>
+            <div class="tab" style="display: inline-block !important; visibility: visible !important;">Ready</div>
+            <div class="tab" style="display: inline-block !important; visibility: visible !important;">Off Plan</div>
           </div>
           <!-- Carousel -->
           <div class="carousel-separator" style="height:32px;"></div>
@@ -474,10 +474,154 @@
           </div>
         </div>
         <style>
-          .tabs { display: flex; gap: 10px; margin-bottom: 40px; }
-          .carousel-separator { width:100%; height:32px; background:transparent; }
-          .tab { padding: 8px 16px; border: 1px solid #ccc; border-radius: 8px; cursor: pointer; background: #fff; }
-          .tab.active { background: #fff; color: #1E3A8A; border-color: #1E3A8A; }
+          /* Force l'affichage des tabs sur tous les appareils */
+          .tabs { 
+            display: flex !important; 
+            gap: 10px; 
+            margin-bottom: 40px; 
+            justify-content: center;
+            flex-wrap: wrap;
+            visibility: visible !important;
+            opacity: 1 !important;
+            width: 100% !important;
+          }
+          
+          .carousel-separator { 
+            width:100%; 
+            height:32px; 
+            background:transparent; 
+          }
+          
+          .tab { 
+            display: block !important;
+            padding: 8px 16px; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            background: #fff; 
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            visibility: visible !important;
+            opacity: 1 !important;
+          }
+          
+          .tab.active { 
+            background: #fff; 
+            color: #1E3A8A; 
+            border-color: #1E3A8A; 
+            font-weight: 600;
+          }
+          
+          .tab.active:hover { 
+            background: #f1f8fa; 
+            color: #1E3A8A; 
+            border-color: #1E3A8A; 
+          }
+          
+          .tab:hover {
+            background: #f8f9fa;
+            border-color: #1E3A8A;
+            color: #1E3A8A;
+          }
+          
+          /* Styles responsive FORCÉS pour les tabs */
+          @media screen and (max-width: 768px) {
+            .tabs { 
+              display: flex !important; 
+              gap: 8px; 
+              margin-bottom: 30px; 
+              padding: 0 15px;
+              justify-content: center;
+              visibility: visible !important;
+              opacity: 1 !important;
+              position: relative !important;
+              z-index: 10 !important;
+            }
+            .tab { 
+              display: inline-block !important;
+              padding: 6px 12px; 
+              font-size: 13px;
+              min-width: 70px;
+              text-align: center;
+              visibility: visible !important;
+              opacity: 1 !important;
+            }
+          }
+          
+          @media screen and (max-width: 480px) {
+            .tabs { 
+              display: flex !important;
+              gap: 6px; 
+              margin-bottom: 25px; 
+              padding: 0 10px;
+              visibility: visible !important;
+              opacity: 1 !important;
+            }
+            .tab { 
+              display: inline-block !important;
+              padding: 5px 10px; 
+              font-size: 12px;
+              min-width: 60px;
+              flex: 1;
+              max-width: 90px;
+              visibility: visible !important;
+              opacity: 1 !important;
+            }
+          }
+          
+          @media screen and (max-width: 360px) {
+            .tabs { 
+              display: flex !important;
+              gap: 4px; 
+              padding: 0 5px;
+              visibility: visible !important;
+              opacity: 1 !important;
+            }
+            .tab { 
+              display: inline-block !important;
+              padding: 4px 8px; 
+              font-size: 11px;
+              min-width: 50px;
+              visibility: visible !important;
+              opacity: 1 !important;
+            }
+          }
+            .tab { 
+              padding: 6px 12px; 
+              font-size: 13px;
+              min-width: 70px;
+              text-align: center;
+            }
+          }
+          
+          @media (max-width: 480px) {
+            .tabs { 
+              gap: 6px; 
+              margin-bottom: 25px; 
+              padding: 0 10px;
+            }
+            .tab { 
+              padding: 5px 10px; 
+              font-size: 12px;
+              min-width: 60px;
+              flex: 1;
+              max-width: 90px;
+            }
+          }
+          
+          @media (max-width: 360px) {
+            .tabs { 
+              gap: 4px; 
+              padding: 0 5px;
+            }
+            .tab { 
+              padding: 4px 8px; 
+              font-size: 11px;
+              min-width: 50px;
+            }
+          }
           .tab.active:hover { background: #f1f8fa; color: #1E3A8A; border-color: #1E3A8A; }
           .carousel-container { position: relative; max-width: 1200px; margin: 0 auto; }
           .cards {
