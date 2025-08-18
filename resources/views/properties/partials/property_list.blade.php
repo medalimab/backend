@@ -51,7 +51,7 @@
                     <a class="fp_price d-none d-md-inline-block" href="#">{{ number_format($property->price, 0, '.', ',') }} AED</a>
                     <ul class="tag d-none d-md-inline-block">
                         <li class="list-inline-item"><a href="#">{{ $property->property_status }}</a></li>
-                        <li class="list-inline-item"><a href="#">Featured</a></li>
+                        {{-- Badge Featured supprimée --}}
                     </ul>
                 </div>
 
