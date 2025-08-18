@@ -1,4 +1,5 @@
 {{-- Footer web et mobile réutilisable --}}
+
 <section class="footer_one">
   <div class="container">
     <div class="row">
@@ -60,7 +61,7 @@
               <a href="#"><i class="fab fa-google"></i></a>
             </li>
           </ul>
-          <h4>Subscribe</h4>
+          <h4 class="mb-2">Subscribe</h4>
           <form class="footer_mailchimp_form">
             <div class="form-row align-items-center">
               <div class="col-auto">
@@ -78,6 +79,92 @@
     </div>
   </div>
 </section>
+<style>
+@media (max-width: 768px) {
+  .footer_one .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .footer_one .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .footer_one .col-sm-6,
+  .footer_one .col-md-6,
+  .footer_one .col-lg-3,
+  .footer_one .col-xl-3 {
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .footer_about_widget,
+  .footer_qlink_widget,
+  .footer_contact_widget,
+  .footer_social_widget {
+    text-align: center;
+    padding: 0 20px;
+  }
+  .footer_about_widget h4,
+  .footer_qlink_widget h4,
+  .footer_contact_widget h4,
+  .footer_social_widget h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .footer_qlink_widget ul,
+  .footer_contact_widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+  .footer_qlink_widget ul li,
+  .footer_contact_widget ul li {
+    margin-bottom: 10px;
+  }
+  .footer_social_widget ul {
+    text-align: center;
+    justify-content: center;
+  }
+  .footer_mailchimp_form {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .footer_mailchimp_form .form-row {
+    justify-content: center;
+  }
+}
+@media (max-width: 480px) {
+  .footer_one {
+    padding: 30px 0;
+  }
+  .footer_about_widget,
+  .footer_qlink_widget,
+  .footer_contact_widget,
+  .footer_social_widget {
+    padding: 0 10px;
+  }
+  .footer_about_widget p,
+  .footer_qlink_widget ul li a,
+  .footer_contact_widget ul li a {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .footer_social_widget ul li {
+    margin: 0 8px;
+  }
+  .footer_mailchimp_form .form-control {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  .form-row.align-items-center {
+    margin-right: -50px;
+  }
+}
+</style>
 
 <section class="footer_middle_area pt40 pb40">
   <div class="container">

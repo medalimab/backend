@@ -785,42 +785,10 @@
       </section>
     
         <!-- Our Footer -->
-        <section class="footer_one">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 pr0 pl0">
-                        <div class="footer_about_widget">
-                            <h4>About HOM</h4>
-                            <p>We’re reimagining how you buy, sell, and rent real estate in Dubai. Since 2015, HOM Agency has made it easier to find a place you love.</p>
-                        </div>
-                    </div>
-                    <!-- Other footer sections -->
-                </div>
-            </div>
-        </section>
-    
+       
+     @include('components.footer')
         <!-- Our Footer Bottom Area -->
-        <section class="footer_middle_area pt40 pb40">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-xl-6">
-                        <div class="footer_menu_widget">
-                            <ul>
-                                <li class="list-inline-item"><a href="/">Home</a></li>
-                                <li class="list-inline-item"><a href="/listing_page">Listing</a></li>
-                                <li class="list-inline-item"><a href="page-blog-v1.html">Blog</a></li>
-                                <li class="list-inline-item"><a href="/contact">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-6">
-                        <div class="copyright-widget text-right">
-                            <p>© {{ now()->year }} All Rights Reserved - Developed by <a href="https://ahdafdigital.ae/">Ahdaf Digital</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+       
         <a class="scrollToHome" href="#"><i class="flaticon-arrows"></i></a>
     </div>
     <!-- Wrapper End -->
