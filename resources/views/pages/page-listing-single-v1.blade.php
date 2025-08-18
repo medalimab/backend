@@ -628,7 +628,7 @@
 
 
 						<div class="col-lg-12">
-							<div class="property_attachment_area">
+							<div class="property_attachment_area text-center">
 								<h4 class="mb30">Property Attachments</h4>
 								@if($property->pdf)
 									<div class="iba_container style2">
@@ -646,20 +646,20 @@
 						</div>
 
 							<div class="col-lg-12">
-							<div class="property_attachment_area">
-								<h4 class="mb30">DLD Permit QR Code</h4>
-								@if($property->dld_permit_qr)
-									<div class="iba_container style2">
-										<img src="{{ asset('storage/' . $property->dld_permit_qr) }}" alt="QR Code DLD" style="max-width:180px;max-height:180px;">
-										<div class="details mt-2">
-											<h5>Scan DLD Permit</h5>
+								<div class="qr_code_area d-flex flex-column align-items-center justify-content-center text-center py-4">
+									<h4 class="mb30">Code QR</h4>
+									@if($property->dld_permit_qr)
+										<div class="iba_container style2 d-flex flex-column align-items-center">
+											<img src="{{ asset('storage/' . $property->dld_permit_qr) }}" alt="QR Code DLD" style="max-width:180px;max-height:180px; margin-bottom: 10px;">
+											<div class="details mt-2">
+												<h5>Scannez ce code QR pour vérifier le permis DLD</h5>
+											</div>
 										</div>
-									</div>
-								@else
-									<p>No QR code available.</p>
-								@endif
+									@else
+										<p>Aucun code QR disponible.</p>
+									@endif
+								</div>
 							</div>
-						</div>
 
 
 						<!-- <div class="col-lg-12">
