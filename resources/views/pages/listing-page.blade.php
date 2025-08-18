@@ -204,8 +204,7 @@
                 <a href="{{ route('properties.homepage') }}"><span class="title">Home</span></a>
               </li>
               <li>
-                <a href="{{ route('properties.show_listing_page_client') }}"
-                  ><span class="title">Listing</span></a>
+                <a href="#"><span class="title">Listing</span></a>
               </li>
               <!-- <li>
                 <a href="{{asset('page-service.html')}}">

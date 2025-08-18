@@ -249,26 +249,7 @@
               </li>
               <li>
                 <a href="{{ route('properties.show_listing_page_client') }}"><span class="title">Listing</span></a>
-                <ul class="sub-menu">
-                  <li>
-                    <a href="#">Property</a>
-                    <ul>
-                      <li><a href="/dashboard">Dashboard</a></li>
-                      <li><a href="/my-properties">My Properties</a></li>
-                      <li><a href="/add-property">Add New Property</a></li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="#">Listing Single</a>
-                    <ul>
-                      <li><a href="/listing_single_v1">Single V1</a></li>
-                      <li><a href="/listing_single_v2">Single V2</a></li>
-                      <li><a href="/listing_single_v3">Single V3</a></li>
-                      <li><a href="/listing_single_v4">Single V4</a></li>
-                      <li><a href="/listing_single_v5">Single V5</a></li>
-                    </ul>
-                  </li>
-                </ul>
+                
               </li>
               <!-- <li>
                 <a href="page-service.html"
