@@ -35,7 +35,7 @@
       <div class="d-flex justify-content-between">
         <a class="mobile-menu-trigger" href="#menu"><img src="{{ asset('images/dark-nav-icon.svg') }}" alt="" /></a>
         <a class="nav_logo_img" href="/"><img class="img-fluid mt20" src="{{ asset('images/header-logo2.png') }}" alt="header-logo2.png" /></a>
-        <a class="mobile-menu-reg-link" href="page-register.html"><span class="flaticon-user"></span></a>
+        
       </div>
     </div>
   </div>
