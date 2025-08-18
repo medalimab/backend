@@ -15,7 +15,7 @@
         <img src="{{ asset('images/home/hom-light-logo.png') }}" alt="Logo HOM Light" class="logo-light" style="width: 120px; height: auto; max-width: 100%" />
       </a>
       <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
-        <li><a href="#"><span class="title">Home</span></a></li>
+        <li><a href="/"><span class="title">Home</span></a></li>
         <li><a href="{{ route('properties.show_listing_page_client') }}"><span class="title">Listing</span></a></li>
         <li><a href="/about"><span class="title">About</span></a></li>
         <li><a href="#"><span class="title">Explore</span></a>

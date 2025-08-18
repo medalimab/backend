@@ -30,73 +30,9 @@
     <div class="preloader"></div>
 
     <!-- Main Header Nav -->
-    <header class="header-nav menu_style_home_one style2 navbar-scrolltofixed stricky main-menu">
-        <div class="container-fluid p0">
-            <!-- Ace Responsive Menu -->
-            <nav>
-                <!-- Menu Toggle btn-->
-                <div class="menu-toggle">
-                    <img class="nav_logo_img img-fluid" src="{{ asset('header-logo.png') }}" alt="header-logo.png">
-                    <button type="button" id="menu-btn">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <a href="/" class="navbar_brand float-left dn-smd">
-                    <img class="logo1 img-fluid" src="{{ asset('images/home/web-logo.png') }}" alt="header-logo.png" style="width: 120px; height: auto; max-width: 100%">
-                    <img class="logo2 img-fluid" src="{{ asset('images/header-logo2.png') }}" alt="header-logo2.png">
-                </a>
-                <!-- Responsive Menu Structure-->
-                <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
-                    <li>
-                        <a href="/"><span class="title">Home</span></a>
-                    </li>
-                    <li>
-                        <a href="/listing_page"><span class="title">Listing</span></a>
-                    </li>
-                    <li>
-                        <a href="/about"><span class="title">About</span></a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="title">Explore</span></a>
-                        <ul>
-                            <li><a href="/faq">Faq</a></li>
-                           
-                        </ul>
-                    </li>
-                    <li class="last">
-                        <a href="/contact"><span class="title">Contact</span></a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+     @include('components.menu')
 
-    <!-- Main Header Nav For Mobile -->
-    <div id="page" class="stylehome1 h0">
-        <div class="mobile-menu">
-            <div class="header stylehome1">
-                <div class="d-flex justify-content-between">
-                    <a class="mobile-menu-trigger" href="#menu"><img src="{{ asset('images/dark-nav-icon.svg') }}" alt=""></a>
-                    <a class="nav_logo_img" href="/"><img class="img-fluid mt20" src="{{ asset('images/header-logo2.png') }}" alt="header-logo2.png"></a>
-                    <a class="mobile-menu-reg-link" href="page-register.html"><span class="flaticon-user"></span></a>
-                </div>
-            </div>
-        </div><!-- /.mobile-menu -->
-        <nav id="menu" class="stylehome1">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/listing_page">Listing</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="page-blog-v1.html">Blog</a></li>
-                <li><a href="/faq">FAQ</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="page-login.html"><span class="flaticon-user"></span> Login</a></li>
-                <li><a href="page-register.html"><span class="flaticon-edit"></span> Register</a></li>
-            </ul>
-        </nav>
-    </div>
+    
 
     <!-- Inner Page Breadcrumb -->
     <section class="inner_page_breadcrumb">

@@ -239,147 +239,18 @@
             </a>
             <!-- Responsive Menu Structure-->
             <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
-            <ul
-              id="respMenu"
-              class="ace-responsive-menu text-right"
-              data-menu-style="horizontal"
-            >
-              <li>
-                <a href="#"><span class="title">Home</span></a>
-              </li>
-              <li>
-                <a href="{{ route('properties.show_listing_page_client') }}"><span class="title">Listing</span></a>
-                
-              </li>
+           
+             
               <!-- <li>
                 <a href="page-service.html"
                   ><span class="title">Service</span></a>
               </li> -->
-              <li>
-                <a href="/about"><span class="title">About</span></a>
-              </li>
-              <li>
-                <a href="#"><span class="title">Explore</span></a>
-                <ul class="sub-menu">
-                  <li><a href="/faq">Faq</a></li>
-                </ul>
-              </li>
-              <li class="last">
-                <a href="/contact"
-                  ><span class="title">Contact</span></a>
-              </li>
-            </ul>
-          </nav>
+           
         </div>
       </header>
 
       <!-- Main Header Nav For Mobile -->
-      <div id="page" class="stylehome1 h0">
-        <div class="mobile-menu">
-          <div class="header stylehome1">
-            <div class="d-flex justify-content-between">
-              <a class="mobile-menu-trigger" href="#menu"
-                ><img src="{{ asset('images/dark-nav-icon.svg') }}" alt=""
-              /></a>
-              <a class="nav_logo_img" href="{{ route('properties.homepage') }}"
-                ><img
-                  class="img-fluid mt20"
-                  src="{{ asset('images/header-logo2.png') }}"
-                  alt="header-logo2.png"
-              /></a>
-              <a class="mobile-menu-reg-link" href="page-register.html"
-                ><span class="flaticon-user"></span
-              ></a>
-            </div>
-          </div>
-        </div>
-        <!-- /.mobile-menu -->
-        <nav id="menu" class="stylehome1">
-          <ul>
-            <li>
-              <span>Home</span>
-              <ul>
-                <li><a href="{{ route('properties.homepage') }}">Home 1</a></li>
-              </ul>
-            </li>
-            <li>
-            <a href="{{ route('properties.show_listing_page_client') }}"><span>Listing Grid</span></a>
-              <!-- <ul>
-              </ul> -->
-            </li>
-            <li>
-              <span>Property</span>
-              <ul>
-                <li>
-                  <span>Property</span>
-                  <ul>
-                    <li><a href="/dashboard">Dashboard</a></li>
-                    <li><a href="/my-properties">My Properties</a></li>
-                    <li>
-                      <a href="/add-property">Add New Property</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <span>Listing Single</span>
-                  <ul>
-                    <li><a href="/listing_single_v1">Single V1</a></li>
-                    <li><a href="/listing_single_v2">Single V2</a></li>
-                    <li><a href="/listing_single_v3">Single V3</a></li>
-                    <li><a href="/listing_single_v4">Single V4</a></li>
-                    <li><a href="/listing_single_v5">Single V5</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <span>Blog</span>
-              <ul>
-                <li><a href="/blog/list1">Blog List 1</a></li>
-                <li><a href="/blog/list2">Blog List 2</a></li>
-                <li><a href="/blog/single">Single Post</a></li>
-              </ul>
-            </li>
-            <li>
-              <span>Pages</span>
-              <ul>
-                <li>
-                  <span>Shop</span>
-                  <ul>
-                    <li><a href="/shop">Shop</a></li>
-                    <li><a href="/shop/single">Shop Single</a></li>
-                    <li><a href="/shop/cart">Cart</a></li>
-                    <li><a href="/shop/checkout">Checkout</a></li>
-                    <li><a href="/shop/order">Order</a></li>
-                  </ul>
-                </li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/gallery">Gallery</a></li>
-                <li><a href="/faq">Faq</a></li>
-                <li><a href="/login">LogIn</a></li>
-                <li><a href="/membership">Membership</a></li>
-                <li><a href="/membership2">Membership 2</a></li>
-                <li><a href="/register">Register</a></li>
-                <li><a href="/service">Service</a></li>
-                <li><a href="/404">404 Page</a></li>
-                <li><a href="/terms">Terms and Conditions</a></li>
-                <li><a href="/ui-elements">UI Elements</a></li>
-              </ul>
-            </li>
-            <li><a href="/contact">Contact</a></li>
-            <li>
-              <a href="page-login.html"
-                ><span class="flaticon-user"></span> Login</a
-              >
-            </li>
-            <li>
-              <a href="page-register.html"
-                ><span class="flaticon-edit"></span> Register</a
-              >
-            </li>
-          </ul>
-        </nav>
-      </div>
+      @include('components.menu')
 
       <!-- Home Design -->
       <section class="home-one home1-overlay home1_bgi1">
