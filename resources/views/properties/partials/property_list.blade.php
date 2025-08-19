@@ -8,13 +8,15 @@
             @foreach ($properties as $property)
             @php $carouselId = 'carousel-' . $property->id; @endphp
             <div class="col-lg-12">
-                <div class="feat_property list">
+                <div class="feat_property list" data-link="/listing_page/home_details/{{ $property->id }}" style="cursor:pointer;">
                 <div class="thumb">
                     <div id="{{ $carouselId }}" class="carousel slide" data-ride="carousel" data-interval="false">
                     <div class="carousel-inner">
                         @foreach($property->images as $index => $image)
                         <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                            <img class="d-block w-100" src="{{ asset('storage/' . $image->image_url) }}" alt="Property image {{ $index + 1 }}">
+                            <a href="/listing_page/home_details/{{ $property->id }}">
+                                <img class="d-block w-100" src="{{ asset('storage/' . $image->image_url) }}" alt="Property image {{ $index + 1 }}">
+                            </a>
                         </div>
                         @endforeach
                     </div>
@@ -81,17 +83,17 @@
                         </ul>
                     @endif
                     <ul class="contact-icons prop_details mb0">
-                      <li class="list-inline-item">
-                        <a href="#" class="icon-rect"><img src="{{ asset('icon_mail.png') }}" alt="mail Icon" class="icon"></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="#" class="icon-rect call-icon" data-toggle="modal" data-target="#contactModal" data-property-id="{{$property->property_id}}">
-                          <img src="{{ asset('icon_call.png') }}" alt="call Icon" class="icon me-1">
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="#" class="icon-rect"><img src="{{ asset('whatsapp.png') }}" alt="whatsup Icon" class="icon"></a>
-                      </li>
+                                            <li class="list-inline-item">
+                                                <a href="#" class="icon-rect"><img src="{{ asset('icon_mail.png') }}" alt="mail Icon" class="icon"></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#" class="icon-rect call-icon" data-toggle="modal" data-target="#contactModal" data-property-id="{{$property->id}}">
+                                                    <img src="{{ asset('icon_call.png') }}" alt="call Icon" class="icon me-1">
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#" class="icon-rect"><img src="{{ asset('whatsapp.png') }}" alt="whatsup Icon" class="icon"></a>
+                                            </li>
                     </ul>
                     </div>
 
@@ -105,7 +107,7 @@
                     <div class="fp_pdate float-right">{{ $property->created_at->diffForHumans() }}</div>
                     </div>
                 </div>
-                </div>
+                </a>
             </div>
             @endforeach
 
@@ -141,12 +143,27 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.call-icon').click(function() {
+            $('.call-icon').click(function(e) {
                 const propertyId = $(this).data('property-id');
                 $('#propertyReference').text(propertyId);
+                e.stopPropagation();
+            });
+            // Rendre toute la carte cliquable
+            $('.feat_property.list').each(function() {
+                var card = $(this);
+                var link = card.data('link');
+                card.on('click', function(e) {
+                    if($(e.target).closest('a, button, .call-icon, .icon-rect').length === 0) {
+                        if(link && link !== 'undefined') {
+                            window.location.href = link;
+                        } else {
+                            alert('Lien de redirection non défini pour cette carte.');
+                        }
+                    }
+                });
             });
         });
-        </script> 
+    </script>
  
 
 </body>
