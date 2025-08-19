@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/property/grid', [PropertyController::class, 'grid'])->name('properties.grid');
     Route::get('/property/list', [PropertyController::class, 'list'])->name('properties.list');
 
-    Route::get('/properties/{id}', [PropertyController::class, 'show'])->name('properties.show');
+    // Route doublon supprimée, la ressource gère déjà 'properties.show'
     Route::resource('properties', PropertyController::class);
 
     Route::resource('agents', AgentController::class);
