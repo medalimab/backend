@@ -57,14 +57,24 @@ jobs:
             sed -i 's/DB_USERNAME=.*/DB_USERNAME=homeagencyMVPUser/' .env
             sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=kzstmxPzIow7pxsf6KMU/' .env
             # Forcer la vérification de la configuration
-            echo "Contenu du .env après modification:"
+            echo "=== Contenu du .env après modification ==="
             cat .env | grep "DB_"
-            echo "Configuration MySQL terminée"
+            echo "=== Fin du contenu .env ==="
+            echo "=== Vérification de la configuration Laravel ==="
+            php artisan config:show database.connections.mysql || true
+            echo "=== Configuration MySQL terminée ==="
             export COMPOSER_ALLOW_SUPERUSER=1
             echo "Démarrage de Composer..."
             composer install --no-interaction --prefer-dist --optimize-autoloader
             echo "Génération de la clé..."
             php artisan key:generate --force || true
+            echo "Nettoyage complet du cache avant migration..."
+            php artisan config:clear
+            php artisan cache:clear || true
+            php artisan route:clear
+            php artisan view:clear
+            echo "Vérification finale de la configuration DB..."
+            php artisan config:show database.connections.mysql || true
             echo "Démarrage des migrations..."
             php artisan migrate --force
             echo "Nettoyage du cache..."
