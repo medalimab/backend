@@ -47,6 +47,12 @@ jobs:
             # Vérifier et configurer MySQL dans .env
             sed -i 's/DB_CONNECTION=sqlite/DB_CONNECTION=mysql/' .env || true
             grep -q "DB_CONNECTION=mysql" .env || echo "DB_CONNECTION=mysql" >> .env
+            # Configurer les informations de base de données MySQL pour le serveur
+            sed -i 's/DB_HOST=.*/DB_HOST=localhost/' .env
+            sed -i 's/DB_PORT=.*/DB_PORT=3306/' .env
+            sed -i 's/DB_DATABASE=.*/DB_DATABASE=homagencyMVP/' .env
+            sed -i 's/DB_USERNAME=.*/DB_USERNAME=homagency_user/' .env
+            sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=YOUR_MYSQL_PASSWORD/' .env
             export COMPOSER_ALLOW_SUPERUSER=1
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan key:generate --force || true
