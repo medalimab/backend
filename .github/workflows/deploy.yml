@@ -62,9 +62,10 @@ jobs:
             echo "Démarrage des migrations..."
             php artisan migrate --force
             echo "Nettoyage du cache..."
-            php artisan route:clear
             php artisan config:clear
+            php artisan route:clear
             php artisan view:clear
+            php artisan cache:clear || true
             echo "Reconstruction du cache..."
             php artisan config:cache
             php artisan route:cache
