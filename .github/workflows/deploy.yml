@@ -48,16 +48,21 @@ jobs:
             rm -f .env
             cp .env.example .env
             
-            # Décommenter et configurer les variables de base de données MySQL
-            sed -i 's/# DB_CONNECTION=sqlite/DB_CONNECTION=mysql/' .env
-            sed -i 's/# DB_HOST=127.0.0.1/DB_HOST=localhost/' .env
-            sed -i 's/# DB_PORT=3306/DB_PORT=3306/' .env  
-            sed -i 's/# DB_DATABASE=laravel/DB_DATABASE=homeagencyMVP/' .env
-            sed -i 's/# DB_USERNAME=root/DB_USERNAME=homeagencyMVPUser/' .env
-            sed -i 's/# DB_PASSWORD=/DB_PASSWORD=kzstmxPzIow7pxsf6KMU/' .env
-            
-            # S'assurer que DB_CONNECTION est bien configuré
-            grep -q "DB_CONNECTION=mysql" .env || echo "DB_CONNECTION=mysql" >> .env
+                        # Configurer MySQL dans .env en gérant les lignes commentées
+            sed -i 's/DB_CONNECTION=sqlite/DB_CONNECTION=mysql/' .env || true
+            sed -i 's/# DB_CONNECTION=.*/DB_CONNECTION=mysql/' .env || true
+            grep -q "^DB_CONNECTION=mysql" .env || echo "DB_CONNECTION=mysql" >> .env
+            # Configurer les informations de base de données MySQL pour le serveur
+            sed -i 's/# DB_HOST=.*/DB_HOST=localhost/' .env
+            sed -i 's/DB_HOST=.*/DB_HOST=localhost/' .env
+            sed -i 's/# DB_PORT=.*/DB_PORT=3306/' .env
+            sed -i 's/DB_PORT=.*/DB_PORT=3306/' .env
+            sed -i 's/# DB_DATABASE=.*/DB_DATABASE=homeagencyMVP/' .env
+            sed -i 's/DB_DATABASE=.*/DB_DATABASE=homeagencyMVP/' .env
+            sed -i 's/# DB_USERNAME=.*/DB_USERNAME=homeagencyMVPUser/' .env
+            sed -i 's/DB_USERNAME=.*/DB_USERNAME=homeagencyMVPUser/' .env
+            sed -i 's/# DB_PASSWORD=.*/DB_PASSWORD=kzstmxPzIow7pxsf6KMU/' .env
+            sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=kzstmxPzIow7pxsf6KMU/' .env
             # Forcer la vérification de la configuration
             echo "=== Contenu du .env après modification ==="
             cat .env | grep "DB_"
@@ -68,6 +73,10 @@ jobs:
             export COMPOSER_ALLOW_SUPERUSER=1
             echo "Démarrage de Composer..."
             composer install --no-interaction --prefer-dist --optimize-autoloader
+            echo "Installation des dépendances Node.js..."
+            npm install || true
+            echo "Compilation des assets avec Vite..."
+            npm run build || true
             echo "Génération de la clé..."
             php artisan key:generate --force || true
             echo "Nettoyage complet du cache avant migration..."
