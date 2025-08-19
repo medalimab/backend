@@ -19,17 +19,26 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd /home/homagency/htdocs/homagency.ae/backend/backend/
+            cd /home/homagency/htdocs/homagency.ae/backend/
             # Si le dépôt n'existe pas, on le clone
-            if [ ! -d ".git" ]; then
-              cd ..
-              rm -rf backend
-              git clone https://github.com/medalimab/backend.git backend
+            if [ ! -d "backend/.git" ]; then
+              # Supprimer le dossier avec force et permissions
+              sudo rm -rf backend || rm -rf backend
+              git clone https://github.com/medalimab/backend.git backend || wget -qO- https://github.com/medalimab/backend/archive/refs/heads/master.tar.gz | tar xz && mv backend-master backend
               cd backend
             else
-              git pull origin master
+              cd backend
+              git pull origin master || (cd .. && rm -rf backend && git clone https://github.com/medalimab/backend.git backend && cd backend)
             fi
+            # Créer les dossiers de cache et corriger les permissions
+            mkdir -p bootstrap/cache storage/logs storage/framework/cache storage/framework/sessions storage/framework/views
+            chmod -R 755 bootstrap/cache storage
+            chown -R www-data:www-data bootstrap/cache storage || true
+            # Copier .env si nécessaire
+            [ ! -f .env ] && cp .env.example .env || true
+            export COMPOSER_ALLOW_SUPERUSER=1
             composer install --no-interaction --prefer-dist --optimize-autoloader
+            php artisan key:generate --force || true
             php artisan migrate --force
             php artisan route:clear
             php artisan config:clear
