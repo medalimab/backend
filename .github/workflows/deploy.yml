@@ -20,7 +20,15 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd /home/homagency/htdocs/homagency.ae/backend/backend/
-            git pull origin master
+            # Si le dépôt n'existe pas, on le clone
+            if [ ! -d ".git" ]; then
+              cd ..
+              rm -rf backend
+              git clone https://github.com/medalimab/backend.git backend
+              cd backend
+            else
+              git pull origin master
+            fi
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan migrate --force
             php artisan route:clear
