@@ -300,25 +300,27 @@
             <div class="arrow right">&#10095;</div>
             <div class="cards d-flex gap-3 overflow-auto pb-2" id="carousel">
               @foreach($properties->take(8) as $property)
-                <div class="card" data-status="{{ strtolower($property->property_status) }}" style="min-width:250px;max-width:280px;">
-                  @php
-                    $img = $property->images->first()->image_url ?? null;
-                    if ($img && !str_starts_with($img, 'http')) {
-                      $img = asset('storage/' . (str_starts_with($img, 'properties/') ? $img : 'properties/' . ltrim($img, '/')));
-                    }
-                  @endphp
-                  <img src="{{ $img ?? 'https://via.placeholder.com/300x160' }}" alt="{{ $property->property_name }}" class="w-100" style="height:160px;object-fit:cover;">
-                  <div class="card-content p-3">
-                    <h3 class="mb-1">{{ $property->property_name }}</h3>
-                    <p class="mb-1">{{ $property->property_type }}</p>
-                    <p class="mb-1">{{ $property->address }}</p>
-                    <div class="price-handover d-flex justify-content-between mt-2">
-                      <span class="price">AED {{ number_format($property->price) }}</span>
-                      <span class="handover">{{ $property->handover_date ?? '' }}</span>
+                <a href="/listing_page/home_details/{{ $property->id }}" class="card-link" style="text-decoration:none;color:inherit;">
+                  <div class="card" data-status="{{ strtolower($property->property_status) }}" style="min-width:250px;max-width:280px;cursor:pointer;">
+                    @php
+                      $img = $property->images->first()->image_url ?? null;
+                      if ($img && !str_starts_with($img, 'http')) {
+                        $img = asset('storage/' . (str_starts_with($img, 'properties/') ? $img : 'properties/' . ltrim($img, '/')));
+                      }
+                    @endphp
+                    <img src="{{ $img ?? 'https://via.placeholder.com/300x160' }}" alt="{{ $property->property_name }}" class="w-100" style="height:160px;object-fit:cover;">
+                    <div class="card-content p-3">
+                      <h3 class="mb-1">{{ $property->property_name }}</h3>
+                      <p class="mb-1">{{ $property->property_type }}</p>
+                      <p class="mb-1">{{ $property->address }}</p>
+                      <div class="price-handover d-flex justify-content-between mt-2">
+                        <span class="price">AED {{ number_format($property->price) }}</span>
+                        <span class="handover">{{ $property->handover_date ?? '' }}</span>
+                      </div>
                     </div>
+                    <span class="whatsapp" style="pointer-events:none;">WhatsApp</span>
                   </div>
-                  <a href="https://wa.me/?text=I'm%20interested%20in%20{{ urlencode($property->property_name) }}" class="whatsapp" target="_blank">WhatsApp</a>
-                </div>
+                </a>
               @endforeach
             </div>
             <button class="view-all mt-4" onclick="window.location.href='{{ route('properties.show_listing_page_client') }}'">View all</button>
@@ -336,6 +338,7 @@
             visibility: visible !important;
             opacity: 1 !important;
             width: 100% !important;
+            border-bottom: none !important;
           }
           
           .carousel-separator { 
@@ -590,9 +593,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f8f9fa;
             width: 100%;
             height: 100%;
+          }
+          /* Version mobile : suppression du background-color sur tous les slides Swiper */
+          @media (max-width: 768px) {
+            .swiper-slide,
+            .swiper-slide-next,
+            .swiper-slide-prev {
+              background-color: transparent !important;
+            }
           }
           
           .carousel-image {
