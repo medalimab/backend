@@ -53,13 +53,20 @@ jobs:
             sed -i 's/DB_DATABASE=.*/DB_DATABASE=homeagencyMVP/' .env
             sed -i 's/DB_USERNAME=.*/DB_USERNAME=homeagencyMVPUser/' .env
             sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=kzstmxPzIow7pxsf6KMU/' .env
+            echo "Configuration MySQL terminée"
             export COMPOSER_ALLOW_SUPERUSER=1
+            echo "Démarrage de Composer..."
             composer install --no-interaction --prefer-dist --optimize-autoloader
+            echo "Génération de la clé..."
             php artisan key:generate --force || true
+            echo "Démarrage des migrations..."
             php artisan migrate --force
+            echo "Nettoyage du cache..."
             php artisan route:clear
             php artisan config:clear
             php artisan view:clear
+            echo "Reconstruction du cache..."
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
+            echo "Déploiement terminé !"
