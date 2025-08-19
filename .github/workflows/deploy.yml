@@ -47,15 +47,17 @@ jobs:
             # Supprimer complètement le fichier .env et le recréer
             rm -f .env
             cp .env.example .env
-            # Vérifier et configurer MySQL dans .env
-            sed -i 's/DB_CONNECTION=sqlite/DB_CONNECTION=mysql/' .env || true
+            
+            # Décommenter et configurer les variables de base de données MySQL
+            sed -i 's/# DB_CONNECTION=sqlite/DB_CONNECTION=mysql/' .env
+            sed -i 's/# DB_HOST=127.0.0.1/DB_HOST=localhost/' .env
+            sed -i 's/# DB_PORT=3306/DB_PORT=3306/' .env  
+            sed -i 's/# DB_DATABASE=laravel/DB_DATABASE=homeagencyMVP/' .env
+            sed -i 's/# DB_USERNAME=root/DB_USERNAME=homeagencyMVPUser/' .env
+            sed -i 's/# DB_PASSWORD=/DB_PASSWORD=kzstmxPzIow7pxsf6KMU/' .env
+            
+            # S'assurer que DB_CONNECTION est bien configuré
             grep -q "DB_CONNECTION=mysql" .env || echo "DB_CONNECTION=mysql" >> .env
-            # Configurer les informations de base de données MySQL pour le serveur
-            sed -i 's/DB_HOST=.*/DB_HOST=localhost/' .env
-            sed -i 's/DB_PORT=.*/DB_PORT=3306/' .env
-            sed -i 's/DB_DATABASE=.*/DB_DATABASE=homeagencyMVP/' .env
-            sed -i 's/DB_USERNAME=.*/DB_USERNAME=homeagencyMVPUser/' .env
-            sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=kzstmxPzIow7pxsf6KMU/' .env
             # Forcer la vérification de la configuration
             echo "=== Contenu du .env après modification ==="
             cat .env | grep "DB_"
