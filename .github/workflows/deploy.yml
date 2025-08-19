@@ -34,8 +34,19 @@ jobs:
             mkdir -p bootstrap/cache storage/logs storage/framework/cache storage/framework/sessions storage/framework/views
             chmod -R 775 bootstrap/cache storage
             chown -R www-data:www-data bootstrap/cache storage || chown -R apache:apache bootstrap/cache storage || chown -R nginx:nginx bootstrap/cache storage || true
+            # Corriger les permissions de la base de données SQLite
+            if [ -f "database/database.sqlite" ]; then
+              chmod 664 database/database.sqlite
+              chown www-data:www-data database/database.sqlite || chown apache:apache database/database.sqlite || chown nginx:nginx database/database.sqlite || true
+            fi
+            # Corriger les permissions du dossier database
+            chmod 775 database
+            chown www-data:www-data database || chown apache:apache database || chown nginx:nginx database || true
             # Copier .env si nécessaire
             [ ! -f .env ] && cp .env.example .env || true
+            # Vérifier et configurer MySQL dans .env
+            sed -i 's/DB_CONNECTION=sqlite/DB_CONNECTION=mysql/' .env || true
+            grep -q "DB_CONNECTION=mysql" .env || echo "DB_CONNECTION=mysql" >> .env
             export COMPOSER_ALLOW_SUPERUSER=1
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan key:generate --force || true
