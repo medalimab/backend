@@ -50,9 +50,9 @@ jobs:
             # Configurer les informations de base de données MySQL pour le serveur
             sed -i 's/DB_HOST=.*/DB_HOST=localhost/' .env
             sed -i 's/DB_PORT=.*/DB_PORT=3306/' .env
-            sed -i 's/DB_DATABASE=.*/DB_DATABASE=homagencyMVP/' .env
-            sed -i 's/DB_USERNAME=.*/DB_USERNAME=homagency_user/' .env
-            sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=YOUR_MYSQL_PASSWORD/' .env
+            sed -i 's/DB_DATABASE=.*/DB_DATABASE=homeagencyMVP/' .env
+            sed -i 's/DB_USERNAME=.*/DB_USERNAME=homeagencyMVPUser/' .env
+            sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=kzstmxPzIow7pxsf6KMU/' .env
             export COMPOSER_ALLOW_SUPERUSER=1
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan key:generate --force || true
