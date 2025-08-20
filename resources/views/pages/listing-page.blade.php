@@ -61,23 +61,6 @@
         box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
         width: 100% !important;
         transition: none !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        display: block !important;
-      }
-      
-      /* S'assurer que le contenu du menu est visible */
-      .header-nav .container-fluid,
-      .header-nav nav,
-      .header-nav .ace-responsive-menu,
-      .header-nav .navbar_brand {
-        opacity: 1 !important;
-        visibility: visible !important;
-        display: block !important;
-      }
-      
-      .header-nav .ace-responsive-menu {
-        display: flex !important;
       }
       
       /* Empêcher toute classe ou script de modifier la position du navbar */
@@ -87,13 +70,11 @@
         position: fixed !important;
         top: 0 !important;
         transform: none !important;
-        opacity: 1 !important;
-        visibility: visible !important;
       }
       
       /* Compensation pour le navbar fixe */
       body {
-        padding-top: 90px !important;
+        padding-top: 80px !important;
       }
       
       /* S'assurer que le contenu principal ne se chevauche pas */
@@ -477,12 +458,12 @@
       });
     </script>
     <script>
-      // Forcer la visibilité du menu dès le chargement de la page
+      // Attendre que le DOM soit chargé
       $(document).ready(function() {
         let navbar = $('.header-nav');
         let searchBar = $('.grid_list_search_result');
         
-        // Forcer immédiatement la visibilité et la position du menu
+        // Forcer le menu à rester fixe en haut
         navbar.css({
           'position': 'fixed',
           'top': '0',
@@ -491,23 +472,11 @@
           'z-index': '9999',
           'background': 'white',
           'box-shadow': '0 2px 10px rgba(0,0,0,0.1)',
-          'width': '100%',
-          'opacity': '1',
-          'visibility': 'visible',
-          'display': 'block'
+          'width': '100%'
         });
-        
-        // S'assurer que tous les éléments enfants sont visibles
-        navbar.find('.container-fluid, nav, .ace-responsive-menu, .navbar_brand').css({
-          'opacity': '1',
-          'visibility': 'visible',
-          'display': 'block'
-        });
-        
-        navbar.find('.ace-responsive-menu').css('display', 'flex');
         
         // Ajouter du padding au body pour compenser le navbar fixe
-        $('body').css('padding-top', (navbar.outerHeight() + 10) + 'px');
+        $('body').css('padding-top', navbar.outerHeight() + 'px');
         
         let prevScrollPos = window.pageYOffset;
         
@@ -515,13 +484,8 @@
         function handleScroll() {
           let currentScrollPos = window.pageYOffset;
           
-          // Forcer le navbar à rester toujours visible
-          navbar.css({
-            'top': '0',
-            'opacity': '1',
-            'visibility': 'visible',
-            'display': 'block'
-          });
+          // Garder toujours le navbar visible
+          navbar.css('top', '0');
           
           // Gérer uniquement la barre de recherche sticky
           if (currentScrollPos > 100) {
@@ -541,25 +505,14 @@
           navbar.css({
             'position': 'fixed',
             'top': '0',
-            'z-index': '9999',
-            'opacity': '1',
-            'visibility': 'visible'
+            'z-index': '9999'
           });
-          $('body').css('padding-top', (navbar.outerHeight() + 10) + 'px');
+          $('body').css('padding-top', navbar.outerHeight() + 'px');
           handleScroll();
         });
         
         // Appeler handleScroll au chargement
         handleScroll();
-        
-        // Forcer la visibilité après un petit délai pour s'assurer que tout est chargé
-        setTimeout(function() {
-          navbar.css({
-            'opacity': '1',
-            'visibility': 'visible',
-            'display': 'block'
-          });
-        }, 100);
       });
     </script>
     <script>
