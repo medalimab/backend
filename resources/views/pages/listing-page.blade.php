@@ -522,20 +522,6 @@
           'color': '#333'
         });
         
-        // Forcer spécifiquement la visibilité du logo
-        $('.navbar_brand, .nav_logo_img, .logo, .navbar_brand img, .nav_logo_img img, .logo img').css({
-          'visibility': 'visible',
-          'opacity': '1',
-          'display': 'block'
-        });
-        
-        // S'assurer que les images de logo sont bien affichées
-        $('.navbar_brand img, .nav_logo_img, .logo img').css({
-          'display': 'inline-block',
-          'max-height': '60px',
-          'width': 'auto'
-        });
-        
         // Forcer le menu à rester fixe en haut
         navbar.css({
           'position': 'fixed',
