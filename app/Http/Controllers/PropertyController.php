@@ -157,6 +157,8 @@ class PropertyController extends Controller
                         'pdf' => 'nullable|mimes:pdf|max:10240',
                         'dld_permit_number' => 'nullable|string',
                         'agent_id' => 'required|exists:agents,id',
+                        'images' => 'required|array|min:1',
+                        'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
                     ];
 
                     $messages = [
@@ -164,6 +166,12 @@ class PropertyController extends Controller
                         'agent_id.required' => 'Veuillez sélectionner un agent.',
                         'agent_id.exists' => 'L agent sélectionné n existe pas.',
                         'handover_date.required' => 'La date de livraison est obligatoire pour les propriétés Off-plan.',
+                        'images.required' => 'Au moins une image est obligatoire pour la propriété.',
+                        'images.min' => 'Vous devez ajouter au moins une image.',
+                        'images.*.required' => 'Chaque fichier image est obligatoire.',
+                        'images.*.image' => 'Le fichier doit être une image.',
+                        'images.*.mimes' => 'L\'image doit être au format : jpeg, png, jpg, gif.',
+                        'images.*.max' => 'L\'image ne doit pas dépasser 5 MB.',
                     ];
 
                     $validated = $request->validate($rules, $messages);

@@ -67,8 +67,9 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="images" class="form-label">Property Images (min 5)</label>
-                    <input type="file" name="images[]" class="form-control" id="images" accept="image/*" multiple>
+                    <label for="images" class="form-label">Property Images (required) <span class="text-danger">*</span></label>
+                    <input type="file" name="images[]" class="form-control" id="images" accept="image/*" multiple required>
+                    <small class="text-muted">Au moins une image est obligatoire. Formats acceptés : JPEG, PNG, JPG, GIF (max 5MB par image)</small>
                 </div>
             </div>
         </div>
@@ -594,6 +595,63 @@
             this.value = ''; // clear the input
         } else {
             errorMsg.classList.add('d-none');
+        }
+    });
+
+    // Validation pour les images obligatoires
+    document.getElementById('images').addEventListener('change', function() {
+        const files = this.files;
+        const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+        let hasError = false;
+        let errorMessage = '';
+
+        if (files.length === 0) {
+            errorMessage = 'Au moins une image est obligatoire.';
+            hasError = true;
+        } else {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (!allowedTypes.includes(file.type)) {
+                    errorMessage = `Le fichier "${file.name}" n'est pas un format d'image valide.`;
+                    hasError = true;
+                    break;
+                }
+                if (file.size > maxSize) {
+                    errorMessage = `Le fichier "${file.name}" dépasse la taille maximale de 5 MB.`;
+                    hasError = true;
+                    break;
+                }
+            }
+        }
+
+        // Afficher ou cacher le message d'erreur
+        let errorDiv = document.getElementById('images-error');
+        if (!errorDiv) {
+            errorDiv = document.createElement('div');
+            errorDiv.id = 'images-error';
+            errorDiv.className = 'text-danger mt-2';
+            this.parentNode.appendChild(errorDiv);
+        }
+
+        if (hasError) {
+            errorDiv.textContent = errorMessage;
+            errorDiv.classList.remove('d-none');
+            this.setCustomValidity(errorMessage);
+        } else {
+            errorDiv.classList.add('d-none');
+            this.setCustomValidity('');
+        }
+    });
+
+    // Validation du formulaire avant soumission
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const imagesInput = document.getElementById('images');
+        if (imagesInput.files.length === 0) {
+            e.preventDefault();
+            alert('Veuillez ajouter au moins une image pour la propriété.');
+            imagesInput.focus();
+            return false;
         }
     });
     </script>
