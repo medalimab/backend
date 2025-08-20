@@ -62,13 +62,39 @@ class PropertyController extends Controller
             'retail_centers'=> 'nullable|integer',
             'total_floors'=> 'nullable|integer',
             'agent_id' => 'required|exists:agents,id',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ];
 
         $messages = [
             'handover_date.required' => 'La date de livraison est obligatoire pour les propriétés Off-plan.',
+            'images.*.image' => 'Le fichier doit être une image.',
+            'images.*.mimes' => 'L\'image doit être au format : jpeg, png, jpg, gif.',
+            'images.*.max' => 'L\'image ne doit pas dépasser 5 MB.',
         ];
 
+        // Vérifier qu'il y a au moins une image (existante ou nouvelle)
+        $hasExistingImages = $property->images()->count() > 0;
+        $hasNewImages = $request->hasFile('images');
+        
+        if (!$hasExistingImages && !$hasNewImages) {
+            return back()->withErrors(['images' => 'Au moins une image est obligatoire pour la propriété.'])->withInput();
+        }
+
         $validated = $request->validate($rules, $messages);
+        
+        // Mettre à jour la propriété
+        $property->update($validated);
+        
+        // Gestion des nouvelles images
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $imageFile) {
+                $imagePath = $imageFile->store('properties', 'public');
+                $property->images()->create([
+                    'image_url' => $imagePath,
+                ]);
+            }
+        }
         $property->update($validated);
         return redirect()->route('properties.list')->with('success', 'Property updated successfully!');
     }

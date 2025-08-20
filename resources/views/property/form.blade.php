@@ -41,12 +41,40 @@
             <!-- Exemple : -->
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Add Property Photo</h4>
+                    <h4 class="card-title">Property Photos</h4>
                 </div>
                 <div class="card-body">
+                    @if(isset($property) && $property->images->count() > 0)
+                        <div class="mb-3">
+                            <h6>Images actuelles ({{ $property->images->count() }}) :</h6>
+                            <div class="row">
+                                @foreach($property->images as $image)
+                                    <div class="col-md-3 mb-2">
+                                        <img src="{{ asset('storage/' . $image->image_url) }}" alt="Property Image" class="img-fluid rounded" style="max-height: 100px; object-fit: cover;">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                    
                     <div class="mb-3">
-                        <label for="images" class="form-label">Property Images (min 5)</label>
-                        <input type="file" name="images[]" class="form-control" id="images" accept="image/*" multiple>
+                        <label for="images" class="form-label">
+                            @if(isset($property) && $property->images->count() > 0)
+                                Ajouter des images supplémentaires
+                            @else
+                                Property Images (obligatoire) <span class="text-danger">*</span>
+                            @endif
+                        </label>
+                        <input type="file" name="images[]" class="form-control" id="images" accept="image/*" multiple 
+                               @if(!isset($property) || $property->images->count() == 0) required @endif>
+                        <small class="text-muted">
+                            @if(isset($property) && $property->images->count() > 0)
+                                Vous pouvez ajouter des images supplémentaires. 
+                            @else
+                                Au moins une image est obligatoire. 
+                            @endif
+                            Formats acceptés : JPEG, PNG, JPG, GIF (max 5MB par image)
+                        </small>
                     </div>
                 </div>
             </div>
@@ -502,6 +530,69 @@
             this.value = ''; // clear the input
         } else {
             errorMsg?.classList.add('d-none');
+        }
+    });
+
+    // Validation pour les images (similaire au formulaire d'ajout)
+    document.getElementById('images').addEventListener('change', function() {
+        const files = this.files;
+        const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+        let hasError = false;
+        let errorMessage = '';
+
+        // Vérifier si c'est requis (nouvelle propriété ou propriété sans images)
+        const isRequired = this.hasAttribute('required');
+        const hasExistingImages = document.querySelector('.row') && document.querySelector('.row img'); // Simple check pour images existantes
+
+        if (isRequired && files.length === 0) {
+            errorMessage = 'Au moins une image est obligatoire.';
+            hasError = true;
+        } else if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (!allowedTypes.includes(file.type)) {
+                    errorMessage = `Le fichier "${file.name}" n'est pas un format d'image valide.`;
+                    hasError = true;
+                    break;
+                }
+                if (file.size > maxSize) {
+                    errorMessage = `Le fichier "${file.name}" dépasse la taille maximale de 5 MB.`;
+                    hasError = true;
+                    break;
+                }
+            }
+        }
+
+        // Afficher ou cacher le message d'erreur
+        let errorDiv = document.getElementById('images-error-form');
+        if (!errorDiv) {
+            errorDiv = document.createElement('div');
+            errorDiv.id = 'images-error-form';
+            errorDiv.className = 'text-danger mt-2';
+            this.parentNode.appendChild(errorDiv);
+        }
+
+        if (hasError) {
+            errorDiv.textContent = errorMessage;
+            errorDiv.classList.remove('d-none');
+            this.setCustomValidity(errorMessage);
+        } else {
+            errorDiv.classList.add('d-none');
+            this.setCustomValidity('');
+        }
+    });
+
+    // Validation du formulaire avant soumission
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const imagesInput = document.getElementById('images');
+        const isRequired = imagesInput.hasAttribute('required');
+        
+        if (isRequired && imagesInput.files.length === 0) {
+            e.preventDefault();
+            alert('Veuillez ajouter au moins une image pour la propriété.');
+            imagesInput.focus();
+            return false;
         }
     });
 </script>
