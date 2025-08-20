@@ -83,14 +83,36 @@
         padding-top: 20px;
       }
       
-      /* Forcer la visibilité du contenu des liens de menu */
+      /* Forcer la visibilité des éléments de menu et logo */
+      .ace-responsive-menu li,
       .ace-responsive-menu li a,
-      .ace-responsive-menu li a .title,
-      .header-nav .ace-responsive-menu li a {
-        opacity: 1 !important;
+      .ace-responsive-menu li .title,
+      .navbar_brand,
+      .nav_logo_img,
+      .logo,
+      .logo-blue,
+      .logo-light {
         visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+      }
+      
+      /* Style spécifique pour le logo */
+      .navbar_brand img,
+      .nav_logo_img,
+      .logo img {
+        visibility: visible !important;
+        opacity: 1 !important;
         display: inline-block !important;
-        color: #333 !important;
+        max-height: 60px;
+        width: auto;
+      }
+      
+      /* Assurer que le conteneur du logo est visible */
+      .navbar_brand {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
       }
       
       /* S'assurer que le menu est visible dès le chargement */
@@ -498,6 +520,20 @@
           'opacity': '1',
           'visibility': 'visible',
           'color': '#333'
+        });
+        
+        // Forcer spécifiquement la visibilité du logo
+        $('.navbar_brand, .nav_logo_img, .logo, .navbar_brand img, .nav_logo_img img, .logo img').css({
+          'visibility': 'visible',
+          'opacity': '1',
+          'display': 'block'
+        });
+        
+        // S'assurer que les images de logo sont bien affichées
+        $('.navbar_brand img, .nav_logo_img, .logo img').css({
+          'display': 'inline-block',
+          'max-height': '60px',
+          'width': 'auto'
         });
         
         // Forcer le menu à rester fixe en haut
