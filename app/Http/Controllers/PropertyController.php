@@ -1,6 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace     // Rediriger vers la liste des propriétés existante
+    public function index()
+    {
+        return redirect()->route('properties.list');
+    }tp\Controllers;
 
 use App\Models\Property;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +17,12 @@ class PropertyController extends Controller
     public function create()
     {
         return view('property.add');
+    }
+
+    // Rediriger vers la liste des propriétés existante
+    public function index()
+    {
+        return redirect()->route('properties.list');
     }
 
     // Affiche le formulaire d'édition
