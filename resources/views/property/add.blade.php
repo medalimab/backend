@@ -481,6 +481,7 @@
         const furnishingField = document.getElementById('furnishing-field');
         const garageField = document.getElementById('property-garage');
         const plotAreaField = document.getElementById('property-size');
+        const builtUpAreaField = document.getElementById('property-built_up_area');
 
         console.log('Add form - Elements found:', {
             statusSelect: !!statusSelect,
@@ -490,7 +491,8 @@
             bathroomsField: !!bathroomsField,
             furnishingField: !!furnishingField,
             garageField: !!garageField,
-            plotAreaField: !!plotAreaField
+            plotAreaField: !!plotAreaField,
+            builtUpAreaField: !!builtUpAreaField
         });
 
         function toggleFields() {
@@ -547,6 +549,8 @@
                 if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
                 if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
                 if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
+                // Afficher le champ "Build up area" pour les villas
+                if (builtUpAreaField) builtUpAreaField.closest('.col-lg-6').style.display = 'block';
             }
             // Apartments
             else if (selectedType === 'Apartment' || selectedType === 'Penthouse' || selectedType === 'Hotel Apartment') {
@@ -556,6 +560,8 @@
                 if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
                 if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
                 if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
+                // Cacher le champ "Build up area" pour les appartements
+                if (builtUpAreaField) builtUpAreaField.closest('.col-lg-6').style.display = 'none';
             }
             // Plots/Land
             else if (selectedType === 'Plot' || selectedType === 'Land' || selectedType === 'Industrial Land' || selectedType === 'Mixed Use Land') {
@@ -574,6 +580,7 @@
                 if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
                 if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
                 if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
+                if (builtUpAreaField) builtUpAreaField.closest('.col-lg-6').style.display = 'block';
             }
         }
 
