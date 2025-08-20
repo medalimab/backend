@@ -50,25 +50,37 @@
         position: relative;
       }
       
-      /* CSS pour navbar fixe */
-      .header-nav.navbar-scrolltofixed {
+      /* CSS pour navbar fixe - priorité élevée */
+      .header-nav {
         position: fixed !important;
         top: 0 !important;
         left: 0 !important;
         right: 0 !important;
         z-index: 9999 !important;
         background: white !important;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+        width: 100% !important;
+        transition: none !important;
+      }
+      
+      /* Empêcher toute classe ou script de modifier la position du navbar */
+      .header-nav.navbar-scrolltofixed,
+      .header-nav.stricky,
+      .header-nav.menu_style_home_one {
+        position: fixed !important;
+        top: 0 !important;
+        transform: none !important;
       }
       
       /* Compensation pour le navbar fixe */
       body {
-        padding-top: 80px;
+        padding-top: 80px !important;
       }
       
       /* S'assurer que le contenu principal ne se chevauche pas */
       .our-listing {
-        margin-top: 0;
+        margin-top: 0 !important;
+        padding-top: 20px;
       }
       }
       
@@ -393,10 +405,11 @@
     <script type="text/javascript" src="{{asset('js/simplebar.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/parallax.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/scrollto.js')}}"></script>
-    <script
+    {{-- Désactiver scrolltofixed pour éviter les conflits avec notre menu fixe --}}
+    {{-- <script
       type="text/javascript"
       src="{{asset('js/jquery-scrolltofixed-min.js')}}"
-    ></script>
+    ></script> --}}
     <script type="text/javascript" src="{{asset('js/jquery.counterup.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/wow.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/progressbar.js')}}"></script>
@@ -445,47 +458,62 @@
       });
     </script>
     <script>
-      let navbar = document.querySelector('.header-nav');
-      let searchBar = document.querySelector('.grid_list_search_result');
-      let prevScrollPos = window.pageYOffset;
-    
-      // Set initial styles for the navbar (keep it always visible)
-      navbar.style.top = "0";
-      navbar.style.position = "fixed";
-      navbar.style.zIndex = "9999";
-      navbar.style.width = "100%";
-    
-      // Function to handle sticky search bar only (navbar stays visible)
-      function handleScroll() {
-        let currentScrollPos = window.pageYOffset;
-    
-        // Keep the navbar always visible, only manage the search bar
-        if (prevScrollPos < currentScrollPos && currentScrollPos > 100) {
-          // When scrolling down, show sticky search bar
-          searchBar.classList.add("sticky-visible");
-        } else {
-          // When scrolling up or near top, hide sticky search bar
-          searchBar.classList.remove("sticky-visible");
+      // Attendre que le DOM soit chargé
+      $(document).ready(function() {
+        let navbar = $('.header-nav');
+        let searchBar = $('.grid_list_search_result');
+        
+        // Forcer le menu à rester fixe en haut
+        navbar.css({
+          'position': 'fixed',
+          'top': '0',
+          'left': '0',
+          'right': '0',
+          'z-index': '9999',
+          'background': 'white',
+          'box-shadow': '0 2px 10px rgba(0,0,0,0.1)',
+          'width': '100%'
+        });
+        
+        // Ajouter du padding au body pour compenser le navbar fixe
+        $('body').css('padding-top', navbar.outerHeight() + 'px');
+        
+        let prevScrollPos = window.pageYOffset;
+        
+        // Function to handle scroll - seulement pour la barre de recherche
+        function handleScroll() {
+          let currentScrollPos = window.pageYOffset;
+          
+          // Garder toujours le navbar visible
+          navbar.css('top', '0');
+          
+          // Gérer uniquement la barre de recherche sticky
+          if (currentScrollPos > 100) {
+            searchBar.addClass("sticky-visible");
+          } else {
+            searchBar.removeClass("sticky-visible");
+          }
+          
+          prevScrollPos = currentScrollPos;
         }
-    
-        prevScrollPos = currentScrollPos;
-      }
-    
-      // Listen for scroll event
-      window.onscroll = handleScroll;
-    
-      // Handle window resize (zoom change) to ensure sticky behavior
-      window.onresize = function() {
-        // Keep navbar visible and recalculate styles
-        navbar.style.top = "0";
-        searchBar.classList.remove("sticky-visible");
-    
-        // Re-run the scroll function in case resize affects layout
+        
+        // Écouter l'événement de scroll
+        $(window).on('scroll', handleScroll);
+        
+        // Gérer le redimensionnement
+        $(window).on('resize', function() {
+          navbar.css({
+            'position': 'fixed',
+            'top': '0',
+            'z-index': '9999'
+          });
+          $('body').css('padding-top', navbar.outerHeight() + 'px');
+          handleScroll();
+        });
+        
+        // Appeler handleScroll au chargement
         handleScroll();
-      };
-    
-      // Call handleScroll initially to ensure correct state on load
-      handleScroll();
+      });
     </script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
