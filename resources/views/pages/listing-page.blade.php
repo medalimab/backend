@@ -82,48 +82,6 @@
         margin-top: 0 !important;
         padding-top: 20px;
       }
-      
-      /* Forcer la visibilité des éléments de menu et logo */
-      .ace-responsive-menu li,
-      .ace-responsive-menu li a,
-      .ace-responsive-menu li .title,
-      .navbar_brand,
-      .nav_logo_img,
-      .logo,
-      .logo-blue,
-      .logo-light {
-        visibility: visible !important;
-        opacity: 1 !important;
-        display: block !important;
-      }
-      
-      /* Style spécifique pour le logo */
-      .navbar_brand img,
-      .nav_logo_img,
-      .logo img {
-        visibility: visible !important;
-        opacity: 1 !important;
-        display: inline-block !important;
-        max-height: 60px;
-        width: auto;
-      }
-      
-      /* Assurer que le conteneur du logo est visible */
-      .navbar_brand {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-      }
-      
-      /* S'assurer que le menu est visible dès le chargement */
-      .ace-responsive-menu {
-        opacity: 1 !important;
-        visibility: visible !important;
-      }
-      
-      .header-nav {
-        opacity: 1 !important;
-        visibility: visible !important;
       }
       
       /* Styles responsive pour le footer mobile */
@@ -505,36 +463,6 @@
         let navbar = $('.header-nav');
         let searchBar = $('.grid_list_search_result');
         
-        // Forcer immédiatement la visibilité du menu et de ses éléments
-        navbar.css({
-          'opacity': '1',
-          'visibility': 'visible'
-        });
-        
-        $('.ace-responsive-menu').css({
-          'opacity': '1',
-          'visibility': 'visible'
-        });
-        
-        $('.ace-responsive-menu li a, .ace-responsive-menu li a .title').css({
-          'opacity': '1',
-          'visibility': 'visible',
-          'color': '#333'
-        });
-        
-        // Forcer immédiatement la visibilité du logo
-        $('.navbar_brand, .nav_logo_img, .logo, .logo-blue, .logo-light').css({
-          'opacity': '1',
-          'visibility': 'visible',
-          'display': 'block'
-        });
-        
-        $('.navbar_brand img, .nav_logo_img, .logo img').css({
-          'opacity': '1',
-          'visibility': 'visible',
-          'display': 'inline-block'
-        });
-        
         // Forcer le menu à rester fixe en haut
         navbar.css({
           'position': 'fixed',
@@ -549,16 +477,6 @@
         
         // Ajouter du padding au body pour compenser le navbar fixe
         $('body').css('padding-top', navbar.outerHeight() + 'px');
-        
-        // S'assurer que tous les éléments du header sont visibles
-        setTimeout(function() {
-          $('.header-nav *').css('visibility', 'visible');
-          $('.navbar_brand, .nav_logo_img').css({
-            'visibility': 'visible',
-            'opacity': '1',
-            'display': 'block'
-          });
-        }, 100);
         
         let prevScrollPos = window.pageYOffset;
         
