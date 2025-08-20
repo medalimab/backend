@@ -50,6 +50,28 @@
         position: relative;
       }
       
+      /* CSS pour navbar fixe */
+      .header-nav.navbar-scrolltofixed {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+        background: white !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      
+      /* Compensation pour le navbar fixe */
+      body {
+        padding-top: 80px;
+      }
+      
+      /* S'assurer que le contenu principal ne se chevauche pas */
+      .our-listing {
+        margin-top: 0;
+      }
+      }
+      
       /* Styles responsive pour le footer mobile */
       @media (max-width: 768px) {
         .footer_one {
@@ -427,20 +449,23 @@
       let searchBar = document.querySelector('.grid_list_search_result');
       let prevScrollPos = window.pageYOffset;
     
-      // Set initial styles for the navbar (no need to set display for search bar in JS)
-      navbar.style.top = "0";  // Ensure navbar is positioned correctly initially
+      // Set initial styles for the navbar (keep it always visible)
+      navbar.style.top = "0";
+      navbar.style.position = "fixed";
+      navbar.style.zIndex = "9999";
+      navbar.style.width = "100%";
     
-      // Function to handle sticky search bar
+      // Function to handle sticky search bar only (navbar stays visible)
       function handleScroll() {
         let currentScrollPos = window.pageYOffset;
     
-        // When scrolling down, hide the navbar and show the search bar
-        if (prevScrollPos < currentScrollPos) {
-          navbar.style.top = "-70px";  // Adjust to hide the navbar (height of navbar)
-          searchBar.classList.add("sticky-visible");  // Add a class to make search bar sticky
+        // Keep the navbar always visible, only manage the search bar
+        if (prevScrollPos < currentScrollPos && currentScrollPos > 100) {
+          // When scrolling down, show sticky search bar
+          searchBar.classList.add("sticky-visible");
         } else {
-          navbar.style.top = "0";  // Show the navbar
-          searchBar.classList.remove("sticky-visible");  // Remove the class to hide search bar
+          // When scrolling up or near top, hide sticky search bar
+          searchBar.classList.remove("sticky-visible");
         }
     
         prevScrollPos = currentScrollPos;
@@ -451,9 +476,9 @@
     
       // Handle window resize (zoom change) to ensure sticky behavior
       window.onresize = function() {
-        // Recalculate any necessary styles or re-trigger sticky behavior
+        // Keep navbar visible and recalculate styles
+        navbar.style.top = "0";
         searchBar.classList.remove("sticky-visible");
-        navbar.style.top = "0";  // Reset navbar position
     
         // Re-run the scroll function in case resize affects layout
         handleScroll();
