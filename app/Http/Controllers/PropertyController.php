@@ -6,6 +6,7 @@ use App\Models\Property;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
@@ -31,39 +32,34 @@ class PropertyController extends Controller
     // Met à jour la propriété
     public function update(Request $request, $id)
     {
+        Log::info('Property Update Request Received:', ['id' => $id, 'data' => $request->all()]);
+        
         $property = Property::findOrFail($id);
         
+        try {
+        
         // Validation conditionnelle pour handover_date
-        $rules = [
+                $rules = [
             'property_name' => 'required|string|max:255',
-            'property_id' => 'required|string|max:100',
-            'description' => 'nullable|string',
-            'address' => 'required|string|max:255',
-            'developer' => 'nullable|string|max:255',
-            'property_usage' => 'nullable|string|max:255',
-            'price' => 'required|numeric',
-            'property_size' => 'required|integer',
-            'building_area' => 'nullable|numeric',
-            'year_built' => 'nullable|integer',
-            'handover_date' => $request->property_status === 'Off-plan' ? 'required|string|max:100' : 'nullable|string|max:100',
-            'bedrooms' => 'required|integer',
-            'bathrooms' => 'required|integer',
-            'garage' => 'nullable|integer',
-            'property_type' => 'required|string|max:100',
-            'property_status' => 'required|string|max:100',
-            'amenities' => 'nullable|string',
+            'property_id' => 'required|string|max:255',
+            'property_type' => 'required|string',
+            'property_status' => 'required|string',
+            'property_size' => 'required|numeric|min:0',
+            'bedrooms' => 'required|integer|min:0',
+            'bathrooms' => 'required|integer|min:0',
+            'building_parking_spaces' => 'required|integer|min:0',
             'property_furnishing' => 'required|string',
-            'property_built_up_area'=> 'required|integer',
-            'property_parking_availability'=> 'nullable|string',
-            'building_name'=> 'nullable|string',
-            'building_parking_spaces'=> 'nullable|integer',
-            'number_elevators'=> 'nullable|integer',
-            'swimming_pool'=> 'nullable|integer',
-            'retail_centers'=> 'nullable|integer',
-            'total_floors'=> 'nullable|integer',
-            'agent_id' => 'required|exists:agents,id',
-            'images' => 'nullable|array',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'price' => 'required|numeric|min:0',
+            'year_built' => 'nullable|integer|min:1800|max:' . date('Y'),
+            'handover_date' => 'nullable|string|max:255',
+            'address' => 'required|string',
+            'description' => 'nullable|string',
+            'amenities' => 'array',
+            'amenities.*' => 'string',
+            'agent_id' => 'nullable|integer|exists:agents,id',
+            'property_built_up_area' => 'nullable|numeric|min:0',
+            'property_parking_availability' => 'nullable|string',
+            'developer' => 'nullable|string|max:255',
         ];
 
         $messages = [
@@ -83,6 +79,11 @@ class PropertyController extends Controller
 
         $validated = $request->validate($rules, $messages);
         
+        // Transformer amenities array en string
+        if (isset($validated['amenities']) && is_array($validated['amenities'])) {
+            $validated['amenities'] = implode(',', $validated['amenities']);
+        }
+        
         // Mettre à jour la propriété
         $property->update($validated);
         
@@ -95,8 +96,16 @@ class PropertyController extends Controller
                 ]);
             }
         }
-        $property->update($validated);
+        
         return redirect()->route('properties.list')->with('success', 'Property updated successfully!');
+        
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Property Update Validation Failed:', $e->errors());
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            Log::error('Property Update Failed: ' . $e->getMessage());
+            return back()->with('error', $e->getMessage())->withInput();
+        }
     }
 
     // Supprime la propriété
@@ -105,6 +114,23 @@ class PropertyController extends Controller
         $property = Property::findOrFail($id);
         $property->delete();
         return redirect()->route('properties.list')->with('success', 'Property deleted successfully!');
+    }
+
+    // Supprime une image spécifique d'une propriété
+    public function deleteImage($propertyId, $imageId)
+    {
+        $property = Property::findOrFail($propertyId);
+        $image = $property->images()->findOrFail($imageId);
+        
+        // Supprimer le fichier physique
+        if ($image->image_url && Storage::disk('public')->exists($image->image_url)) {
+            Storage::disk('public')->delete($image->image_url);
+        }
+        
+        // Supprimer l'enregistrement de la base
+        $image->delete();
+        
+        return back()->with('success', 'Image supprimée avec succès!');
     }
 
         public function showHomePage()

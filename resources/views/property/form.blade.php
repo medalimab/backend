@@ -49,8 +49,16 @@
                             <h6>Images actuelles ({{ $property->images->count() }}) :</h6>
                             <div class="row">
                                 @foreach($property->images as $image)
-                                    <div class="col-md-3 mb-2">
-                                        <img src="{{ asset('storage/' . $image->image_url) }}" alt="Property Image" class="img-fluid rounded" style="max-height: 100px; object-fit: cover;">
+                                    <div class="col-md-3 mb-3" id="image-{{ $image->id }}">
+                                        <div class="position-relative">
+                                            <img src="{{ asset('storage/' . $image->image_url) }}" alt="Property Image" class="img-fluid rounded" style="max-height: 120px; object-fit: cover; width: 100%;">
+                                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" 
+                                                    onclick="deleteImage({{ $property->id }}, {{ $image->id }})" 
+                                                    style="padding: 2px 8px; font-size: 12px;"
+                                                    title="Supprimer cette image">
+                                                <i class="ri-close-line"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
@@ -595,5 +603,37 @@
             return false;
         }
     });
+
+    // Fonction pour supprimer une image
+    function deleteImage(propertyId, imageId) {
+        if (confirm('Êtes-vous sûr de vouloir supprimer cette image ?')) {
+            // Créer un formulaire pour envoyer la requête DELETE
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/properties/${propertyId}/images/${imageId}`;
+            
+            // Ajouter le token CSRF
+            const csrfToken = document.querySelector('meta[name="csrf-token"]') || document.querySelector('input[name="_token"]');
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken ? (csrfToken.content || csrfToken.value) : '';
+            form.appendChild(csrfInput);
+            
+            // Ajouter la méthode DELETE
+            const methodInput = document.createElement('input');
+            methodInput.type = 'hidden';
+            methodInput.name = '_method';
+            methodInput.value = 'DELETE';
+            form.appendChild(methodInput);
+            
+            // Soumettre le formulaire
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+
+    // Rendre la fonction globale
+    window.deleteImage = deleteImage;
 </script>
 @endsection

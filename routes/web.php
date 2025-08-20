@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('properties', PropertyController::class)->parameters([
         'properties' => 'id'
     ]);
+    
+    // Route pour supprimer une image spécifique
+    Route::delete('/properties/{property}/images/{image}', [PropertyController::class, 'deleteImage'])->name('properties.images.delete');
 
     Route::resource('agents', AgentController::class);
 
