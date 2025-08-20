@@ -41,6 +41,7 @@
                    
 
                     <!-- User -->
+                    @auth
                     <div class="dropdown topbar-item">
                          <a type="button" class="topbar-button" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <span class="d-flex align-items-center">
@@ -76,6 +77,14 @@
                                </form>
                          </div>
                     </div>
+                    @else
+                    <div class="topbar-item">
+                         <a href="{{ route('login') }}" class="topbar-button">
+                              <iconify-icon icon="solar:login-3-broken" class="align-middle me-1 fs-18"></iconify-icon>
+                              <span class="align-middle">Login</span>
+                         </a>
+                    </div>
+                    @endauth
                </div>
           </div>
      </div></div>
