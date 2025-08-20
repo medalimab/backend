@@ -86,6 +86,7 @@ jobs:
             php artisan cache:clear || true
             php artisan route:clear
             php artisan view:clear
+            php artisan session:clear || true
             echo "Vérification finale de la configuration DB..."
             php artisan config:show database.connections.mysql || true
             echo "Démarrage des migrations..."
