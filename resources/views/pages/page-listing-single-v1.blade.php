@@ -21,6 +21,75 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
 
+<style>
+      /* CSS pour navbar fixe - priorité élevée */
+      .header-nav {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+        background: white !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+        width: 100% !important;
+        transition: none !important;
+      }
+      
+      /* Empêcher toute classe ou script de modifier la position du navbar */
+      .header-nav.navbar-scrolltofixed,
+      .header-nav.stricky,
+      .header-nav.menu_style_home_one {
+        position: fixed !important;
+        top: 0 !important;
+        transform: none !important;
+      }
+      
+      /* Compensation pour le navbar fixe */
+      body {
+        padding-top: 80px !important;
+      }
+      
+      /* S'assurer que le contenu principal ne se chevauche pas */
+      .our-agent-single {
+        padding-top: 20px;
+      }
+      
+      /* Forcer la visibilité immédiate de tous les éléments du menu et logo */
+      .header-nav .container-fluid,
+      .header-nav nav,
+      .navbar_brand,
+      .nav_logo_img,
+      .logo,
+      .logo-blue,
+      .logo-light,
+      .ace-responsive-menu,
+      .ace-responsive-menu li,
+      .ace-responsive-menu li a,
+      .ace-responsive-menu li a .title {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+      }
+      
+      /* Spécifiquement pour les liens du menu */
+      .ace-responsive-menu li {
+        display: inline-block !important;
+      }
+      
+      /* Spécifiquement pour les images du logo */
+      .navbar_brand img,
+      .nav_logo_img,
+      .logo img,
+      .logo-blue,
+      .logo-light {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: inline-block !important;
+        max-height: 60px;
+        width: auto;
+      }
+</style>
+
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -1064,7 +1133,8 @@
 <script type="text/javascript" src="{{asset('js/simplebar.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/parallax.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/scrollto.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/jquery-scrolltofixed-min.js')}}"></script>
+{{-- Désactiver scrolltofixed pour éviter les conflits avec notre menu fixe --}}
+{{-- <script type="text/javascript" src="{{asset('js/jquery-scrolltofixed-min.js')}}"></script> --}}
 <script type="text/javascript" src="{{asset('js/jquery.counterup.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/wow.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/progressbar.js')}}"></script>
@@ -1078,6 +1148,75 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <!-- Custom script for all pages --> 
 <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+
+<script>
+  // Script pour forcer la visibilité du menu dès le chargement
+  $(document).ready(function() {
+    let navbar = $('.header-nav');
+    
+    // FORCER IMMÉDIATEMENT la visibilité de tous les éléments du menu et logo
+    $('.header-nav .container-fluid, .header-nav nav').css({
+      'visibility': 'visible',
+      'opacity': '1',
+      'display': 'block'
+    });
+    
+    $('.navbar_brand, .nav_logo_img, .logo, .logo-blue, .logo-light').css({
+      'visibility': 'visible',
+      'opacity': '1',
+      'display': 'block'
+    });
+    
+    $('.navbar_brand img, .nav_logo_img, .logo img').css({
+      'visibility': 'visible',
+      'opacity': '1',
+      'display': 'inline-block'
+    });
+    
+    $('.ace-responsive-menu').css({
+      'visibility': 'visible',
+      'opacity': '1',
+      'display': 'block'
+    });
+    
+    $('.ace-responsive-menu li').css({
+      'visibility': 'visible',
+      'opacity': '1',
+      'display': 'inline-block'
+    });
+    
+    $('.ace-responsive-menu li a, .ace-responsive-menu li a .title').css({
+      'visibility': 'visible',
+      'opacity': '1',
+      'color': '#333'
+    });
+    
+    // Forcer le menu à rester fixe en haut
+    navbar.css({
+      'position': 'fixed',
+      'top': '0',
+      'left': '0',
+      'right': '0',
+      'z-index': '9999',
+      'background': 'white',
+      'box-shadow': '0 2px 10px rgba(0,0,0,0.1)',
+      'width': '100%'
+    });
+    
+    // Ajouter du padding au body pour compenser le navbar fixe
+    $('body').css('padding-top', navbar.outerHeight() + 'px');
+    
+    // S'assurer que tous les éléments du header sont visibles après un petit délai
+    setTimeout(function() {
+      $('.header-nav *').css('visibility', 'visible');
+      $('.navbar_brand, .nav_logo_img').css({
+        'visibility': 'visible',
+        'opacity': '1',
+        'display': 'block'
+      });
+    }, 100);
+  });
+</script>
 <script>
 $(document).ready(function(){
   if ($(window).width() < 767.98) {
