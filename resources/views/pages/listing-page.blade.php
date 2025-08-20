@@ -82,6 +82,26 @@
         margin-top: 0 !important;
         padding-top: 20px;
       }
+      
+      /* Forcer la visibilité du contenu des liens de menu */
+      .ace-responsive-menu li a,
+      .ace-responsive-menu li a .title,
+      .header-nav .ace-responsive-menu li a {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline-block !important;
+        color: #333 !important;
+      }
+      
+      /* S'assurer que le menu est visible dès le chargement */
+      .ace-responsive-menu {
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+      
+      .header-nav {
+        opacity: 1 !important;
+        visibility: visible !important;
       }
       
       /* Styles responsive pour le footer mobile */
@@ -462,6 +482,23 @@
       $(document).ready(function() {
         let navbar = $('.header-nav');
         let searchBar = $('.grid_list_search_result');
+        
+        // Forcer immédiatement la visibilité du menu et de ses éléments
+        navbar.css({
+          'opacity': '1',
+          'visibility': 'visible'
+        });
+        
+        $('.ace-responsive-menu').css({
+          'opacity': '1',
+          'visibility': 'visible'
+        });
+        
+        $('.ace-responsive-menu li a, .ace-responsive-menu li a .title').css({
+          'opacity': '1',
+          'visibility': 'visible',
+          'color': '#333'
+        });
         
         // Forcer le menu à rester fixe en haut
         navbar.css({
