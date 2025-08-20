@@ -82,6 +82,40 @@
         margin-top: 0 !important;
         padding-top: 20px;
       }
+      
+      /* Forcer la visibilité immédiate de tous les éléments du menu et logo */
+      .header-nav .container-fluid,
+      .header-nav nav,
+      .navbar_brand,
+      .nav_logo_img,
+      .logo,
+      .logo-blue,
+      .logo-light,
+      .ace-responsive-menu,
+      .ace-responsive-menu li,
+      .ace-responsive-menu li a,
+      .ace-responsive-menu li a .title {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+      }
+      
+      /* Spécifiquement pour les liens du menu */
+      .ace-responsive-menu li {
+        display: inline-block !important;
+      }
+      
+      /* Spécifiquement pour les images du logo */
+      .navbar_brand img,
+      .nav_logo_img,
+      .logo img,
+      .logo-blue,
+      .logo-light {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: inline-block !important;
+        max-height: 60px;
+        width: auto;
       }
       
       /* Styles responsive pour le footer mobile */
@@ -473,6 +507,43 @@
           'background': 'white',
           'box-shadow': '0 2px 10px rgba(0,0,0,0.1)',
           'width': '100%'
+        });
+        
+        // FORCER IMMÉDIATEMENT la visibilité de tous les éléments du menu et logo
+        $('.header-nav .container-fluid, .header-nav nav').css({
+          'visibility': 'visible',
+          'opacity': '1',
+          'display': 'block'
+        });
+        
+        $('.navbar_brand, .nav_logo_img, .logo, .logo-blue, .logo-light').css({
+          'visibility': 'visible',
+          'opacity': '1',
+          'display': 'block'
+        });
+        
+        $('.navbar_brand img, .nav_logo_img, .logo img').css({
+          'visibility': 'visible',
+          'opacity': '1',
+          'display': 'inline-block'
+        });
+        
+        $('.ace-responsive-menu').css({
+          'visibility': 'visible',
+          'opacity': '1',
+          'display': 'block'
+        });
+        
+        $('.ace-responsive-menu li').css({
+          'visibility': 'visible',
+          'opacity': '1',
+          'display': 'inline-block'
+        });
+        
+        $('.ace-responsive-menu li a, .ace-responsive-menu li a .title').css({
+          'visibility': 'visible',
+          'opacity': '1',
+          'color': '#333'
         });
         
         // Ajouter du padding au body pour compenser le navbar fixe
