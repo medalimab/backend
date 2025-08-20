@@ -113,8 +113,23 @@
                             <option value="Ready">Ready</option>
                             
                         </select>
-                        <label for="property-square-foot" class="form-label">Property Size</label>
-                        <input type="number" id="property-size" name="property_size" class="form-control" placeholder="Property Size" required>
+                        
+                        <!-- Champ conditionnel Property Size / Plot Area -->
+                        <div id="property-size-group">
+                            <label for="property-size" class="form-label">Property Size</label>
+                            <div class="input-group">
+                                <span class="input-group-text">sqft</span>
+                                <input type="number" id="property-size" name="property_size" class="form-control" placeholder="Property Size" required>
+                            </div>
+                        </div>
+                        
+                        <div id="plot-area-main-group" style="display: none;">
+                            <label for="plot-area-main" class="form-label">Plot Area</label>
+                            <div class="input-group">
+                                <span class="input-group-text">sqft</span>
+                                <input type="number" id="plot-area-main" name="plot_area" class="form-control" placeholder="Plot area">
+                            </div>
+                        </div>
                     </div>
 
 
@@ -654,6 +669,46 @@
             return false;
         }
     });
+
+    // Gestion conditionelle Property Size / Plot Area selon le type de propriété
+    const propertyTypeSelect = document.getElementById('property-type');
+    const propertySizeGroup = document.getElementById('property-size-group');
+    const plotAreaMainGroup = document.getElementById('plot-area-main-group');
+
+    function togglePropertySizeField() {
+        const propertyType = propertyTypeSelect.value;
+        
+        // Types qui utilisent Plot Area au lieu de Property Size
+        const plotAreaTypes = ['Villa', 'Town House', 'Townhouse'];
+        
+        if (plotAreaTypes.includes(propertyType)) {
+            // Afficher Plot Area, masquer Property Size
+            propertySizeGroup.style.display = 'none';
+            plotAreaMainGroup.style.display = 'block';
+            
+            // Rendre plot_area requis et property_size optionnel
+            document.getElementById('plot-area-main').required = true;
+            document.getElementById('property-size').required = false;
+            document.getElementById('property-size').value = ''; // Vider la valeur
+        } else {
+            // Afficher Property Size, masquer Plot Area
+            propertySizeGroup.style.display = 'block';
+            plotAreaMainGroup.style.display = 'none';
+            
+            // Rendre property_size requis et plot_area optionnel
+            document.getElementById('property-size').required = true;
+            document.getElementById('plot-area-main').required = false;
+            document.getElementById('plot-area-main').value = ''; // Vider la valeur
+        }
+    }
+
+    // Écouter les changements du type de propriété
+    propertyTypeSelect.addEventListener('change', togglePropertySizeField);
+
+    // Initialiser l'affichage au chargement de la page
+    if (propertyTypeSelect.value) {
+        togglePropertySizeField();
+    }
     </script>
 
 @endsection

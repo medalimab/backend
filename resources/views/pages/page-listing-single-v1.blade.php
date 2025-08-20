@@ -320,7 +320,16 @@
 										<li class="list-inline-item"><a href="#"><span class="icon-home me-1" aria-hidden="true"></span> {{ $property->property_type }}</a></li>
 										<li class="list-inline-item"><a href="#"><span class="icon-bed me-1" aria-hidden="true"></span> Beds: {{ $property->bedrooms }}</a></li>
 										<li class="list-inline-item"><a href="#"> <span class="icon-bath me-1" aria-hidden="true"></span> Baths: {{ $property->bathrooms }}</a></li>
-										<li class="list-inline-item"><a href="#"> <span class="icon-surface me-1" aria-hidden="true"></span> Sq Ft: {{ $property->property_size }}</a></li>
+										<li class="list-inline-item">
+											<a href="#">
+												<span class="icon-surface me-1" aria-hidden="true"></span>
+												@if(in_array($property->property_type, ['Villa', 'Townhouse']))
+													Plot Area: {{ $property->plot_area ?? 'N/A' }}
+												@else
+													Sq Ft: {{ $property->property_size ?? 'N/A' }}
+												@endif
+											</a>
+										</li>
 									</ul>
 								</div>
 								<h4 class="mb30">Description</h4>
@@ -362,7 +371,13 @@
 											<li><p>Property ID :</p></li>
 											{{--<li><p>Property Category :</p></li>--}}
 											<li><p>Price :</p></li>
-											<li><p>Property Size :</p></li>
+											<li><p>
+												@if(in_array($property->property_type, ['Villa', 'Townhouse']))
+													Plot Area :
+												@else
+													Property Size :
+												@endif
+											</p></li>
 											<li><p>
 												@if($property->handover_date)
 													Handover Date :
@@ -376,7 +391,13 @@
 											{{-- <li><p><span>{{ $property->property_main_type }}</span></p></li> --}}
 											
 											<li><p><span>{{ $property->price }}</span></p></li>
-											<li><p><span>{{ $property->property_size }} Sq Ft</span></p></li>
+											<li><p><span>
+												@if(in_array($property->property_type, ['Villa', 'Townhouse']))
+													{{ $property->plot_area ?? 'N/A' }}
+												@else
+													{{ $property->property_size ?? 'N/A' }} Sq Ft
+												@endif
+											</span></p></li>
 											<li><p>
 												<span>
 													@if($property->handover_date)
@@ -403,15 +424,16 @@
 											
 										</ul>
 									</div>
-									<div class="col-md-6 col-lg-6 col-xl-4">
+								</div>
+								<div class="row">
+									<div class="col-md-6 col-lg-6">
 										<ul class="list-inline-item">
 											<li><p>Property Type :</p></li>
 											<li><p>Property Status :</p></li>
 										</ul>
 										<ul class="list-inline-item">
-											<li><p><span>{{$property->property_type}} </span></p></li>
-											<li><p><span>{{$property->property_status}} </span></p></li>
-											<li><p><span>{{$property->property_parking_space}} </span></p></li>
+											<li><p><span>{{$property->property_type}}</span></p></li>
+											<li><p><span>{{$property->property_status}}</span></p></li>
 										</ul>
 									</div>
 								</div>

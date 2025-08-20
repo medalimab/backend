@@ -60,6 +60,8 @@ class PropertyController extends Controller
             'property_built_up_area' => 'nullable|numeric|min:0',
             'property_parking_availability' => 'nullable|string',
             'developer' => 'nullable|string|max:255',
+            'plot_area' => 'nullable|numeric|min:0',
+            'pool_size' => 'nullable|numeric|min:0',
         ];
 
         $messages = [
@@ -193,7 +195,7 @@ class PropertyController extends Controller
                         'developer' => 'nullable|string|max:255',
                         'property_usage' => 'nullable|string|max:255',
                         'price' => 'required|numeric',
-                        'property_size' => 'required|integer',
+                        'property_size' => 'nullable|integer',
                         'building_area' => 'nullable|numeric',
                         'year_built' => 'nullable|integer',
                         'handover_date' => $request->property_status === 'Off-plan' ? 'required|string|max:100' : 'nullable|string|max:100',
@@ -215,6 +217,8 @@ class PropertyController extends Controller
                         'pdf' => 'nullable|mimes:pdf|max:10240',
                         'dld_permit_number' => 'nullable|string',
                         'agent_id' => 'required|exists:agents,id',
+                        'plot_area' => 'nullable|numeric|min:0',
+                        'pool_size' => 'nullable|numeric|min:0',
                         'images' => 'required|array|min:1',
                         'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
                     ];
@@ -231,6 +235,16 @@ class PropertyController extends Controller
                         'images.*.mimes' => 'L\'image doit être au format : jpeg, png, jpg, gif.',
                         'images.*.max' => 'L\'image ne doit pas dépasser 5 MB.',
                     ];
+
+                    // Validation conditionnelle pour property_size vs plot_area
+                    $plotAreaTypes = ['Villa', 'Town House', 'Townhouse'];
+                    if (in_array($request->property_type, $plotAreaTypes)) {
+                        $rules['plot_area'] = 'required|numeric|min:0';
+                        $messages['plot_area.required'] = 'La superficie du terrain est obligatoire pour les villas et maisons de ville.';
+                    } else {
+                        $rules['property_size'] = 'required|integer';
+                        $messages['property_size.required'] = 'La taille de la propriété est obligatoire.';
+                    }
 
                     $validated = $request->validate($rules, $messages);
             
