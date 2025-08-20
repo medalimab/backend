@@ -448,13 +448,15 @@
 									<div class="col-md-6 col-lg-6">
 										<ul class="list-inline-item">
 											<li><p>Developer :</p></li>
-											
-											<li><p>Built up Area :</p></li>
+											@if($property->property_type !== 'Apartment')
+												<li><p>Built up Area :</p></li>
+											@endif
 										</ul>
 										<ul class="list-inline-item">
 											<li><p><span>{{$property->developer}}</span></p></li>
-											
-											<li><p><span>{{$property->property_built_up_area}}</span></p></li>
+											@if($property->property_type !== 'Apartment')
+												<li><p><span>{{$property->property_built_up_area}}</span></p></li>
+											@endif
 										</ul>
 									</div>
 									<div class="col-md-6 col-lg-6">
