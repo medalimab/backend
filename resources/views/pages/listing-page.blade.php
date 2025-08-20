@@ -118,6 +118,47 @@
         width: auto;
       }
       
+      /* CSS pour menu mobile fixe */
+      #page.stylehome1,
+      .mobile-menu,
+      .header.stylehome1 {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+        background: white !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+        width: 100% !important;
+      }
+      
+      /* Forcer la visibilité des éléments du menu mobile */
+      .mobile-menu,
+      .header.stylehome1,
+      .mobile-menu-trigger,
+      .nav_logo_img,
+      .nav_logo_img img {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+      }
+      
+      /* Spécifiquement pour le logo mobile */
+      .nav_logo_img img {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: inline-block !important;
+        max-height: 50px;
+        width: auto;
+      }
+      
+      /* Compensation pour le menu mobile fixe */
+      @media (max-width: 991px) {
+        body {
+          padding-top: 70px !important;
+        }
+      }
+      
       /* Styles responsive pour le footer mobile */
       @media (max-width: 768px) {
         .footer_one {
@@ -546,6 +587,31 @@
           'color': '#333'
         });
         
+        // FORCER la visibilité du menu mobile
+        $('#page.stylehome1, .mobile-menu, .header.stylehome1').css({
+          'position': 'fixed',
+          'top': '0',
+          'left': '0',
+          'right': '0',
+          'z-index': '9999',
+          'background': 'white',
+          'box-shadow': '0 2px 10px rgba(0,0,0,0.1)',
+          'width': '100%',
+          'visibility': 'visible',
+          'opacity': '1',
+          'display': 'block'
+        });
+        
+        $('.mobile-menu-trigger, .nav_logo_img, .nav_logo_img img').css({
+          'visibility': 'visible',
+          'opacity': '1',
+          'display': 'block'
+        });
+        
+        $('.nav_logo_img img').css({
+          'display': 'inline-block'
+        });
+        
         // Ajouter du padding au body pour compenser le navbar fixe
         $('body').css('padding-top', navbar.outerHeight() + 'px');
         
@@ -555,8 +621,11 @@
         function handleScroll() {
           let currentScrollPos = window.pageYOffset;
           
-          // Garder toujours le navbar visible
+          // Garder toujours le navbar desktop visible
           navbar.css('top', '0');
+          
+          // Garder toujours le menu mobile visible
+          $('#page.stylehome1, .mobile-menu, .header.stylehome1').css('top', '0');
           
           // Gérer uniquement la barre de recherche sticky
           if (currentScrollPos > 100) {

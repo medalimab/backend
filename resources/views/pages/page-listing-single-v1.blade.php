@@ -54,6 +54,47 @@
         padding-top: 20px;
       }
       
+      /* CSS pour menu mobile fixe */
+      #page.stylehome1,
+      .mobile-menu,
+      .header.stylehome1 {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+        background: white !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+        width: 100% !important;
+      }
+      
+      /* Forcer la visibilité des éléments du menu mobile */
+      .mobile-menu,
+      .header.stylehome1,
+      .mobile-menu-trigger,
+      .nav_logo_img,
+      .nav_logo_img img {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+      }
+      
+      /* Spécifiquement pour le logo mobile */
+      .nav_logo_img img {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: inline-block !important;
+        max-height: 50px;
+        width: auto;
+      }
+      
+      /* Compensation pour le menu mobile fixe */
+      @media (max-width: 991px) {
+        body {
+          padding-top: 70px !important;
+        }
+      }
+      
       /* Forcer la visibilité immédiate de tous les éléments du menu et logo */
       .header-nav .container-fluid,
       .header-nav nav,
@@ -1185,13 +1226,36 @@
       'display': 'inline-block'
     });
     
-    $('.ace-responsive-menu li a, .ace-responsive-menu li a .title').css({
-      'visibility': 'visible',
-      'opacity': '1',
-      'color': '#333'
-    });
-    
-    // Forcer le menu à rester fixe en haut
+        $('.ace-responsive-menu li a, .ace-responsive-menu li a .title').css({
+          'visibility': 'visible',
+          'opacity': '1',
+          'color': '#333'
+        });
+        
+        // FORCER la visibilité du menu mobile
+        $('#page.stylehome1, .mobile-menu, .header.stylehome1').css({
+          'position': 'fixed',
+          'top': '0',
+          'left': '0',
+          'right': '0',
+          'z-index': '9999',
+          'background': 'white',
+          'box-shadow': '0 2px 10px rgba(0,0,0,0.1)',
+          'width': '100%',
+          'visibility': 'visible',
+          'opacity': '1',
+          'display': 'block'
+        });
+        
+        $('.mobile-menu-trigger, .nav_logo_img, .nav_logo_img img').css({
+          'visibility': 'visible',
+          'opacity': '1',
+          'display': 'block'
+        });
+        
+        $('.nav_logo_img img').css({
+          'display': 'inline-block'
+        });    // Forcer le menu à rester fixe en haut
     navbar.css({
       'position': 'fixed',
       'top': '0',
@@ -1203,10 +1267,45 @@
       'width': '100%'
     });
     
-    // Ajouter du padding au body pour compenser le navbar fixe
-    $('body').css('padding-top', navbar.outerHeight() + 'px');
-    
-    // S'assurer que tous les éléments du header sont visibles après un petit délai
+        // Ajouter du padding au body pour compenser les menus fixes
+        $('body').css('padding-top', navbar.outerHeight() + 'px');
+        
+        let prevScrollPos = window.pageYOffset;
+        
+        // Function to handle scroll - garder les menus visibles
+        function handleScroll() {
+          let currentScrollPos = window.pageYOffset;
+          
+          // Garder toujours le navbar desktop visible
+          navbar.css('top', '0');
+          
+          // Garder toujours le menu mobile visible
+          $('#page.stylehome1, .mobile-menu, .header.stylehome1').css('top', '0');
+          
+          prevScrollPos = currentScrollPos;
+        }
+        
+        // Écouter l'événement de scroll
+        $(window).on('scroll', handleScroll);
+        
+        // Gérer le redimensionnement
+        $(window).on('resize', function() {
+          navbar.css({
+            'position': 'fixed',
+            'top': '0',
+            'z-index': '9999'
+          });
+          $('#page.stylehome1, .mobile-menu, .header.stylehome1').css({
+            'position': 'fixed',
+            'top': '0',
+            'z-index': '9999'
+          });
+          $('body').css('padding-top', navbar.outerHeight() + 'px');
+          handleScroll();
+        });
+        
+        // Appeler handleScroll au chargement
+        handleScroll();    // S'assurer que tous les éléments du header sont visibles après un petit délai
     setTimeout(function() {
       $('.header-nav *').css('visibility', 'visible');
       $('.navbar_brand, .nav_logo_img').css({
