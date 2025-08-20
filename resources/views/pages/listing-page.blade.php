@@ -522,6 +522,19 @@
           'color': '#333'
         });
         
+        // Forcer immédiatement la visibilité du logo
+        $('.navbar_brand, .nav_logo_img, .logo, .logo-blue, .logo-light').css({
+          'opacity': '1',
+          'visibility': 'visible',
+          'display': 'block'
+        });
+        
+        $('.navbar_brand img, .nav_logo_img, .logo img').css({
+          'opacity': '1',
+          'visibility': 'visible',
+          'display': 'inline-block'
+        });
+        
         // Forcer le menu à rester fixe en haut
         navbar.css({
           'position': 'fixed',
@@ -536,6 +549,16 @@
         
         // Ajouter du padding au body pour compenser le navbar fixe
         $('body').css('padding-top', navbar.outerHeight() + 'px');
+        
+        // S'assurer que tous les éléments du header sont visibles
+        setTimeout(function() {
+          $('.header-nav *').css('visibility', 'visible');
+          $('.navbar_brand, .nav_logo_img').css({
+            'visibility': 'visible',
+            'opacity': '1',
+            'display': 'block'
+          });
+        }, 100);
         
         let prevScrollPos = window.pageYOffset;
         
