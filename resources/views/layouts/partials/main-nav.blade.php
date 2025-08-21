@@ -52,7 +52,7 @@
                          <span class="nav-icon">
                               <i class="ri-community-line"></i>
                          </span>
-                         <span class="nav-text"> Property </span>
+                         <span class="nav-text"> Property for Sale </span>
                     </a>
                     <div class="collapse" id="sidebarProperty">
                          <ul class="nav sub-navbar-nav">
