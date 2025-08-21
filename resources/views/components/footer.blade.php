@@ -22,7 +22,7 @@
             <li><a href="{{ route('properties.show_listing_page_client') }}">Listing</a></li>
             <li><a href="/faq">FAQ</a></li>
             <li><a href="page-terms.html">Terms & Conditions</a></li>
-            <li><a href="page-terms.html">Privacy Policy</a></li>
+            <li><a href="">Privacy Policy</a></li>
           </ul>
         </div>
       </div>
