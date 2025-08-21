@@ -131,8 +131,13 @@
                         <label for="plot-area-main" class="form-label">Plot Area</label>
                         <div class="input-group">
                             <span class="input-group-text">sqft</span>
-                            <input type="number" id="plot-area-main" name="plot_area" class="form-control" placeholder="Plot area">
+                            <input type="number" id="plot-area-main" name="plot_area" class="form-control @error('plot_area') is-invalid @enderror" placeholder="Plot area" value="{{ old('plot_area') }}">
                         </div>
+                        @error('plot_area')
+                            <div class="text-danger mt-1">
+                                <i class="ri-error-warning-line"></i> {{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
 
@@ -794,79 +799,94 @@
         }
     });
 
-    // Validation: Property Size doit être inférieure à Build up area pour les appartements
-    function validatePropertySizeForApartment() {
+    // Validation: Property Size/Plot Area < Build up area selon le type
+    function validatePropertySizeVsBuildUpArea() {
         const propertyTypeSelect = document.getElementById('property-type');
         const propertySizeInput = document.getElementById('property-size');
+        const plotAreaInput = document.getElementById('plot-area-main');
         const builtUpAreaInput = document.getElementById('property-built_up_area');
         
-        if (!propertyTypeSelect || !propertySizeInput || !builtUpAreaInput) {
+        if (!propertyTypeSelect || !builtUpAreaInput) {
             console.log('Éléments de validation non trouvés');
-            return true; // Si les éléments n'existent pas, passer la validation
+            return true;
         }
         
         const propertyType = propertyTypeSelect.value;
+        const builtUpArea = parseFloat(builtUpAreaInput.value) || 0;
         
-        // Types d'appartements qui nécessitent cette validation
+        // Types d'appartements qui nécessitent la validation Property Size < Build up Area
         const apartmentTypes = ['Apartment', 'Penthouse', 'Hotel Apartment'];
+        // Types de villas qui nécessitent la validation Plot Area < Build up Area  
+        const villaTypes = ['Villa', 'Townhouse', 'Town House', 'Villa Compound'];
         
-        console.log('Validation - Type:', propertyType, 'Is apartment:', apartmentTypes.includes(propertyType));
+        console.log('Validation - Type:', propertyType, 'Build up Area:', builtUpArea);
         
-        if (apartmentTypes.includes(propertyType)) {
-            const propertySize = parseFloat(propertySizeInput.value) || 0;
-            const builtUpArea = parseFloat(builtUpAreaInput.value) || 0;
+        let validationResult = true;
+        let errorMessage = '';
+        let targetInput = null;
+        let targetValue = 0;
+        
+        // Validation pour les appartements (Property Size < Build up Area)
+        if (apartmentTypes.includes(propertyType) && propertySizeInput) {
+            targetInput = propertySizeInput;
+            targetValue = parseFloat(propertySizeInput.value) || 0;
             
-            console.log('Property Size:', propertySize, 'Build up Area:', builtUpArea);
+            if (targetValue > 0 && builtUpArea > 0 && targetValue >= builtUpArea) {
+                errorMessage = 'Property size must be less than built-up area for apartments.';
+                validationResult = false;
+            }
+        }
+        // Validation pour les villas (Plot Area < Build up Area)
+        else if (villaTypes.includes(propertyType) && plotAreaInput) {
+            targetInput = plotAreaInput;
+            targetValue = parseFloat(plotAreaInput.value) || 0;
             
-            // Vérifier que les deux valeurs sont saisies et que Property Size >= Build up Area
-            if (propertySize > 0 && builtUpArea > 0 && propertySize >= builtUpArea) {
+            if (targetValue > 0 && builtUpArea > 0 && targetValue >= builtUpArea) {
+                errorMessage = 'Plot area must be less than built-up area for villas/townhouses.';
+                validationResult = false;
+            }
+        }
+        
+        // Afficher ou masquer l'erreur
+        if (targetInput) {
+            const errorId = targetInput.id + '-validation-error';
+            let errorDiv = document.getElementById(errorId);
+            
+            if (!validationResult) {
                 // Afficher l'erreur
-                let errorDiv = document.getElementById('property-size-error');
                 if (!errorDiv) {
                     errorDiv = document.createElement('div');
-                    errorDiv.id = 'property-size-error';
+                    errorDiv.id = errorId;
                     errorDiv.className = 'text-danger mt-1';
                     errorDiv.style.fontSize = '0.875rem';
-                    propertySizeInput.parentNode.parentNode.appendChild(errorDiv);
+                    targetInput.parentNode.parentNode.appendChild(errorDiv);
                 }
-                errorDiv.innerHTML = '<i class="ri-error-warning-line"></i> La surface de la propriété doit être inférieure à la surface bâtie pour un appartement.';
+                errorDiv.innerHTML = '<i class="ri-error-warning-line"></i> ' + errorMessage;
                 errorDiv.style.display = 'block';
                 
-                // Marquer le champ comme invalide
-                propertySizeInput.classList.add('is-invalid');
-                propertySizeInput.setCustomValidity('La surface de la propriété doit être inférieure à la surface bâtie.');
+                targetInput.classList.add('is-invalid');
+                targetInput.setCustomValidity(errorMessage);
                 
-                console.log('Validation échouée: Property Size >= Build up Area');
-                return false;
+                console.log('Validation échouée:', errorMessage);
             } else {
                 // Supprimer l'erreur
-                const errorDiv = document.getElementById('property-size-error');
                 if (errorDiv) {
                     errorDiv.style.display = 'none';
                 }
-                propertySizeInput.classList.remove('is-invalid');
-                propertySizeInput.setCustomValidity('');
+                targetInput.classList.remove('is-invalid');
+                targetInput.setCustomValidity('');
                 
-                console.log('Validation réussie');
-                return true;
+                console.log('Validation réussie pour', propertyType);
             }
-        } else {
-            // Pour les autres types, pas de validation nécessaire
-            const errorDiv = document.getElementById('property-size-error');
-            if (errorDiv) {
-                errorDiv.style.display = 'none';
-            }
-            propertySizeInput.classList.remove('is-invalid');
-            propertySizeInput.setCustomValidity('');
-            
-            console.log('Pas de validation nécessaire pour ce type');
-            return true;
         }
+        
+        return validationResult;
     }
 
     // Ajouter les écouteurs d'événements pour la validation
     document.addEventListener('DOMContentLoaded', function() {
         const propertySizeInput = document.getElementById('property-size');
+        const plotAreaInput = document.getElementById('plot-area-main');
         const builtUpAreaInput = document.getElementById('property-built_up_area');
         const propertyTypeSelect = document.getElementById('property-type');
         
@@ -874,11 +894,23 @@
         if (propertySizeInput) {
             propertySizeInput.addEventListener('input', function() {
                 console.log('Property Size input changed');
-                validatePropertySizeForApartment();
+                validatePropertySizeVsBuildUpArea();
             });
             propertySizeInput.addEventListener('blur', function() {
                 console.log('Property Size blur event');
-                validatePropertySizeForApartment();
+                validatePropertySizeVsBuildUpArea();
+            });
+        }
+        
+        // Validation en temps réel sur Plot Area
+        if (plotAreaInput) {
+            plotAreaInput.addEventListener('input', function() {
+                console.log('Plot Area input changed');
+                validatePropertySizeVsBuildUpArea();
+            });
+            plotAreaInput.addEventListener('blur', function() {
+                console.log('Plot Area blur event');
+                validatePropertySizeVsBuildUpArea();
             });
         }
         
@@ -886,11 +918,11 @@
         if (builtUpAreaInput) {
             builtUpAreaInput.addEventListener('input', function() {
                 console.log('Build up Area input changed');
-                validatePropertySizeForApartment();
+                validatePropertySizeVsBuildUpArea();
             });
             builtUpAreaInput.addEventListener('blur', function() {
                 console.log('Build up Area blur event');
-                validatePropertySizeForApartment();
+                validatePropertySizeVsBuildUpArea();
             });
         }
         
@@ -898,7 +930,7 @@
         if (propertyTypeSelect) {
             propertyTypeSelect.addEventListener('change', function() {
                 console.log('Property type changed to:', this.value);
-                validatePropertySizeForApartment();
+                validatePropertySizeVsBuildUpArea();
             });
         }
         
@@ -918,18 +950,31 @@
             return false;
         }
         
-        // Vérifier la validation Property Size vs Build up area
-        const isValid = validatePropertySizeForApartment();
+        // Vérifier la validation Property Size/Plot Area vs Build up area
+        const isValid = validatePropertySizeVsBuildUpArea();
         console.log('Validation result:', isValid);
         
         if (!isValid) {
             e.preventDefault();
-            alert('Erreur de validation: La surface de la propriété doit être inférieure à la surface bâtie pour un appartement.');
+            const propertyType = document.getElementById('property-type').value;
+            const apartmentTypes = ['Apartment', 'Penthouse', 'Hotel Apartment'];
+            const villaTypes = ['Villa', 'Townhouse', 'Town House', 'Villa Compound'];
             
-            // Focus sur le champ Property Size
-            const propertySizeInput = document.getElementById('property-size');
-            if (propertySizeInput) {
-                propertySizeInput.focus();
+            let alertMessage = 'Validation error: ';
+            let focusField = null;
+            
+            if (apartmentTypes.includes(propertyType)) {
+                alertMessage += 'Property size must be less than built-up area for apartments.';
+                focusField = document.getElementById('property-size');
+            } else if (villaTypes.includes(propertyType)) {
+                alertMessage += 'Plot area must be less than built-up area for villas/townhouses.';
+                focusField = document.getElementById('plot-area-main');
+            }
+            
+            alert(alertMessage);
+            
+            if (focusField) {
+                focusField.focus();
             }
             
             return false;
