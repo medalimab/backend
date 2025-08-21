@@ -246,6 +246,19 @@ class PropertyController extends Controller
                         $messages['property_size.required'] = 'La taille de la propriété est obligatoire.';
                     }
 
+                    // Validation conditionnelle : Property Size < Build up Area pour les appartements
+                    $apartmentTypes = ['Apartment', 'Penthouse', 'Hotel Apartment'];
+                    if (in_array($request->property_type, $apartmentTypes)) {
+                        // Valider que property_size < property_built_up_area si les deux sont présents
+                        if ($request->property_size && $request->property_built_up_area) {
+                            if ($request->property_size >= $request->property_built_up_area) {
+                                return back()->withErrors([
+                                    'property_size' => 'La surface de la propriété doit être inférieure à la surface bâtie pour un appartement.'
+                                ])->withInput();
+                            }
+                        }
+                    }
+
                     $validated = $request->validate($rules, $messages);
             
                     Log::info('Validation Passed');

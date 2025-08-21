@@ -118,8 +118,13 @@
                         <label for="property-size" class="form-label">Property Size</label>
                         <div class="input-group">
                             <span class="input-group-text">sqft</span>
-                            <input type="number" id="property-size" name="property_size" class="form-control" placeholder="Property Size" required>
+                            <input type="number" id="property-size" name="property_size" class="form-control @error('property_size') is-invalid @enderror" placeholder="Property Size" value="{{ old('property_size') }}" required>
                         </div>
+                        @error('property_size')
+                            <div class="text-danger mt-1">
+                                <i class="ri-error-warning-line"></i> {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     
                     <div class="col-lg-6 mb-3 hide-field" id="plot-area-main-group">
@@ -558,11 +563,10 @@
                 if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
                 if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
                 if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
-                // Cacher le champ "Build up area" pour les appartements
+                // Afficher le champ "Build up area" pour les appartements (nécessaire pour la validation)
                 if (builtUpAreaField) {
-                    builtUpAreaField.closest('.col-lg-6').style.display = 'none';
-                    builtUpAreaField.required = false;
-                    builtUpAreaField.value = ''; // Vider la valeur
+                    builtUpAreaField.closest('.col-lg-6').style.display = 'block';
+                    builtUpAreaField.required = true; // Rendu requis pour permettre la validation
                 }
             }
             // Plots/Land - cacher Build up area
@@ -788,6 +792,150 @@
                 plotAreaMainGroup.classList.add('hide-field');
             }
         }
+    });
+
+    // Validation: Property Size doit être inférieure à Build up area pour les appartements
+    function validatePropertySizeForApartment() {
+        const propertyTypeSelect = document.getElementById('property-type');
+        const propertySizeInput = document.getElementById('property-size');
+        const builtUpAreaInput = document.getElementById('property-built_up_area');
+        
+        if (!propertyTypeSelect || !propertySizeInput || !builtUpAreaInput) {
+            console.log('Éléments de validation non trouvés');
+            return true; // Si les éléments n'existent pas, passer la validation
+        }
+        
+        const propertyType = propertyTypeSelect.value;
+        
+        // Types d'appartements qui nécessitent cette validation
+        const apartmentTypes = ['Apartment', 'Penthouse', 'Hotel Apartment'];
+        
+        console.log('Validation - Type:', propertyType, 'Is apartment:', apartmentTypes.includes(propertyType));
+        
+        if (apartmentTypes.includes(propertyType)) {
+            const propertySize = parseFloat(propertySizeInput.value) || 0;
+            const builtUpArea = parseFloat(builtUpAreaInput.value) || 0;
+            
+            console.log('Property Size:', propertySize, 'Build up Area:', builtUpArea);
+            
+            // Vérifier que les deux valeurs sont saisies et que Property Size >= Build up Area
+            if (propertySize > 0 && builtUpArea > 0 && propertySize >= builtUpArea) {
+                // Afficher l'erreur
+                let errorDiv = document.getElementById('property-size-error');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.id = 'property-size-error';
+                    errorDiv.className = 'text-danger mt-1';
+                    errorDiv.style.fontSize = '0.875rem';
+                    propertySizeInput.parentNode.parentNode.appendChild(errorDiv);
+                }
+                errorDiv.innerHTML = '<i class="ri-error-warning-line"></i> La surface de la propriété doit être inférieure à la surface bâtie pour un appartement.';
+                errorDiv.style.display = 'block';
+                
+                // Marquer le champ comme invalide
+                propertySizeInput.classList.add('is-invalid');
+                propertySizeInput.setCustomValidity('La surface de la propriété doit être inférieure à la surface bâtie.');
+                
+                console.log('Validation échouée: Property Size >= Build up Area');
+                return false;
+            } else {
+                // Supprimer l'erreur
+                const errorDiv = document.getElementById('property-size-error');
+                if (errorDiv) {
+                    errorDiv.style.display = 'none';
+                }
+                propertySizeInput.classList.remove('is-invalid');
+                propertySizeInput.setCustomValidity('');
+                
+                console.log('Validation réussie');
+                return true;
+            }
+        } else {
+            // Pour les autres types, pas de validation nécessaire
+            const errorDiv = document.getElementById('property-size-error');
+            if (errorDiv) {
+                errorDiv.style.display = 'none';
+            }
+            propertySizeInput.classList.remove('is-invalid');
+            propertySizeInput.setCustomValidity('');
+            
+            console.log('Pas de validation nécessaire pour ce type');
+            return true;
+        }
+    }
+
+    // Ajouter les écouteurs d'événements pour la validation
+    document.addEventListener('DOMContentLoaded', function() {
+        const propertySizeInput = document.getElementById('property-size');
+        const builtUpAreaInput = document.getElementById('property-built_up_area');
+        const propertyTypeSelect = document.getElementById('property-type');
+        
+        // Validation en temps réel sur Property Size
+        if (propertySizeInput) {
+            propertySizeInput.addEventListener('input', function() {
+                console.log('Property Size input changed');
+                validatePropertySizeForApartment();
+            });
+            propertySizeInput.addEventListener('blur', function() {
+                console.log('Property Size blur event');
+                validatePropertySizeForApartment();
+            });
+        }
+        
+        // Validation en temps réel sur Build up Area
+        if (builtUpAreaInput) {
+            builtUpAreaInput.addEventListener('input', function() {
+                console.log('Build up Area input changed');
+                validatePropertySizeForApartment();
+            });
+            builtUpAreaInput.addEventListener('blur', function() {
+                console.log('Build up Area blur event');
+                validatePropertySizeForApartment();
+            });
+        }
+        
+        // Validation lors du changement de type de propriété
+        if (propertyTypeSelect) {
+            propertyTypeSelect.addEventListener('change', function() {
+                console.log('Property type changed to:', this.value);
+                validatePropertySizeForApartment();
+            });
+        }
+        
+        console.log('Validation event listeners added');
+    });
+
+    // Validation du formulaire avant soumission
+    document.querySelector('form').addEventListener('submit', function(e) {
+        console.log('Form submission started');
+        
+        // Vérification des images
+        const imagesInput = document.getElementById('images');
+        if (imagesInput && imagesInput.files.length === 0) {
+            e.preventDefault();
+            alert('Veuillez ajouter au moins une image pour la propriété.');
+            imagesInput.focus();
+            return false;
+        }
+        
+        // Vérifier la validation Property Size vs Build up area
+        const isValid = validatePropertySizeForApartment();
+        console.log('Validation result:', isValid);
+        
+        if (!isValid) {
+            e.preventDefault();
+            alert('Erreur de validation: La surface de la propriété doit être inférieure à la surface bâtie pour un appartement.');
+            
+            // Focus sur le champ Property Size
+            const propertySizeInput = document.getElementById('property-size');
+            if (propertySizeInput) {
+                propertySizeInput.focus();
+            }
+            
+            return false;
+        }
+        
+        console.log('Form validation passed');
     });
     </script>
 
