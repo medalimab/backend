@@ -107,8 +107,6 @@
                         <label for="property-for" class="form-label">Status</label>
                         <select class="form-control" id="property-status" name="property_status" required>
                             <option value="" disabled selected hidden>Choisir le statut de la propriété...</option>
-                            <option value="Buy">Buy</option>
-                            <option value="Rent">Rent</option>
                             <option value="Off-plan">Off-plan</option>
                             <option value="Ready">Ready</option>
                             
