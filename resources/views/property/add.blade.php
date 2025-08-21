@@ -39,7 +39,7 @@
                 <div class="position-relative">
                     <img src="/images/properties/p-1.jpg" alt="" class="img-fluid rounded bg-light">
                     <span class="position-absolute top-0 end-0 p-1">
-                        <span class="badge bg-success text-light fs-13">For Rent</span>
+                        <span class="badge bg-success text-light fs-13">For Sale</span>
                     </span>
                 </div>
                 <div class="mt-3">
@@ -107,8 +107,7 @@
                         <label for="property-for" class="form-label">Status</label>
                         <select class="form-control" id="property-status" name="property_status" required>
                             <option value="" disabled selected hidden>Choisir le statut de la propriété...</option>
-                            <option value="Buy">Buy</option>
-                            <option value="Rent">Rent</option>
+                            
                             <option value="Off-plan">Off-plan</option>
                             <option value="Ready">Ready</option>
                         </select>
