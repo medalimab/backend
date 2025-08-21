@@ -681,69 +681,8 @@
 
 
 
-  <section id="why-choose-us" class="py-5">
-  <div class="container">
-    <div class="row mt50">
-  <div class="col-lg-6 offset-lg-3">
-    <div class="main-title text-center">
-      <h2>
-        <a href="#" style="text-decoration:none; color:inherit;">
-          Why Choose HOM Agency
-        </a>
-      </h2>
-      <p>We provide full service at every step.</p>
-    </div>
-  </div>
-</div>
+  
 
-    <div class="row text-center">
-      <div class="col-md-6 col-lg-4">
-        <div class="why_chose_us style2 p-4 shadow-sm rounded">
-          <div class="icon mb-3">
-            <span class="flaticon-high-five" style="font-size:40px;"></span>
-          </div>
-          <div class="details">
-            <h4>Expert Guidance & Market Insights</h4>
-            <p>
-              Get in-depth knowledge of Dubai’s real estate market and
-              personalized investment advice.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="why_chose_us style2 p-4 shadow-sm rounded">
-          <div class="icon mb-3">
-            <span class="flaticon-home-1" style="font-size:40px;"></span>
-          </div>
-          <div class="details">
-            <h4>Handpicked Dubai Property Deals</h4>
-            <p>
-              Access a curated portfolio of premium off-plan and ready
-              properties across prime locations.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="why_chose_us style2 p-4 shadow-sm rounded">
-          <div class="icon mb-3">
-            <span class="flaticon-profit" style="font-size:40px;"></span>
-          </div>
-          <div class="details">
-            <h4>Hassle-Free Investment & Financing</h4>
-            <p>
-              Enjoy flexible payment plans and seamless transactions for a
-              smooth property ownership experience.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 
