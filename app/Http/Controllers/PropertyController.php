@@ -289,7 +289,9 @@ class PropertyController extends Controller
                     }
             
                     Log::info('Property created successfully!', ['id' => $property->id]);
-                    return redirect()->route('properties.show_details_home', $property->id)->with('success', 'Your property has been added successfully!');
+                    
+                    // Redirection vers le dashboard avec message de succès
+                    return redirect()->route('dashboard.analytics')->with('success', 'Your property has been added successfully!');
             
                 } catch (\Illuminate\Validation\ValidationException $e) {
                     Log::error('Validation Failed:', $e->errors());

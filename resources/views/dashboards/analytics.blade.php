@@ -1,6 +1,23 @@
 @extends('layouts.vertical', ['title' => 'Analytics','subTitle' => 'Dashboard'])
 
 @section('content')
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="ri-check-double-line me-2"></i>
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="ri-error-warning-line me-2"></i>
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    {{-- Contenu du dashboard temporairement commenté
     <div class="row">
         <div class="col-md-6 col-xl-3">
             <div class="card">
@@ -679,6 +696,8 @@
         </div>
 
     </div>
+    --}} {{-- Fin du commentaire temporaire du contenu du dashboard --}}
+
 @endsection
 
 @section('script')
