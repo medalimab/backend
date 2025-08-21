@@ -172,12 +172,12 @@
       <div class="col-lg-6 col-xl-6">
         <div class="footer_menu_widget">
           <ul>
-            <li class="list-inline-item"><a href="#">Home</a></li>
-            <li class="list-inline-item"><a href="#">Listing</a></li>
+            <li class="list-inline-item"><a href="/">Home</a></li>
+            <li class="list-inline-item"><a href="/listing_page">Listing</a></li>
             <li class="list-inline-item"><a href="#">Property</a></li>
             <li class="list-inline-item"><a href="#">Pages</a></li>
             <li class="list-inline-item"><a href="#">Blog</a></li>
-            <li class="list-inline-item"><a href="#">Contact</a></li>
+            <li class="list-inline-item"><a href="/contact">Contact</a></li>
           </ul>
         </div>
       </div>
