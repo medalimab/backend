@@ -107,26 +107,27 @@
                         <label for="property-for" class="form-label">Status</label>
                         <select class="form-control" id="property-status" name="property_status" required>
                             <option value="" disabled selected hidden>Choisir le statut de la propriété...</option>
+                            <option value="Buy">Buy</option>
+                            <option value="Rent">Rent</option>
                             <option value="Off-plan">Off-plan</option>
                             <option value="Ready">Ready</option>
-                            
                         </select>
-                        
-                        <!-- Champ conditionnel Property Size / Plot Area -->
-                        <div id="property-size-group">
-                            <label for="property-size" class="form-label">Property Size</label>
-                            <div class="input-group">
-                                <span class="input-group-text">sqft</span>
-                                <input type="number" id="property-size" name="property_size" class="form-control" placeholder="Property Size" required>
-                            </div>
+                    </div>
+
+                    <!-- Champ conditionnel Property Size / Plot Area -->
+                    <div class="col-lg-6 mb-3" id="property-size-group">
+                        <label for="property-size" class="form-label">Property Size</label>
+                        <div class="input-group">
+                            <span class="input-group-text">sqft</span>
+                            <input type="number" id="property-size" name="property_size" class="form-control" placeholder="Property Size" required>
                         </div>
-                        
-                        <div id="plot-area-main-group" style="display: none;">
-                            <label for="plot-area-main" class="form-label">Plot Area</label>
-                            <div class="input-group">
-                                <span class="input-group-text">sqft</span>
-                                <input type="number" id="plot-area-main" name="plot_area" class="form-control" placeholder="Plot area">
-                            </div>
+                    </div>
+                    
+                    <div class="col-lg-6 mb-3 hide-field" id="plot-area-main-group">
+                        <label for="plot-area-main" class="form-label">Plot Area</label>
+                        <div class="input-group">
+                            <span class="input-group-text">sqft</span>
+                            <input type="number" id="plot-area-main" name="plot_area" class="form-control" placeholder="Plot area">
                         </div>
                     </div>
 
@@ -712,36 +713,83 @@
         const propertyType = propertyTypeSelect.value;
         
         // Types qui utilisent Plot Area au lieu de Property Size
-        const plotAreaTypes = ['Villa', 'Town House', 'Townhouse'];
+        const plotAreaTypes = ['Villa', 'Townhouse', 'Town House', 'Villa Compound'];
+        
+        console.log('Property type selected:', propertyType);
+        console.log('Should show plot area:', plotAreaTypes.includes(propertyType));
         
         if (plotAreaTypes.includes(propertyType)) {
             // Afficher Plot Area, masquer Property Size
-            propertySizeGroup.style.display = 'none';
-            plotAreaMainGroup.style.display = 'block';
+            if (propertySizeGroup) {
+                propertySizeGroup.classList.remove('show-field');
+                propertySizeGroup.classList.add('hide-field');
+            }
+            if (plotAreaMainGroup) {
+                plotAreaMainGroup.classList.remove('hide-field');
+                plotAreaMainGroup.classList.add('show-field');
+            }
             
             // Rendre plot_area requis et property_size optionnel
-            document.getElementById('plot-area-main').required = true;
-            document.getElementById('property-size').required = false;
-            document.getElementById('property-size').value = ''; // Vider la valeur
+            const plotAreaInput = document.getElementById('plot-area-main');
+            const propertySizeInput = document.getElementById('property-size');
+            
+            if (plotAreaInput) {
+                plotAreaInput.required = true;
+            }
+            if (propertySizeInput) {
+                propertySizeInput.required = false;
+                propertySizeInput.value = ''; // Vider la valeur
+            }
+            
+            console.log('Plot area shown, Property size hidden');
         } else {
             // Afficher Property Size, masquer Plot Area
-            propertySizeGroup.style.display = 'block';
-            plotAreaMainGroup.style.display = 'none';
+            if (propertySizeGroup) {
+                propertySizeGroup.classList.remove('hide-field');
+                propertySizeGroup.classList.add('show-field');
+            }
+            if (plotAreaMainGroup) {
+                plotAreaMainGroup.classList.remove('show-field');
+                plotAreaMainGroup.classList.add('hide-field');
+            }
             
             // Rendre property_size requis et plot_area optionnel
-            document.getElementById('property-size').required = true;
-            document.getElementById('plot-area-main').required = false;
-            document.getElementById('plot-area-main').value = ''; // Vider la valeur
+            const plotAreaInput = document.getElementById('plot-area-main');
+            const propertySizeInput = document.getElementById('property-size');
+            
+            if (propertySizeInput) {
+                propertySizeInput.required = true;
+            }
+            if (plotAreaInput) {
+                plotAreaInput.required = false;
+                plotAreaInput.value = ''; // Vider la valeur
+            }
+            
+            console.log('Property size shown, Plot area hidden');
         }
     }
 
     // Écouter les changements du type de propriété
-    propertyTypeSelect.addEventListener('change', togglePropertySizeField);
+    if (propertyTypeSelect) {
+        propertyTypeSelect.addEventListener('change', togglePropertySizeField);
+    }
 
     // Initialiser l'affichage au chargement de la page
-    if (propertyTypeSelect.value) {
-        togglePropertySizeField();
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+        if (propertyTypeSelect && propertyTypeSelect.value) {
+            togglePropertySizeField();
+        } else {
+            // Par défaut, afficher Property Size et masquer Plot Area
+            if (propertySizeGroup) {
+                propertySizeGroup.classList.remove('hide-field');
+                propertySizeGroup.classList.add('show-field');
+            }
+            if (plotAreaMainGroup) {
+                plotAreaMainGroup.classList.remove('show-field');
+                plotAreaMainGroup.classList.add('hide-field');
+            }
+        }
+    });
     </script>
 
 @endsection
