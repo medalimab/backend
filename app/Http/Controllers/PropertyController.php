@@ -206,7 +206,7 @@ class PropertyController extends Controller
                         'property_status' => 'required|string|max:100',
                         'amenities' => 'nullable|string',
                         'property_furnishing' => 'required|string',
-                        'property_built_up_area'=> 'required|integer',
+                        'property_built_up_area'=> 'nullable|numeric|min:0',
                         'property_parking_availability'=> 'nullable|string',
                         'building_name'=> 'nullable|string',
                         'building_parking_spaces'=> 'nullable|integer',

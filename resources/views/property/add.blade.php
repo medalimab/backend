@@ -561,9 +561,13 @@
                 if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
                 if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
                 // Cacher le champ "Build up area" pour les appartements
-                if (builtUpAreaField) builtUpAreaField.closest('.col-lg-6').style.display = 'none';
+                if (builtUpAreaField) {
+                    builtUpAreaField.closest('.col-lg-6').style.display = 'none';
+                    builtUpAreaField.required = false;
+                    builtUpAreaField.value = ''; // Vider la valeur
+                }
             }
-            // Plots/Land
+            // Plots/Land - cacher Build up area
             else if (selectedType === 'Plot' || selectedType === 'Land' || selectedType === 'Industrial Land' || selectedType === 'Mixed Use Land') {
                 if (buildingCard) buildingCard.style.display = 'none';
                 if (bedroomsField) bedroomsField.closest('.col-lg-4').style.display = 'none';
@@ -571,8 +575,28 @@
                 if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'none';
                 if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'none';
                 if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
+                // Cacher le champ Built up area pour les terrains
+                if (builtUpAreaField) {
+                    builtUpAreaField.closest('.col-lg-6').style.display = 'none';
+                    builtUpAreaField.required = false;
+                    builtUpAreaField.value = ''; // Vider la valeur
+                }
             }
-            // Autres types : afficher tout
+            // Building/Floor - afficher Build up area
+            else if (selectedType === 'Building' || selectedType === 'Floor') {
+                if (buildingCard) buildingCard.style.display = 'block';
+                if (bedroomsField) bedroomsField.closest('.col-lg-4').style.display = 'block';
+                if (bathroomsField) bathroomsField.closest('.col-lg-4').style.display = 'block';
+                if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
+                if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
+                if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
+                // Afficher le champ Built up area pour les bâtiments/étages
+                if (builtUpAreaField) {
+                    builtUpAreaField.closest('.col-lg-6').style.display = 'block';
+                    builtUpAreaField.required = false; // Optionnel
+                }
+            }
+            // Autres types : afficher tout y compris Build up area
             else {
                 if (buildingCard) buildingCard.style.display = 'block';
                 if (bedroomsField) bedroomsField.closest('.col-lg-4').style.display = 'block';
@@ -580,7 +604,11 @@
                 if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
                 if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
                 if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
-                if (builtUpAreaField) builtUpAreaField.closest('.col-lg-6').style.display = 'block';
+                // Afficher le champ Built up area pour les autres types
+                if (builtUpAreaField) {
+                    builtUpAreaField.closest('.col-lg-6').style.display = 'block';
+                    builtUpAreaField.required = false; // Optionnel pour tous les types
+                }
             }
         }
 

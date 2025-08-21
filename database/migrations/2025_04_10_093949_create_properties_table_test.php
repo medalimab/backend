@@ -52,7 +52,7 @@ class CreatePropertiesTableTest extends Migration
 
             // Additional fields
             $table->string('property_furnishing');
-            $table->integer('property_built_up_area');
+            $table->integer('property_built_up_area')->nullable();
             $table->string('property_parking_availability')->nullable();
             $table->string('building_name')->nullable();
             $table->integer('building_parking_spaces')->nullable();
