@@ -82,11 +82,11 @@
                 <div class="row">
                     <div class="col-lg-6 mb-3">
                         <label for="property-name" class="form-label">Property Name</label>
-                        <input type="text" id="property-name" name="property_name" class="form-control" placeholder="Name" required>
+                        <input type="text" id="property-name" name="property_name" class="form-control" placeholder="Name" value="{{ old('property_name') }}" required>
                     </div>
                     <div class="col-lg-6 mb-3">
                         <label for="property-id" class="form-label">Property ID</label>
-                        <input type="text" id="property-id" name="property_id" class="form-control" placeholder="Property ID" required>
+                        <input type="text" id="property-id" name="property_id" class="form-control" placeholder="Property ID" value="{{ old('property_id') }}" required>
                         @error('property_id')
                             <span class="text-red-500 text-sm mt-1" style="color: red">{{ $message }}</span>
                         @enderror
@@ -94,22 +94,23 @@
                     <div class="col-lg-6 mb-3" id="property-categories-group">
                         <label for="property-main-type" class="form-label">Property Category</label>
                         <select class="form-control" id="property-main-type" name="property_main_type" required>
-                            <option value="" disabled selected hidden>Select category...</option>
-                            <option value="Residential">Residential</option>
-                            <option value="Commercial">Commercial</option>
+                            <option value="" disabled {{ old('property_main_type') ? '' : 'selected' }} hidden>Select category...</option>
+                            <option value="Residential" {{ old('property_main_type') == 'Residential' ? 'selected' : '' }}>Residential</option>
+                            <option value="Commercial" {{ old('property_main_type') == 'Commercial' ? 'selected' : '' }}>Commercial</option>
                         </select>
                         <label for="property-type" class="form-label mt-2">Property Type</label>
                         <select class="form-control" id="property-type" name="property_type" required>
-                            <option value="" disabled selected hidden>Select property type...</option>
+                            <option value="" disabled {{ old('property_type') ? '' : 'selected' }} hidden>Select property type...</option>
+                            <!-- Options will be populated by JavaScript based on main type -->
                         </select>
                     </div>
                     <div class="col-lg-6 mb-3" id="property-statu-group">
                         <label for="property-for" class="form-label">Status</label>
                         <select class="form-control" id="property-status" name="property_status" required>
-                            <option value="" disabled selected hidden>Choisir le statut de la propriété...</option>
+                            <option value="" disabled {{ old('property_status') ? '' : 'selected' }} hidden>Choisir le statut de la propriété...</option>
                             
-                            <option value="Off-plan">Off-plan</option>
-                            <option value="Ready">Ready</option>
+                            <option value="Off-plan" {{ old('property_status') == 'Off-plan' ? 'selected' : '' }}>Off-plan</option>
+                            <option value="Ready" {{ old('property_status') == 'Ready' ? 'selected' : '' }}>Ready</option>
                         </select>
                     </div>
 
@@ -143,52 +144,52 @@
 
                     <div class="col-lg-4 mb-3">
                         <label for="property-bedroom" class="form-label">Bedrooms</label>
-                        <input type="number" id="property-bedroom" name="bedrooms" class="form-control" placeholder="Number of bedrooms" required>
+                        <input type="number" id="property-bedroom" name="bedrooms" class="form-control" placeholder="Number of bedrooms" value="{{ old('bedrooms') }}" required>
                     </div>
 
                     <div class="col-lg-4 mb-3">
                         <label for="property-bathroom" class="form-label">Bathrooms</label>
-                        <input type="number" id="property-bathroom" name="bathrooms" class="form-control" placeholder="Number of bathrooms" required >
+                        <input type="number" id="property-bathroom" name="bathrooms" class="form-control" placeholder="Number of bathrooms" value="{{ old('bathrooms') }}" required >
                     </div>
                     <div class="col-lg-6 mb-3">
                         <label for="building-parking_spaces" class="form-label">Total parking spaces</label>
-                        <input type="number" id="building-parking_spaces" name="building_parking_spaces" class="form-control" placeholder="total parking spaces">
+                        <input type="number" id="building-parking_spaces" name="building_parking_spaces" class="form-control" placeholder="total parking spaces" value="{{ old('building_parking_spaces') }}">
                     </div>
                     <!-- Champ Completion supprimé, tous les statuts sont dans Status -->
                     <div class="col-lg-4 mb-3">
                         <label for="property-for" class="form-label" id="furnishing_group">Furnishing</label>
                         <select class="form-control" id="furnishing-field" name="property_furnishing" required>
-                            <option value="" disabled selected hidden>Select furnishing status...</option> 
-                            <option value="Furnished" >Furnished</option>
-                            <option value="Unfurnished">Unfurnished</option>
-                            <option value="Semi-furnished">Semi-furnished</option>
+                            <option value="" disabled {{ old('property_furnishing') ? '' : 'selected' }} hidden>Select furnishing status...</option> 
+                            <option value="Furnished" {{ old('property_furnishing') == 'Furnished' ? 'selected' : '' }}>Furnished</option>
+                            <option value="Unfurnished" {{ old('property_furnishing') == 'Unfurnished' ? 'selected' : '' }}>Unfurnished</option>
+                            <option value="Semi-furnished" {{ old('property_furnishing') == 'Semi-furnished' ? 'selected' : '' }}>Semi-furnished</option>
                         </select>
                     </div>
                     <div class="col-lg-4 mb-3">
                         <label for="property-price" class="form-label">Price</label>
                         <div class="input-group">
                             <span class="input-group-text">AED</span>
-                            <input type="number" id="property-price" name="price" class="form-control" placeholder="000" required>
+                            <input type="number" id="property-price" name="price" class="form-control" placeholder="000" value="{{ old('price') }}" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4 mb-3" id="year-built-group">
                         <label for="property_year_build" class="form-label">Year Built</label>
-                        <input type="number" id="year-built-field" name="year_built" class="form-control" placeholder="year of Built" >
+                        <input type="number" id="year-built-field" name="year_built" class="form-control" placeholder="year of Built" value="{{ old('year_built') }}">
                     </div>
                     <div class="col-lg-4 mb-3" id="handover-date-group" style="display: none;">
                         <label for="property-handover_date" class="form-label">HandOver <span class="text-muted">(Off-plan)</span></label>
-                        <input type="text" id="handover-date" name="handover_date" class="form-control" placeholder="Ex: Q2 2027, Décembre 2026, etc.">
+                        <input type="text" id="handover-date" name="handover_date" class="form-control" placeholder="Ex: Q2 2027, Décembre 2026, etc." value="{{ old('handover_date') }}">
                         <small class="text-muted">Enter the expected handover period</small>
                     </div>
                     <div class="col-lg-12 mb-3">
                         <label for="property-address" class="form-label">Address</label>
-                        <textarea class="form-control" id="property-address" name="address" rows="2" placeholder="Enter address" required></textarea>
+                        <textarea class="form-control" id="property-address" name="address" rows="2" placeholder="Enter address" required>{{ old('address') }}</textarea>
                     </div>
 
                     <div class="col-lg-12 mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write description..."></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write description...">{{ old('description') }}</textarea>
                     </div>
                 </div>
             </div>
@@ -201,7 +202,7 @@
                 <div class="row">
                     <div class="col-lg-6 mb-3">
                         <label for="property-name" class="form-label">Developer</label>
-                        <input type="text" id="property-developer" name="developer" class="form-control" placeholder="Name">
+                        <input type="text" id="property-developer" name="developer" class="form-control" placeholder="Name" value="{{ old('developer') }}">
                     </div>
 
                  
@@ -210,15 +211,15 @@
                         <label for="property-built_up_area" class="form-label">Build up area</label>
                         <div class="input-group">
                             <span class="input-group-text">sqft</span>
-                            <input type="number" id="property-built_up_area" name="property_built_up_area" class="form-control" placeholder="build up area">
+                            <input type="number" id="property-built_up_area" name="property_built_up_area" class="form-control" placeholder="build up area" value="{{ old('property_built_up_area') }}">
                         </div>
                     </div>
 
                     <div class="col-lg-6 mb-3">
                         <label for="property-for" class="form-label">parking availabilty</label>
                         <select class="form-control" id="property-for" name="property_parking_availability">
-                            <option value="Available">Available</option>
-                            <option value="Unavailable">Unavailable</option>
+                            <option value="Available" {{ old('property_parking_availability') == 'Available' ? 'selected' : '' }}>Available</option>
+                            <option value="Unavailable" {{ old('property_parking_availability') == 'Unavailable' ? 'selected' : '' }}>Unavailable</option>
                         </select>
                     </div>
                 </div>
@@ -232,24 +233,24 @@
                 <div class="row">
                     <div class="col-lg-6 mb-3">
                         <label for="property-name" class="form-label">Building Name</label>
-                        <input type="text" id="building-name" name="building_name" class="form-control" placeholder="Building Name">
+                        <input type="text" id="building-name" name="building_name" class="form-control" placeholder="Building Name" value="{{ old('building_name') }}">
                     </div>
                     
                     <div class="col-lg-6 mb-3">
                         <label for="building_area" class="form-label">Total Building Area</label>
                         <div class="input-group">
                             <span class="input-group-text">sqft</span>
-                            <input type="number" id="building_area" name="building_area" class="form-control" placeholder="Building area">
+                            <input type="number" id="building_area" name="building_area" class="form-control" placeholder="Building area" value="{{ old('building_area') }}">
                         </div>
                     </div>
                     <div class="col-lg-4 mb-3">
                         <label for="elevators" class="form-label">Elevators</label>
-                        <input type="number" id="number_elevators" name="number_elevators" class="form-control" placeholder="Number of elevators">
+                        <input type="number" id="number_elevators" name="number_elevators" class="form-control" placeholder="Number of elevators" value="{{ old('number_elevators') }}">
                     </div>
                     
                     <div class="col-lg-4 mb-3">
                         <label for="total-floors" class="form-label">Total Floors</label>
-                        <input type="number" id="total-floors" name="total_floors" class="form-control" placeholder="Total Floors">
+                        <input type="number" id="total-floors" name="total_floors" class="form-control" placeholder="Total Floors" value="{{ old('total_floors') }}">
                     </div>
                 </div>
             </div>
@@ -404,9 +405,9 @@
                 <div class="mb-3">
                     <label for="agent_id" class="form-label">Select Agent</label>
                     <select name="agent_id" id="agent_id" class="form-control" required>
-                        <option value="" disabled selected hidden>Select agent...</option>
+                        <option value="" disabled {{ old('agent_id') ? '' : 'selected' }} hidden>Select agent...</option>
                         @foreach(App\Models\Agent::all() as $agent)
-                            <option value="{{ $agent->id }}">{{ $agent->full_name }} ({{ $agent->job_title }})</option>
+                            <option value="{{ $agent->id }}" {{ old('agent_id') == $agent->id ? 'selected' : '' }}>{{ $agent->full_name }} ({{ $agent->job_title }})</option>
                         @endforeach
                     </select>
                 </div>
