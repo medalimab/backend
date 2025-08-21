@@ -44,12 +44,43 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/auth/logout');
+        $userId = Auth::id();
+        
+        // Log the logout attempt
+        Log::info('User logout initiated', ['user_id' => $userId]);
+        
+        try {
+            // Logout the user from the web guard
+            Auth::guard('web')->logout();
+    
+            // Invalidate the session
+            $request->session()->invalidate();
+    
+            // Regenerate the CSRF token for security
+            $request->session()->regenerateToken();
+    
+            // Clear any cached data if needed
+            $request->session()->flush();
+            
+            // Log successful logout
+            Log::info('User logout completed successfully', ['user_id' => $userId]);
+    
+            // Redirect to login page with success message
+            return redirect()->route('login')
+                ->with('status', 'You have been successfully logged out.')
+                ->with('logout_success', true);
+                
+        } catch (\Exception $e) {
+            // Log any errors
+            Log::error('Logout error occurred', [
+                'user_id' => $userId,
+                'error' => $e->getMessage()
+            ]);
+            
+            // Still attempt to redirect to login even if there was an error
+            return redirect()->route('login')
+                ->with('status', 'Logout completed.')
+                ->withErrors(['logout' => 'There was an issue during logout, but you have been signed out.']);
+        }
     }
 }
