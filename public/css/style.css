@@ -20638,14 +20638,16 @@ legend span {
     }
 
     /* Assurer que le container mobile reste stable */
-    .dtls_headr-mobile {
+    .dtls_headr-mobile,
+    .d-flex.justify-content-between.dtls_headr-mobile {
       display: flex !important;
-      justify-content: space-between !important;
+      justify-content: flex-start !important; /* CHANGÉ: flex-start au lieu de space-between */
       align-items: flex-start !important;
       width: 100% !important;
       position: relative !important;
       min-height: 30px !important;
       overflow: visible !important;
+      gap: 10px !important; /* NOUVEAU: Espace entre prix et badges */
     }
     
     /* DEBUG: S'assurer que le prix est toujours visible */
@@ -20654,12 +20656,21 @@ legend span {
       max-width: 65% !important;
       min-width: 100px !important;
       overflow: visible !important;
+      margin-right: auto !important; /* NOUVEAU: Pousse le prix vers la gauche */
     }
     
     .dtls_headr-mobile ul:first-child a.fp_price {
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
+    }
+    
+    /* NOUVEAU: S'assurer que les badges restent à droite mais visibles */
+    .dtls_headr-mobile ul.tag,
+    .dtls_headr-mobile ul.tag.mb-0 {
+      margin-left: auto !important; /* Pousse vers la droite */
+      flex-shrink: 0 !important; /* Ne se réduit jamais */
+      order: 2 !important; /* Toujours en dernier */
     }
   }
 
@@ -20712,12 +20723,23 @@ legend span {
   
   /* Fix pour les badges avec classe mb-0 de Bootstrap */
   @media (max-width: 768px) {
+    /* NOUVEAU: Surcharge complète des classes Bootstrap sur mobile */
+    .d-flex.justify-content-between.align-items-start.dtls_headr-mobile {
+      justify-content: flex-start !important; /* Annule justify-content-between */
+      flex-wrap: nowrap !important;
+      gap: 15px !important;
+    }
+    
     ul.tag.mb-0,
     .dtls_headr-mobile ul.tag.mb-0 {
       margin-bottom: 0 !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: flex-end !important;
+      margin-left: auto !important; /* Force vers la droite */
+      flex-shrink: 0 !important; /* Ne se réduit jamais */
+      min-width: 80px !important; /* Largeur garantie */
+      max-width: 35% !important; /* Limite la largeur */
     }
     
     ul.tag.mb-0 li,

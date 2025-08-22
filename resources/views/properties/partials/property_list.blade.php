@@ -34,15 +34,14 @@
                     <div class="tc_content">
                     <div class="dtls_headr">
                     <!-- Mobile layout (price left, tags right) -->
-                    <div class="d-flex d-md-none justify-content-between align-items-start mb-2 dtls_headr-mobile">
-                        <ul> 
+                    <div class="d-flex d-md-none align-items-start mb-2 dtls_headr-mobile" style="justify-content: flex-start !important; gap: 15px;">
+                        <ul style="flex: 1 1 auto; max-width: 65%; min-width: 100px; margin-right: auto;"> 
                         <a class="fp_price tag" href="#">
                             {{ number_format($property->price, 0, '.', ',') }} AED
                         </a>
                         </ul>
                         
-
-                        <ul class="tag mb-0">
+                        <ul class="tag mb-0" style="margin-left: auto; flex-shrink: 0; min-width: 80px; max-width: 35%;">
                             <li><a href="#">{{ $property->property_status }}</a></li>
                             <!-- <li><a href="#">Featured</a></li> -->
                         </ul>
