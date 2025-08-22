@@ -28,6 +28,9 @@ Route::get('/listing_page/home_details/{id}', [PropertyController::class, 'show_
 Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
 Route::post('/properties/search', [PropertyController::class, 'search'])->name('properties.search.post');
 
+// Ajout de la route pour la page Blade damac-seacrest
+Route::view('/damac-seacrest', 'pages.damac-seacrest')->name('damac-seacrest');
+
 // 🔒 Authenticated Routes
 Route::middleware('auth')->group(function () {
     Route::get('/dashboards/analytics', [RoutingController::class, 'index'])->name('dashboard.analytics');
@@ -55,7 +58,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact');
-// ...existing code...
 // Les routes catch-all doivent être placées à la fin pour ne pas interférer avec /about et /contact
 Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');
 Route::get('{first}/{second}', [RoutingController::class, 'secondLevel'])->name('second');

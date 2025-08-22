@@ -18,9 +18,9 @@
         <li><a href="/"><span class="title">Home</span></a></li>
         <li><a href="{{ route('properties.show_listing_page_client') }}"><span class="title">Listing</span></a></li>
         <li><a href="/about"><span class="title">About</span></a></li>
-        <li><a href="#"><span class="title">Explore</span></a>
+        <li><a href="#"><span class="title">Our Projects</span></a>
           <ul class="sub-menu">
-            <li><a href="/faq">Faq</a></li>
+            <li><a href="/damac-seacrest">Damac seacrest</a></li>
           </ul>
         </li>
         <li class="last"><a href="/contact"><span class="title">Contact</span></a></li>
@@ -44,9 +44,9 @@
       <li><a href="/">Home</a></li>
       <li><a href="/listing_page">Listing</a></li>
       <li><a href="/about">About</a></li>
-      <li><a href="#">Explore</a>
+      <li><a href="#">Our Projects</a>
         <ul>
-          <li><a href="/faq">Faq</a></li>
+          <li><a href="/damac-seacrest">Damac seacrest</a></li>
         </ul>
       </li>
       <li><a href="/contact">Contact</a></li>
