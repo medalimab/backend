@@ -35,8 +35,8 @@
                     <div class="dtls_headr">
                     <!-- Mobile layout (price left, tags right) -->
                     <div class="d-flex d-md-none align-items-start mb-2 dtls_headr-mobile" style="justify-content: flex-start !important; gap: 15px;">
-                        <ul style="flex: 1 1 auto; max-width: 65%; min-width: 100px; margin-right: auto;"> 
-                        <a class="fp_price tag" href="#">
+                        <ul style="flex: 1 1 auto; max-width: 65%; min-width: 100px; margin-right: auto; overflow: hidden;"> 
+                        <a class="fp_price tag" href="#" style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
                             {{ number_format($property->price, 0, '.', ',') }} AED
                         </a>
                         </ul>

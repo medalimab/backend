@@ -20169,12 +20169,13 @@ legend span {
       line-height: 1.2 !important;
       white-space: nowrap !important;
       flex-shrink: 1 !important; /* Permet au prix de se réduire */
-      max-width: 65% !important; /* Augmenté à 65% pour plus de visibilité */
+      max-width: 100% !important; /* Utilise tout l'espace disponible du conteneur */
       min-width: 100px !important; /* Garantit une largeur minimum visible */
       overflow: hidden !important;
       text-overflow: ellipsis !important;
-      display: block !important; /* Force l'affichage */
+      display: block !important; /* Force l'affichage en bloc */
       visibility: visible !important; /* Force la visibilité */
+      box-sizing: border-box !important; /* Inclut padding et border dans la largeur */
     }
 
     .dtls_headr-mobile .tag {
@@ -20655,14 +20656,18 @@ legend span {
       flex: 1 1 auto !important;
       max-width: 65% !important;
       min-width: 100px !important;
-      overflow: visible !important;
+      overflow: hidden !important; /* RENFORCÉ: Cache tout débordement */
       margin-right: auto !important; /* NOUVEAU: Pousse le prix vers la gauche */
+      position: relative !important; /* Établit un contexte de positionnement */
+      box-sizing: border-box !important; /* Inclut padding et borders */
     }
     
     .dtls_headr-mobile ul:first-child a.fp_price {
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
+      position: relative !important; /* Évite les débordements absolus */
+      z-index: 1 !important; /* Reste en arrière du badge */
     }
     
     /* NOUVEAU: S'assurer que les badges restent à droite mais visibles */
@@ -20671,6 +20676,9 @@ legend span {
       margin-left: auto !important; /* Pousse vers la droite */
       flex-shrink: 0 !important; /* Ne se réduit jamais */
       order: 2 !important; /* Toujours en dernier */
+      position: relative !important; /* Établit un contexte de positionnement */
+      z-index: 10 !important; /* NOUVEAU: Au-dessus du prix */
+      background: transparent !important; /* Assure la transparence du conteneur */
     }
   }
 
