@@ -466,6 +466,7 @@
     <!-- Wrapper End -->
     {{-- <script type="text/javascript" src="{{asset('js/jquery-3.3.1.js')}}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script
       type="text/javascript"
@@ -798,14 +799,20 @@ function filterBarScrollHandler() {
 // Attach scroll handler initially
 window.addEventListener('scroll', filterBarScrollHandler);
 
-// Disable scroll handler when More Filters is open
-document.getElementById('moreFiltersBtn').addEventListener('click', function() {
-  window.removeEventListener('scroll', filterBarScrollHandler);
-});
-
-// Re-enable scroll handler when Done is clicked
-document.querySelector('#moreFiltersDropdown .btn-filled').addEventListener('click', function() {
-  window.addEventListener('scroll', filterBarScrollHandler);
+// Sécurisation des events More Filters
+document.addEventListener('DOMContentLoaded', function() {
+  var moreFiltersBtn = document.getElementById('moreFiltersBtn');
+  if (moreFiltersBtn) {
+    moreFiltersBtn.addEventListener('click', function() {
+      window.removeEventListener('scroll', filterBarScrollHandler);
+    });
+  }
+  var moreFiltersDoneBtn = document.querySelector('#moreFiltersDropdown .btn-filled');
+  if (moreFiltersDoneBtn) {
+    moreFiltersDoneBtn.addEventListener('click', function() {
+      window.addEventListener('scroll', filterBarScrollHandler);
+    });
+  }
 });
 
 let isScrolling;
@@ -827,6 +834,56 @@ window.addEventListener('scroll', function() {
   // searchForm.addEventListener('input', () => {
   //   fetchProperties();
   // });
+
+// SCRIPT NUCLÉAIRE ANTI-SHRINKING
+function forceCardWidth() {
+  var cards = document.querySelectorAll('#propertyGrid .feat_property.list');
+  cards.forEach(function(card, index) {
+    // Forcer la card elle-même
+    card.style.setProperty('width', '100%', 'important');
+    card.style.setProperty('min-width', '100%', 'important');
+    card.style.setProperty('max-width', '100%', 'important');
+    card.style.setProperty('flex', '1 1 100%', 'important');
+    card.style.setProperty('flex-shrink', '0', 'important');
+    card.style.setProperty('flex-grow', '0', 'important');
+    card.style.setProperty('display', 'flex', 'important');
+    
+    // Forcer le thumb
+    var thumb = card.querySelector('.thumb');
+    if (thumb) {
+      thumb.style.setProperty('width', '40%', 'important');
+      thumb.style.setProperty('min-width', '40%', 'important');
+      thumb.style.setProperty('max-width', '40%', 'important');
+      thumb.style.setProperty('flex', '0 0 40%', 'important');
+      thumb.style.setProperty('flex-shrink', '0', 'important');
+    }
+    
+    // Forcer les details
+    var details = card.querySelector('.details');
+    if (details) {
+      details.style.setProperty('width', '55%', 'important');
+      details.style.setProperty('min-width', '55%', 'important');
+      details.style.setProperty('max-width', '55%', 'important');
+      details.style.setProperty('flex', '0 0 55%', 'important');
+      details.style.setProperty('flex-shrink', '0', 'important');
+    }
+  });
+}
+
+// Forcer à chaque frame
+function continuousForce() {
+  forceCardWidth();
+  requestAnimationFrame(continuousForce);
+}
+
+// Démarrer
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(continuousForce, 100);
+});
+
+// Forcer aussi sur scroll
+window.addEventListener('scroll', forceCardWidth);
+window.addEventListener('resize', forceCardWidth);
 </script>
 
 

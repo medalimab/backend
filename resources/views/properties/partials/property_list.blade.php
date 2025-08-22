@@ -3,12 +3,11 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="col-lg-12">
-        <div class="row">        
-            @foreach ($properties as $property)
-            @php $carouselId = 'carousel-' . $property->id; @endphp
-            <div class="col-lg-12">
-                <div class="feat_property list" data-link="/listing_page/home_details/{{ $property->id }}" style="cursor:pointer;">
+    <div class="property-list-container">
+        @foreach ($properties as $property)
+        @php $carouselId = 'carousel-' . $property->id; @endphp
+        <div class="property-wrapper">
+            <div class="feat_property list" data-link="/listing_page/home_details/{{ $property->id }}" style="cursor:pointer; width: 100% !important; display: flex !important; box-sizing: border-box !important;">
                 <div class="thumb">
                     <div id="{{ $carouselId }}" class="carousel slide" data-ride="carousel" data-interval="false">
                     <div class="carousel-inner">
@@ -111,7 +110,6 @@
             </div>
             @endforeach
 
-        </div>
     </div>
     <!-- Contact Modal -->
     <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">

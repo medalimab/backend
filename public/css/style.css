@@ -20459,3 +20459,102 @@ legend span {
       background: #375cb9 !important;
     }
   }
+  /* ============================
+     NOUVELLE STRUCTURE SANS FLEXBOX BOOTSTRAP
+     ============================ */
+  .property-list-container {
+    width: 100% !important;
+    display: block !important;
+  }
+  
+  .property-wrapper {
+    width: 100% !important;
+    margin-bottom: 30px !important;
+    display: block !important;
+  }
+
+  .property-wrapper .feat_property.list {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ============================
+     STRUCTURE ANTI-SHRINKING LISTING
+     ============================ */
+  .our-listing .row {
+    flex-wrap: nowrap !important;
+  }
+  .our-listing .col-lg-12 {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    box-sizing: border-box !important;
+  }
+  #propertyGrid .feat_property.list {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+  }
+
+  /* ============================
+     FORCAGE TOTAL DE LA STRUCTURE
+     ============================ */
+  #propertyGrid,
+  #propertyGrid .col-lg-12,
+  #propertyGrid .row,
+  #propertyGrid .col-lg-12 .row,
+  #propertyGrid .col-lg-12 .col-lg-12 {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ============================
+     PROTECTION ULTRA-AGGRESSIVE CARDS
+     ============================ */
+  #propertyGrid .feat_property.list,
+  #propertyGrid .feat_property.list:first-child,
+  #propertyGrid .feat_property.list:last-child,
+  #propertyGrid .feat_property.list:nth-child(1),
+  #propertyGrid .feat_property.list:nth-child(2),
+  #propertyGrid .feat_property.list:nth-child(3),
+  #propertyGrid .feat_property.list:nth-child(4),
+  #propertyGrid .feat_property.list:nth-child(5) {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    flex-basis: 100% !important;
+    display: flex !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Forcer chaque partie de la card */
+  #propertyGrid .feat_property.list .thumb {
+    width: 40% !important;
+    min-width: 40% !important;
+    max-width: 40% !important;
+    flex: 0 0 40% !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #propertyGrid .feat_property.list .details {
+    width: 55% !important;
+    min-width: 55% !important;
+    max-width: 55% !important;
+    flex: 0 0 55% !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+  }
