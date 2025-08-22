@@ -20564,7 +20564,8 @@ legend span {
      ============================ */
   @media (max-width: 768px) {
     /* Protection complète pour les badges sur mobile */
-    .dtls_headr-mobile .tag {
+    .dtls_headr-mobile .tag,
+    .dtls_headr-mobile .tag.mb-0 {
       display: flex !important;
       flex-direction: column !important;
       align-items: flex-end !important;
@@ -20577,9 +20578,11 @@ legend span {
       width: auto !important;
       flex-shrink: 0 !important;
       overflow: visible !important;
+      margin-bottom: 0 !important; /* Spécifique pour mb-0 */
     }
 
-    .dtls_headr-mobile .tag li {
+    .dtls_headr-mobile .tag li,
+    .dtls_headr-mobile .tag.mb-0 li {
       display: block !important;
       margin: 0 0 3px 0 !important;
       width: auto !important;
@@ -20598,7 +20601,9 @@ legend span {
     }
 
     .dtls_headr-mobile .tag li a,
-    .dtls_headr-mobile .tag li span {
+    .dtls_headr-mobile .tag li span,
+    .dtls_headr-mobile .tag.mb-0 li a,
+    .dtls_headr-mobile .tag.mb-0 li span {
       display: block !important;
       padding: 0 12px !important; /* AUGMENTÉ: Plus de padding pour éviter la coupure */
       font-size: 12px !important;
@@ -20616,11 +20621,13 @@ legend span {
     }
 
     /* Protection spécifique pour les badges offplan */
-    .dtls_headr-mobile .tag li:first-child {
+    .dtls_headr-mobile .tag li:first-child,
+    .dtls_headr-mobile .tag.mb-0 li:first-child {
       background-color: rgb(62, 76, 102) !important;
     }
 
-    .dtls_headr-mobile .tag li:last-child {
+    .dtls_headr-mobile .tag li:last-child,
+    .dtls_headr-mobile .tag.mb-0 li:last-child {
       background-color: #375cb9 !important;
     }
 
@@ -20638,7 +20645,8 @@ legend span {
 
   @media (max-width: 480px) {
     /* Protection renforcée pour très petits écrans */
-    .dtls_headr-mobile .tag li {
+    .dtls_headr-mobile .tag li,
+    .dtls_headr-mobile .tag.mb-0 li {
       min-width: 65px !important; /* AUGMENTÉ: Pour "Off-plan" complet */
       max-width: 110px !important; /* AUGMENTÉ: Plus d'espace */
       font-size: 11px !important;
@@ -20647,7 +20655,9 @@ legend span {
     }
 
     .dtls_headr-mobile .tag li a,
-    .dtls_headr-mobile .tag li span {
+    .dtls_headr-mobile .tag li span,
+    .dtls_headr-mobile .tag.mb-0 li a,
+    .dtls_headr-mobile .tag.mb-0 li span {
       font-size: 11px !important;
       line-height: 26px !important;
       height: 26px !important;
@@ -20656,8 +20666,43 @@ legend span {
     }
 
     /* NOUVEAU: Protection spéciale pour les badges très longs sur smartphone */
-    .dtls_headr-mobile .tag li[data-long-text] {
+    .dtls_headr-mobile .tag li[data-long-text],
+    .dtls_headr-mobile .tag.mb-0 li[data-long-text] {
       max-width: 95px !important; /* AUGMENTÉ */
+    }
+  }
+
+  /* ============================
+     PROTECTION SPÉCIALE POUR CLASSE mb-0 BOOTSTRAP
+     ============================ */
+  
+  /* Fix pour les badges avec classe mb-0 de Bootstrap */
+  @media (max-width: 768px) {
+    ul.tag.mb-0,
+    .dtls_headr-mobile ul.tag.mb-0 {
+      margin-bottom: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-end !important;
+    }
+    
+    ul.tag.mb-0 li,
+    .dtls_headr-mobile ul.tag.mb-0 li {
+      margin-bottom: 3px !important;
+      min-width: 70px !important;
+      max-width: 140px !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      box-sizing: border-box !important;
+    }
+    
+    ul.tag.mb-0 li a,
+    .dtls_headr-mobile ul.tag.mb-0 li a {
+      padding: 0 12px !important;
+      display: block !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
     }
   }
 
