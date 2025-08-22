@@ -20583,27 +20583,36 @@ legend span {
       display: block !important;
       margin: 0 0 3px 0 !important;
       width: auto !important;
-      min-width: 60px !important;
+      min-width: 70px !important; /* AUGMENTÉ: Pour accueillir "Off-plan" et "Ready" */
+      max-width: 140px !important; /* AUGMENTÉ: Plus d'espace pour le texte complet */
       white-space: nowrap !important;
       text-align: center !important;
       border-radius: 3px !important;
-      height: 25px !important;
-      line-height: 25px !important;
+      height: 28px !important; /* AUGMENTÉ: Plus de hauteur */
+      line-height: 28px !important; /* AJUSTÉ: Alignement vertical */
       flex-shrink: 0 !important;
-      overflow: visible !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      position: relative !important;
+      box-sizing: border-box !important; /* NOUVEAU: Gestion des marges/padding */
     }
 
     .dtls_headr-mobile .tag li a,
     .dtls_headr-mobile .tag li span {
       display: block !important;
-      padding: 0 8px !important;
+      padding: 0 12px !important; /* AUGMENTÉ: Plus de padding pour éviter la coupure */
       font-size: 12px !important;
+      font-weight: 500 !important; /* NOUVEAU: Police plus lisible */
       color: #fefefe !important;
       text-decoration: none !important;
       white-space: nowrap !important;
-      overflow: visible !important;
-      line-height: 25px !important;
-      height: 25px !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      line-height: 28px !important; /* AJUSTÉ: Alignement vertical */
+      height: 28px !important; /* AJUSTÉ: Hauteur cohérente */
+      max-width: 100% !important;
+      box-sizing: border-box !important; /* NOUVEAU: Gestion des dimensions */
+      letter-spacing: 0.5px !important; /* NOUVEAU: Espacement des lettres pour meilleure lisibilité */
     }
 
     /* Protection spécifique pour les badges offplan */
@@ -20630,17 +20639,150 @@ legend span {
   @media (max-width: 480px) {
     /* Protection renforcée pour très petits écrans */
     .dtls_headr-mobile .tag li {
-      min-width: 55px !important;
+      min-width: 65px !important; /* AUGMENTÉ: Pour "Off-plan" complet */
+      max-width: 110px !important; /* AUGMENTÉ: Plus d'espace */
       font-size: 11px !important;
-      height: 23px !important;
-      line-height: 23px !important;
+      height: 26px !important; /* AUGMENTÉ: Plus de hauteur */
+      line-height: 26px !important;
     }
 
     .dtls_headr-mobile .tag li a,
     .dtls_headr-mobile .tag li span {
       font-size: 11px !important;
+      line-height: 26px !important;
+      height: 26px !important;
+      padding: 0 10px !important; /* AUGMENTÉ: Plus de padding */
+      letter-spacing: 0.3px !important; /* Meilleure lisibilité */
+    }
+
+    /* NOUVEAU: Protection spéciale pour les badges très longs sur smartphone */
+    .dtls_headr-mobile .tag li[data-long-text] {
+      max-width: 95px !important; /* AUGMENTÉ */
+    }
+  }
+
+  /* ============================
+     STYLES SPÉCIFIQUES POUR BADGES PROBLÉMATIQUES
+     ============================ */
+  
+  /* Protection renforcée pour badges spécifiques avec classes JavaScript */
+  @media (max-width: 768px) {
+    /* Badge Off-plan */
+    .dtls_headr-mobile .tag li.badge-offplan {
+      min-width: 85px !important;
+      max-width: 85px !important;
+      width: 85px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-offplan a,
+    .dtls_headr-mobile .tag li.badge-offplan span {
+      padding: 0 10px !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.2px !important;
+      background-color: rgb(62, 76, 102) !important;
+    }
+
+    /* Badge Ready */
+    .dtls_headr-mobile .tag li.badge-ready {
+      min-width: 75px !important;
+      max-width: 75px !important;
+      width: 75px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-ready a,
+    .dtls_headr-mobile .tag li.badge-ready span {
+      padding: 0 8px !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      background-color: #375cb9 !important;
+    }
+
+    /* Badge For Sale */
+    .dtls_headr-mobile .tag li.badge-forsale {
+      min-width: 90px !important;
+      max-width: 90px !important;
+      width: 90px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-forsale a,
+    .dtls_headr-mobile .tag li.badge-forsale span {
+      padding: 0 10px !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+    }
+
+    /* Badge Rent */
+    .dtls_headr-mobile .tag li.badge-rent {
+      min-width: 65px !important;
+      max-width: 65px !important;
+      width: 65px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-rent a,
+    .dtls_headr-mobile .tag li.badge-rent span {
+      padding: 0 8px !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* Ajustements pour très petits écrans */
+    .dtls_headr-mobile .tag li.badge-offplan {
+      min-width: 78px !important;
+      max-width: 78px !important;
+      width: 78px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-offplan a,
+    .dtls_headr-mobile .tag li.badge-offplan span {
+      font-size: 10px !important;
+      padding: 0 8px !important;
+      letter-spacing: 0.1px !important;
+      line-height: 26px !important;
+      height: 26px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-ready {
+      min-width: 68px !important;
+      max-width: 68px !important;
+      width: 68px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-ready a,
+    .dtls_headr-mobile .tag li.badge-ready span {
+      font-size: 10px !important;
       padding: 0 6px !important;
-      line-height: 23px !important;
-      height: 23px !important;
+      line-height: 26px !important;
+      height: 26px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-forsale {
+      min-width: 85px !important;
+      max-width: 85px !important;
+      width: 85px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-forsale a,
+    .dtls_headr-mobile .tag li.badge-forsale span {
+      font-size: 10px !important;
+      padding: 0 8px !important;
+      line-height: 26px !important;
+      height: 26px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-rent {
+      min-width: 60px !important;
+      max-width: 60px !important;
+      width: 60px !important;
+    }
+
+    .dtls_headr-mobile .tag li.badge-rent a,
+    .dtls_headr-mobile .tag li.badge-rent span {
+      font-size: 10px !important;
+      padding: 0 6px !important;
+      line-height: 26px !important;
+      height: 26px !important;
     }
   }

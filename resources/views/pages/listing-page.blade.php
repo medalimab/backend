@@ -664,7 +664,13 @@
           const trigger = document.getElementById(triggerId);
           const dropdown = document.getElementById(dropdownId);
 
-          trigger?.addEventListener('click', (e) => {
+          // Vérifier que les éléments existent avant d'ajouter des listeners
+          if (!trigger || !dropdown) {
+            console.warn(`Elements not found: trigger=${triggerId}, dropdown=${dropdownId}`);
+            return;
+          }
+
+          trigger.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
 
@@ -675,7 +681,8 @@
           });
 
           document.addEventListener('click', (e) => {
-            if (!dropdown.contains(e.target) && !trigger.contains(e.target)) {
+            // Vérifier que les éléments existent avant d'appeler contains()
+            if (dropdown && trigger && !dropdown.contains(e.target) && !trigger.contains(e.target)) {
               dropdown.style.display = 'none';
             }
           });
@@ -886,6 +893,8 @@ window.addEventListener('scroll', forceCardWidth);
 window.addEventListener('resize', forceCardWidth);
 </script>
 
+<!-- Dropdown Manager avec protection d'erreurs -->
+<script src="{{ asset('js/dropdown-manager.js') }}"></script>
 
   </body>
 </html>
