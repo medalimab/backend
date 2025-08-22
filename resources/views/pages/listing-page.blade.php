@@ -842,37 +842,128 @@ window.addEventListener('scroll', function() {
   //   fetchProperties();
   // });
 
-// SCRIPT NUCLÉAIRE ANTI-SHRINKING
+// SCRIPT RESPONSIVE INTELLIGENT - DESKTOP/MOBILE
 function forceCardWidth() {
   var cards = document.querySelectorAll('#propertyGrid .feat_property.list');
   cards.forEach(function(card, index) {
-    // Forcer la card elle-même
-    card.style.setProperty('width', '100%', 'important');
-    card.style.setProperty('min-width', '100%', 'important');
-    card.style.setProperty('max-width', '100%', 'important');
-    card.style.setProperty('flex', '1 1 100%', 'important');
-    card.style.setProperty('flex-shrink', '0', 'important');
-    card.style.setProperty('flex-grow', '0', 'important');
-    card.style.setProperty('display', 'flex', 'important');
+    // Détection mobile/desktop
+    var isMobile = window.innerWidth <= 768;
     
-    // Forcer le thumb
-    var thumb = card.querySelector('.thumb');
-    if (thumb) {
-      thumb.style.setProperty('width', '40%', 'important');
-      thumb.style.setProperty('min-width', '40%', 'important');
-      thumb.style.setProperty('max-width', '40%', 'important');
-      thumb.style.setProperty('flex', '0 0 40%', 'important');
-      thumb.style.setProperty('flex-shrink', '0', 'important');
-    }
-    
-    // Forcer les details
-    var details = card.querySelector('.details');
-    if (details) {
-      details.style.setProperty('width', '55%', 'important');
-      details.style.setProperty('min-width', '55%', 'important');
-      details.style.setProperty('max-width', '55%', 'important');
-      details.style.setProperty('flex', '0 0 55%', 'important');
-      details.style.setProperty('flex-shrink', '0', 'important');
+    if (isMobile) {
+      // MOBILE - Structure verticale comme page HOME
+      card.style.setProperty('width', '100%', 'important');
+      card.style.setProperty('min-width', '100%', 'important');
+      card.style.setProperty('max-width', '100%', 'important');
+      card.style.setProperty('display', 'flex', 'important');
+      card.style.setProperty('flex-direction', 'column', 'important');
+      card.style.setProperty('margin', '10px 0', 'important');
+      card.style.setProperty('padding', '0', 'important');
+      card.style.setProperty('border-radius', '8px', 'important');
+      card.style.setProperty('overflow', 'hidden', 'important');
+      card.style.setProperty('background-color', '#ffffff', 'important');
+      card.style.setProperty('border', '1px solid #ebebeb', 'important');
+      
+      // MOBILE - Image en haut
+      var thumb = card.querySelector('.thumb');
+      if (thumb) {
+        thumb.style.setProperty('width', '100%', 'important');
+        thumb.style.setProperty('height', '200px', 'important');
+        thumb.style.setProperty('min-width', '100%', 'important');
+        thumb.style.setProperty('max-width', '100%', 'important');
+        thumb.style.setProperty('flex', '0 0 200px', 'important');
+        thumb.style.setProperty('margin', '0', 'important');
+        thumb.style.setProperty('padding', '0', 'important');
+        thumb.style.setProperty('border-radius', '8px 8px 0 0', 'important');
+        thumb.style.setProperty('order', '1', 'important');
+      }
+      
+      // MOBILE - Détails sous l'image  
+      var details = card.querySelector('.details');
+      if (details) {
+        details.style.setProperty('width', '100%', 'important');
+        details.style.setProperty('min-width', '100%', 'important');
+        details.style.setProperty('max-width', '100%', 'important');
+        details.style.setProperty('flex', '1', 'important');
+        details.style.setProperty('margin', '0', 'important');
+        details.style.setProperty('padding', '0', 'important');
+        details.style.setProperty('order', '2', 'important');
+      }
+      
+      // MOBILE - Contenu avec padding
+      var tcContent = card.querySelector('.details .tc_content');
+      if (tcContent) {
+        tcContent.style.setProperty('padding', '15px', 'important');
+      }
+      
+      // MOBILE - Footer en bas
+      var footer = card.querySelector('.details .fp_footer');
+      if (footer) {
+        footer.style.setProperty('padding', '10px 15px 15px', 'important');
+        footer.style.setProperty('border-top', '1px solid #efefef', 'important');
+        footer.style.setProperty('order', '3', 'important');
+      }
+      
+    } else {
+      // DESKTOP - Structure originale EXACTEMENT comme avant
+      card.style.setProperty('width', '100%', 'important');
+      card.style.setProperty('min-width', '100%', 'important');
+      card.style.setProperty('max-width', '100%', 'important');
+      card.style.setProperty('flex', '1 1 100%', 'important');
+      card.style.setProperty('flex-shrink', '0', 'important');
+      card.style.setProperty('flex-grow', '0', 'important');
+      card.style.setProperty('display', 'flex', 'important');
+      // Supprimer flex-direction pour laisser le default (row)
+      card.style.removeProperty('flex-direction');
+      card.style.removeProperty('margin');
+      card.style.removeProperty('padding');
+      card.style.removeProperty('border-radius');
+      card.style.removeProperty('overflow');
+      card.style.removeProperty('background-color');
+      card.style.removeProperty('border');
+      
+      // DESKTOP - Image à gauche EXACTEMENT comme avant
+      var thumb = card.querySelector('.thumb');
+      if (thumb) {
+        thumb.style.setProperty('width', '40%', 'important');
+        thumb.style.setProperty('min-width', '40%', 'important');
+        thumb.style.setProperty('max-width', '40%', 'important');
+        thumb.style.setProperty('flex', '0 0 40%', 'important');
+        thumb.style.setProperty('flex-shrink', '0', 'important');
+        // Supprimer les propriétés mobile
+        thumb.style.removeProperty('height');
+        thumb.style.removeProperty('border-radius');
+        thumb.style.removeProperty('order');
+        thumb.style.removeProperty('margin');
+        thumb.style.removeProperty('padding');
+      }
+      
+      // DESKTOP - Détails à droite EXACTEMENT comme avant
+      var details = card.querySelector('.details');
+      if (details) {
+        details.style.setProperty('width', '55%', 'important');
+        details.style.setProperty('min-width', '55%', 'important');
+        details.style.setProperty('max-width', '55%', 'important');
+        details.style.setProperty('flex', '0 0 55%', 'important');
+        details.style.setProperty('flex-shrink', '0', 'important');
+        // Supprimer les propriétés mobile
+        details.style.removeProperty('order');
+        details.style.removeProperty('margin');
+        details.style.removeProperty('padding');
+      }
+      
+      // DESKTOP - Supprimer les styles mobile du contenu
+      var tcContent = card.querySelector('.details .tc_content');
+      if (tcContent) {
+        tcContent.style.removeProperty('padding');
+      }
+      
+      // DESKTOP - Supprimer les styles mobile du footer
+      var footer = card.querySelector('.details .fp_footer');
+      if (footer) {
+        footer.style.removeProperty('padding');
+        footer.style.removeProperty('border-top');
+        footer.style.removeProperty('order');
+      }
     }
   });
 }

@@ -5427,12 +5427,16 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   display: -ms-flex;
   display: -o-flex;
   display: flex;
+  /* Structure normale desktop : côte à côte */
 }
 
 .feat_property.list .thumb {
-  width: 45%;
+  width: 45%; /* Desktop : image à gauche */
   margin: 10px;
   position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .feat_property.list.style2 .thumb {
@@ -5441,7 +5445,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 }
 
 .feat_property.list .details {
-  width: 70%;
+  width: 70%; /* Desktop : détails à droite */
 }
 
 .feat_property.list .details .fp_footer {
@@ -20499,70 +20503,75 @@ legend span {
     flex: 1 1 100% !important;
     box-sizing: border-box !important;
   }
-  #propertyGrid .feat_property.list {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-  }
-
   /* ============================
-     FORCAGE TOTAL DE LA STRUCTURE
+     STYLES #propertyGrid - DESKTOP SEULEMENT
      ============================ */
-  #propertyGrid,
-  #propertyGrid .col-lg-12,
-  #propertyGrid .row,
-  #propertyGrid .col-lg-12 .row,
-  #propertyGrid .col-lg-12 .col-lg-12 {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    flex: 1 1 100% !important;
-    flex-shrink: 0 !important;
-    flex-grow: 0 !important;
-    box-sizing: border-box !important;
-  }
+  @media screen and (min-width: 769px) {
+    #propertyGrid .feat_property.list {
+      width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+    }
 
-  /* ============================
-     PROTECTION ULTRA-AGGRESSIVE CARDS
-     ============================ */
-  #propertyGrid .feat_property.list,
-  #propertyGrid .feat_property.list:first-child,
-  #propertyGrid .feat_property.list:last-child,
-  #propertyGrid .feat_property.list:nth-child(1),
-  #propertyGrid .feat_property.list:nth-child(2),
-  #propertyGrid .feat_property.list:nth-child(3),
-  #propertyGrid .feat_property.list:nth-child(4),
-  #propertyGrid .feat_property.list:nth-child(5) {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    flex: 1 1 100% !important;
-    flex-shrink: 0 !important;
-    flex-grow: 0 !important;
-    flex-basis: 100% !important;
-    display: flex !important;
-    box-sizing: border-box !important;
-  }
+    /* ============================
+       FORCAGE TOTAL DE LA STRUCTURE - DESKTOP
+       ============================ */
+    #propertyGrid,
+    #propertyGrid .col-lg-12,
+    #propertyGrid .row,
+    #propertyGrid .col-lg-12 .row,
+    #propertyGrid .col-lg-12 .col-lg-12 {
+      width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
+      flex: 1 1 100% !important;
+      flex-shrink: 0 !important;
+      flex-grow: 0 !important;
+      box-sizing: border-box !important;
+    }
 
-  /* Forcer chaque partie de la card */
-  #propertyGrid .feat_property.list .thumb {
-    width: 40% !important;
-    min-width: 40% !important;
-    max-width: 40% !important;
-    flex: 0 0 40% !important;
-    flex-shrink: 0 !important;
-    box-sizing: border-box !important;
-  }
+    /* ============================
+       PROTECTION ULTRA-AGGRESSIVE CARDS - DESKTOP
+       ============================ */
+    #propertyGrid .feat_property.list,
+    #propertyGrid .feat_property.list:first-child,
+    #propertyGrid .feat_property.list:last-child,
+    #propertyGrid .feat_property.list:nth-child(1),
+    #propertyGrid .feat_property.list:nth-child(2),
+    #propertyGrid .feat_property.list:nth-child(3),
+    #propertyGrid .feat_property.list:nth-child(4),
+    #propertyGrid .feat_property.list:nth-child(5) {
+      width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
+      flex: 1 1 100% !important;
+      flex-shrink: 0 !important;
+      flex-grow: 0 !important;
+      flex-basis: 100% !important;
+      display: flex !important;
+      box-sizing: border-box !important;
+    }
 
-  #propertyGrid .feat_property.list .details {
-    width: 55% !important;
-    min-width: 55% !important;
-    max-width: 55% !important;
-    flex: 0 0 55% !important;
-    flex-shrink: 0 !important;
-    box-sizing: border-box !important;
+    /* Forcer chaque partie de la card - DESKTOP */
+    #propertyGrid .feat_property.list .thumb {
+      width: 40% !important;
+      min-width: 40% !important;
+      max-width: 40% !important;
+      flex: 0 0 40% !important;
+      flex-shrink: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    #propertyGrid .feat_property.list .details {
+      width: 55% !important;
+      min-width: 55% !important;
+      max-width: 55% !important;
+      flex: 0 0 55% !important;
+      flex-shrink: 0 !important;
+      box-sizing: border-box !important;
+    }
   }
 
   /* ============================
@@ -20895,3 +20904,182 @@ legend span {
       height: 26px !important;
     }
   }
+
+/* ============================
+   LAYOUT MOBILE HORIZONTAL - COMME SUR WEB
+   IMAGE GAUCHE + CONTENU DROITE + ICÔNES APRÈS
+   ============================ */
+
+/* Mobile uniquement (≤ 768px) - Layout horizontal comme web */
+@media (max-width: 768px) {
+  .feat_property.list {
+    display: flex !important;
+    flex-direction: row !important; /* HORIZONTAL: comme le web */
+    align-items: stretch !important;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+    height: auto !important;
+    width: 100% !important;
+    min-height: 140px !important; /* HAUTEUR AJUSTÉE pour format horizontal */
+  }
+
+  /* IMAGE GAUCHE: Comme sur le web mais ajustée pour mobile - FORMAT HORIZONTAL */
+  .feat_property.list .thumb {
+    width: 40% !important; /* 40% pour laisser plus de place au contenu */
+    min-width: 40% !important;
+    max-width: 40% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    flex-shrink: 0;
+    height: 140px !important; /* HAUTEUR RÉDUITE pour format horizontal/paysage */
+    overflow: hidden;
+    border-radius: 12px 0 0 12px !important; /* Arrondi à gauche seulement */
+  }
+
+  /* Images du carousel - Format horizontal */
+  .feat_property.list .carousel,
+  .feat_property.list .carousel-inner,
+  .feat_property.list .carousel-item {
+    height: 100% !important;
+    width: 100% !important;
+    border-radius: 12px 0 0 12px !important;
+    overflow: hidden;
+  }
+
+  .feat_property.list .carousel-item img,
+  .feat_property.list .thumb img,
+  .feat_property.list img.d-block.w-100 {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Couvre sans déformation */
+    object-position: center !important;
+    display: block !important;
+    border-radius: 12px 0 0 12px !important;
+  }
+
+  /* CONTENU DROITE: Après l'image, comme sur le web */
+  .feat_property.list .details {
+    width: 60% !important; /* 60% pour le contenu */
+    min-width: 60% !important;
+    max-width: 60% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 140px !important; /* HAUTEUR AJUSTÉE pour alignement avec image horizontale */
+    flex-grow: 1;
+    background: #fff;
+    border-radius: 0 12px 12px 0; /* Arrondi à droite seulement */
+  }
+
+  /* TC_CONTENT: Contenu principal à droite de l'image */
+  .feat_property.list .details .tc_content {
+    padding: 15px !important; /* Adapté pour espace horizontal */
+    position: relative;
+    flex-grow: 1;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Titres et textes optimisés pour layout horizontal mobile */
+  .feat_property.list .details .tc_content h4 {
+    margin: 8px 0 !important;
+    font-size: 1rem !important; /* Plus petit pour layout horizontal */
+    line-height: 1.3 !important;
+    font-weight: 600 !important;
+  }
+
+  .feat_property.list .details .tc_content p {
+    margin: 6px 0 !important;
+    font-size: 0.85rem !important; /* Plus petit pour layout horizontal */
+    line-height: 1.4 !important;
+  }
+
+  /* ICÔNES APRÈS LE CONTENU: Dans le footer, comme sur le web */
+  .feat_property.list .details .fp_footer {
+    border: none;
+    padding: 10px 15px !important;
+    margin-top: auto;
+    border-top: 1px solid #eee;
+    background: #f8f9fa;
+    flex-shrink: 0;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-radius: 0 0 12px 0; /* Termine à droite en bas */
+  }
+
+  /* Contrôles du carousel sur image gauche */
+  .feat_property.list .carousel-control-prev,
+  .feat_property.list .carousel-control-next {
+    width: 30px !important;
+    height: 30px !important;
+    background: rgba(0,0,0,0.6) !important;
+    border-radius: 50% !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .feat_property.list .carousel-control-prev {
+    left: 10px !important;
+  }
+
+  .feat_property.list .carousel-control-next {
+    right: 10px !important;
+  }
+
+  /* Préservation des icônes (ne pas étirer) */
+  .feat_property.list .contact-icons img,
+  .feat_property.list .fp_meta img,
+  .feat_property.list .icon,
+  .feat_property.list .prop_details img {
+    width: auto !important;
+    height: auto !important;
+    object-fit: initial !important;
+    object-position: initial !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    border-radius: initial !important;
+  }
+}
+
+/* Très petits écrans (≤ 480px) - Ajustements pour mobiles petits */
+@media (max-width: 480px) {
+  .feat_property.list .thumb {
+    height: 120px !important; /* Encore plus horizontal sur petits écrans */
+  }
+  
+  .feat_property.list .details {
+    height: 120px !important; /* Ajustement pour alignement */
+  }
+  
+  .feat_property.list .details .tc_content {
+    padding: 10px !important; /* Moins d'espacement */
+  }
+  
+  .feat_property.list .details .tc_content h4 {
+    font-size: 0.9rem !important;
+    margin: 4px 0 !important;
+  }
+  
+  .feat_property.list .details .tc_content p {
+    font-size: 0.8rem !important;
+    margin: 3px 0 !important;
+  }
+
+  /* Icônes encore plus petites sur très petits écrans */
+  .feat_property.list .contact-icons img,
+  .feat_property.list .fp_meta img,
+  .feat_property.list .icon,
+  .feat_property.list .prop_details img {
+    max-width: 16px !important;
+    max-height: 16px !important;
+  }
+}
