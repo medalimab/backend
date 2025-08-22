@@ -20558,3 +20558,89 @@ legend span {
     flex-shrink: 0 !important;
     box-sizing: border-box !important;
   }
+
+  /* ============================
+     PROTECTION BADGES MOBILE - OFFPLAN FIX
+     ============================ */
+  @media (max-width: 768px) {
+    /* Protection complète pour les badges sur mobile */
+    .dtls_headr-mobile .tag {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-end !important;
+      justify-content: flex-start !important;
+      text-align: right !important;
+      margin-left: auto !important;
+      margin-right: 0 !important;
+      padding: 0 !important;
+      min-width: auto !important;
+      width: auto !important;
+      flex-shrink: 0 !important;
+      overflow: visible !important;
+    }
+
+    .dtls_headr-mobile .tag li {
+      display: block !important;
+      margin: 0 0 3px 0 !important;
+      width: auto !important;
+      min-width: 60px !important;
+      white-space: nowrap !important;
+      text-align: center !important;
+      border-radius: 3px !important;
+      height: 25px !important;
+      line-height: 25px !important;
+      flex-shrink: 0 !important;
+      overflow: visible !important;
+    }
+
+    .dtls_headr-mobile .tag li a,
+    .dtls_headr-mobile .tag li span {
+      display: block !important;
+      padding: 0 8px !important;
+      font-size: 12px !important;
+      color: #fefefe !important;
+      text-decoration: none !important;
+      white-space: nowrap !important;
+      overflow: visible !important;
+      line-height: 25px !important;
+      height: 25px !important;
+    }
+
+    /* Protection spécifique pour les badges offplan */
+    .dtls_headr-mobile .tag li:first-child {
+      background-color: rgb(62, 76, 102) !important;
+    }
+
+    .dtls_headr-mobile .tag li:last-child {
+      background-color: #375cb9 !important;
+    }
+
+    /* Assurer que le container mobile reste stable */
+    .dtls_headr-mobile {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      width: 100% !important;
+      position: relative !important;
+      min-height: 30px !important;
+      overflow: visible !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* Protection renforcée pour très petits écrans */
+    .dtls_headr-mobile .tag li {
+      min-width: 55px !important;
+      font-size: 11px !important;
+      height: 23px !important;
+      line-height: 23px !important;
+    }
+
+    .dtls_headr-mobile .tag li a,
+    .dtls_headr-mobile .tag li span {
+      font-size: 11px !important;
+      padding: 0 6px !important;
+      line-height: 23px !important;
+      height: 23px !important;
+    }
+  }

@@ -99,7 +99,7 @@
                     <div class="fp_footer">
                     <ul class="fp_meta float-left mb0">
                         <li class="list-inline-item">
-                        <img src="{{ asset('storage/property/' . $property->poster_image) }}" alt="{{ $property->poster_image }}" />
+                        <img src="{{ asset('storage/properties/' . $property->poster_image) }}" alt="{{ $property->poster_image }}" />
                         </li>
                         <li class="list-inline-item">{{ $property->user->name }}</li>
                     </ul>
