@@ -560,16 +560,16 @@
 
 							<div class="col-lg-12">
 								<div class="qr_code_area d-flex flex-column align-items-center justify-content-center text-center py-4">
-									<h4 class="mb30">Code QR</h4>
+									<h4 class="mb30">Trakheesi Permit</h4>
 									@if($property->dld_permit_qr)
 										<div class="iba_container style2 d-flex flex-column align-items-center">
 											<img src="{{ asset('storage/' . $property->dld_permit_qr) }}" alt="QR Code DLD" style="max-width:180px;max-height:180px; margin-bottom: 10px;">
 											<div class="details mt-2">
-												<h5>Scannez ce code QR pour vérifier le permis DLD</h5>
+												<h5>Scannez ce Trakheesi Permit pour vérifier le permis DLD</h5>
 											</div>
 										</div>
 									@else
-										<p>Aucun code QR disponible.</p>
+										<p>Aucun Trakheesi Permit disponible.</p>
 									@endif
 								</div>
 							</div>
