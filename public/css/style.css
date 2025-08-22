@@ -20165,11 +20165,16 @@ legend span {
       left: auto !important;
       bottom: auto !important;
       float: none !important;
-      margin: 0 30px 0 0 !important;
-      /* Increased right margin from 10px to 30px */
+      margin: 0 15px 0 0 !important; /* Réduit de 30px à 15px */
       line-height: 1.2 !important;
-      white-space: nowrap;
-      flex-shrink: 0;
+      white-space: nowrap !important;
+      flex-shrink: 1 !important; /* Permet au prix de se réduire */
+      max-width: 65% !important; /* Augmenté à 65% pour plus de visibilité */
+      min-width: 100px !important; /* Garantit une largeur minimum visible */
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      display: block !important; /* Force l'affichage */
+      visibility: visible !important; /* Force la visibilité */
     }
 
     .dtls_headr-mobile .tag {
@@ -20574,9 +20579,10 @@ legend span {
       margin-left: auto !important;
       margin-right: 0 !important;
       padding: 0 !important;
-      min-width: auto !important;
+      min-width: 80px !important; /* AUGMENTÉ: Garantir un minimum d'espace pour les badges */
+      max-width: 40% !important; /* NOUVEAU: Limite la largeur maximale */
       width: auto !important;
-      flex-shrink: 0 !important;
+      flex-shrink: 0 !important; /* Les badges ne se réduisent jamais */
       overflow: visible !important;
       margin-bottom: 0 !important; /* Spécifique pour mb-0 */
     }
@@ -20641,6 +20647,20 @@ legend span {
       min-height: 30px !important;
       overflow: visible !important;
     }
+    
+    /* DEBUG: S'assurer que le prix est toujours visible */
+    .dtls_headr-mobile ul:first-child {
+      flex: 1 1 auto !important;
+      max-width: 65% !important;
+      min-width: 100px !important;
+      overflow: visible !important;
+    }
+    
+    .dtls_headr-mobile ul:first-child a.fp_price {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
   }
 
   @media (max-width: 480px) {
@@ -20663,6 +20683,20 @@ legend span {
       height: 26px !important;
       padding: 0 10px !important; /* AUGMENTÉ: Plus de padding */
       letter-spacing: 0.3px !important; /* Meilleure lisibilité */
+    }
+    
+    /* NOUVEAU: Protection spéciale pour les prix très longs sur petits écrans */
+    .dtls_headr-mobile a.fp_price {
+      max-width: 60% !important; /* Augmenté de 55% à 60% */
+      min-width: 80px !important; /* Garantit une largeur minimum sur petit écran */
+      font-size: 1.1em !important; /* Légèrement plus petit */
+      margin-right: 10px !important; /* Moins de marge */
+    }
+    
+    .dtls_headr-mobile .tag,
+    .dtls_headr-mobile .tag.mb-0 {
+      min-width: 90px !important; /* Plus d'espace garanti pour les badges */
+      max-width: 40% !important; /* Réduit de 45% à 40% pour laisser plus de place au prix */
     }
 
     /* NOUVEAU: Protection spéciale pour les badges très longs sur smartphone */
