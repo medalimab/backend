@@ -16,7 +16,7 @@
       </a>
       <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
         <li><a href="/"><span class="title">Home</span></a></li>
-        <li><a href="{{ route('properties.show_listing_page_client') }}"><span class="title">Listing</span></a></li>
+  <li><a href="{{ route('properties.show_listing_page_client') }}"><span class="title">Properties</span></a></li>
         <li><a href="/about"><span class="title">About</span></a></li>
         <li><a href="#"><span class="title">Our Projects</span></a>
           <ul class="sub-menu">
@@ -42,7 +42,7 @@
   <nav id="menu" class="stylehome1">
     <ul>
       <li><a href="/">Home</a></li>
-      <li><a href="/listing_page">Listing</a></li>
+  <li><a href="/listing_page">Properties</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="#">Our Projects</a>
         <ul>

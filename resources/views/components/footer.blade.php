@@ -19,7 +19,7 @@
           <ul class="list-unstyled">
             <li><a href="/about">About Us</a></li>
             <li><a href="/contact">Contact Us</a></li>
-            <li><a href="{{ route('properties.show_listing_page_client') }}">Listing</a></li>
+            <li><a href="{{ route('properties.show_listing_page_client') }}">Properties</a></li>
             <li><a href="/faq">FAQ</a></li>
             <li><a href="page-terms.html">Terms & Conditions</a></li>
             <li><a href="">Privacy Policy</a></li>
