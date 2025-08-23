@@ -678,7 +678,7 @@
           
           .fullwidth-swiper { 
             width: 100%;
-            height: 600px; 
+            height: 565px; 
             display: block;
             overflow: hidden;
           }
@@ -701,17 +701,17 @@
           
           .carousel-image {
             width: 100%;
-            height: 600px;
-            object-fit: cover;
-            object-position: center top;
+            height: 565px;
+            object-fit: contain;
+            object-position: center;
             display: block;
           }
           
           /* Tablettes et écrans moyens */
           @media (max-width: 1024px) {
-            .fullwidth-swiper { height: 500px; }
+            .fullwidth-swiper { height: 432px; }
             .carousel-image { 
-              height: 500px;
+              height: 432px;
               object-fit: contain;
             }
           }
@@ -719,22 +719,22 @@
           /* Tablettes */
           @media (max-width: 768px) {
             .fullwidth-swiper { 
-              height: 400px;
+              height: 324px;
             }
             .carousel-image { 
-              height: 400px;
+              height: 324px;
               object-fit: contain;
-              object-position: center top;
+              object-position: center;
             }
           }
           
           /* Mobiles */
           @media (max-width: 480px) {
             .fullwidth-swiper { 
-              height: 350px;
+              height: 270px;
             }
             .carousel-image { 
-              height: 350px;
+              height: 270px;
               object-fit: contain;
             }
           }
@@ -742,10 +742,10 @@
           /* Très petits écrans */
           @media (max-width: 360px) {
             .fullwidth-swiper { 
-              height: 300px;
+              height: 203px;
             }
             .carousel-image { 
-              height: 300px;
+              height: 203px;
             }
           }
           
