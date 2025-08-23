@@ -5,7 +5,7 @@
       padding-left: 0 !important;
       margin-left: 0 !important;
       margin-right: 0 !important;
-      padding-right: 1000 !important;
+      padding-right: 0 !important;
     }
     .card {
       margin-left: 0 !important;
@@ -17,17 +17,17 @@
     }
     .view-all {
       display: block !important;
-      position: relative !important;
-      left: 10% !important;
-      transform: translateX(-50%) !important;
-      margin-left: 200 !important;
-      margin-right: 0 !important;
+      margin: 0 auto !important;
       text-align: center !important;
       width: fit-content !important;
       max-width: 90vw !important;
-      bottom: unset !important;
-      z-index: unset !important;
-      padding-: 10px !important;
+      padding: 10px 18px !important;
+      border-radius: 8px !important;
+      border: 1px solid #ccc !important;
+      background: #f1f8fa !important;
+      font-weight: bold !important;
+      font-size: 15px !important;
+      cursor: pointer !important;
     }
   }
           </style>
