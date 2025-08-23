@@ -171,18 +171,18 @@
       /* Styles pour très petits écrans */
       @media (max-width: 480px) {
           .carousel-container {
-            width: 100vw !important;
-            max-width: 100vw !important;
-            margin-left: calc(-50vw + 50%) !important;
-            margin-right: calc(-50vw + 50%) !important;
-            padding: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 auto !important;
+            padding: 0 15px !important;
           }
           .cards {
-            width: 100vw !important;
-            max-width: 100vw !important;
+            width: 100% !important;
+            max-width: 100% !important;
             padding: 0 !important;
             margin: 0 !important;
-            gap: 0 !important;
+            gap: 15px !important;
+            overflow-x: auto !important;
           }
           .card {
             width: 270px !important;
