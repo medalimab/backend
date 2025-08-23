@@ -6,8 +6,6 @@
       margin-left: 0 !important;
       margin-right: 0 !important;
       padding-right: 0 !important;
-
-      gap: 16px !important;
     }
     .card {
       margin-left: 0 !important;
