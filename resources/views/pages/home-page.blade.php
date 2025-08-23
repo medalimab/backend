@@ -624,11 +624,41 @@
         <div class="container-fluid p-0">
           <div class="swiper fullwidth-swiper">
             <div class="swiper-wrapper">
+              <!-- Slide 1 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel1.jpg') }}" alt="Image 1" class="carousel-image">
+                <img src="{{ asset('images/carousel/web1.png') }}" alt="Image Web 1" class="carousel-image">
               </div>
+              <!-- Slide 2 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel2.jpg') }}" alt="Image 2" class="carousel-image">
+                <img src="{{ asset('images/carousel/web2.png') }}" alt="Image Web 2" class="carousel-image">
+              </div>
+              <!-- Slide 3 -->
+              <div class="swiper-slide">
+                <img src="{{ asset('images/carousel/web3.png') }}" alt="Image Web 3" class="carousel-image">
+              </div>
+              <!-- Slide 4 -->
+              <div class="swiper-slide">
+                <img src="{{ asset('images/carousel/web4.png') }}" alt="Image Web 4" class="carousel-image">
+              </div>
+              <!-- Slide 5 -->
+              <div class="swiper-slide">
+                <img src="{{ asset('images/carousel/web5.png') }}" alt="Image Web 5" class="carousel-image">
+              </div>
+              <!-- Slide 6 -->
+              <div class="swiper-slide">
+                <img src="{{ asset('images/carousel/web6.png') }}" alt="Image Web 6" class="carousel-image">
+              </div>
+              <!-- Slide 7 -->
+              <div class="swiper-slide">
+                <img src="{{ asset('images/carousel/web7.png') }}" alt="Image Web 7" class="carousel-image">
+              </div>
+              <!-- Slide 8 -->
+              <div class="swiper-slide">
+                <img src="{{ asset('images/carousel/web8.png') }}" alt="Image Web 8" class="carousel-image">
+              </div>
+              <!-- Slide 9 -->
+              <div class="swiper-slide">
+                <img src="{{ asset('images/carousel/web9.png') }}" alt="Image Web 9" class="carousel-image">
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -648,7 +678,7 @@
           
           .fullwidth-swiper { 
             width: 100%;
-            height: 320px; 
+            height: 600px; 
             display: block;
             overflow: hidden;
           }
@@ -671,17 +701,17 @@
           
           .carousel-image {
             width: 100%;
-            height: 320px;
+            height: 600px;
             object-fit: cover;
-            object-position: center;
+            object-position: center top;
             display: block;
           }
           
           /* Tablettes et écrans moyens */
           @media (max-width: 1024px) {
-            .fullwidth-swiper { height: 280px; }
+            .fullwidth-swiper { height: 500px; }
             .carousel-image { 
-              height: 280px;
+              height: 500px;
               object-fit: contain;
             }
           }
@@ -689,22 +719,22 @@
           /* Tablettes */
           @media (max-width: 768px) {
             .fullwidth-swiper { 
-              height: 250px;
+              height: 400px;
             }
             .carousel-image { 
-              height: 250px;
+              height: 400px;
               object-fit: contain;
-              object-position: center;
+              object-position: center top;
             }
           }
           
           /* Mobiles */
           @media (max-width: 480px) {
             .fullwidth-swiper { 
-              height: 200px;
+              height: 350px;
             }
             .carousel-image { 
-              height: 200px;
+              height: 350px;
               object-fit: contain;
             }
           }
@@ -712,10 +742,10 @@
           /* Très petits écrans */
           @media (max-width: 360px) {
             .fullwidth-swiper { 
-              height: 180px;
+              height: 300px;
             }
             .carousel-image { 
-              height: 180px;
+              height: 300px;
             }
           }
           
