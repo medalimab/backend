@@ -185,9 +185,9 @@
             gap: 0 !important;
           }
           .card {
-            min-width: 100vw !important;
-            max-width: 100vw !important;
-            width: 100vw !important;
+            width: 270px !important;
+            min-width: 250px !important;
+            max-width: 100% !important;
             margin: 0 !important;
           }
         .footer_social_widget {
