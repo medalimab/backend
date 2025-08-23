@@ -5,7 +5,7 @@
       padding-left: 0 !important;
       margin-left: 0 !important;
       margin-right: 0 !important;
-      padding-right: 0 !important;
+      padding-right: 100 !important;
     }
     .card {
       margin-left: 0 !important;
