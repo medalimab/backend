@@ -186,9 +186,14 @@
           }
           .card {
             width: 270px !important;
-            min-width: 250px !important;
-            max-width: 100% !important;
+            min-width: 270px !important;
+            max-width: 270px !important;
             margin: 0 !important;
+          }
+          .card img {
+            width: 100% !important;
+            height: 160px !important;
+            object-fit: cover !important;
           }
         .footer_social_widget {
           padding: 0 10px;
