@@ -521,7 +521,7 @@
           .handover { color: #333; }
           .whatsapp { display: flex; align-items: center; justify-content: center; background: #e8f7f1; color: #1a7f5a; border-radius: 8px; padding: 8px; margin: 12px 16px; text-decoration: none; font-size: 14px; font-weight: bold; }
           .whatsapp:hover { background: #d1f0e3; }
-          .arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.95); border: 1px solid #1E3A8A; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 22px; color: #1E3A8A; box-shadow: 0 2px 8px rgba(0,0,0,0.18); z-index: 2; }
+          .arrow { position: absolute; top: 35%; transform: translateY(-50%); background: rgba(255,255,255,0.95); border: 1px solid #1E3A8A; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 22px; color: #1E3A8A; box-shadow: 0 2px 8px rgba(0,0,0,0.18); z-index: 2; }
           .arrow:hover { background: #e8f7f1; color: #1E3A8A; border-color: #1E3A8A; }
           .arrow.left { left: 10px; }
           .arrow.right { right: 10px; }
