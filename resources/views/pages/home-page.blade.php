@@ -1,3 +1,36 @@
+          <style>
+  @media (max-width: 600px) {
+    .carousel-container,
+    .cards {
+      padding-left: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding-right: 1000 !important;
+    }
+    .card {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    .card-content {
+      padding-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    .view-all {
+      display: block !important;
+      position: relative !important;
+      left: 10% !important;
+      transform: translateX(-50%) !important;
+      margin-left: 200 !important;
+      margin-right: 0 !important;
+      text-align: center !important;
+      width: fit-content !important;
+      max-width: 90vw !important;
+      bottom: unset !important;
+      z-index: unset !important;
+      padding-: 10px !important;
+    }
+  }
+          </style>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
   <head>
@@ -296,7 +329,7 @@
           <!-- Carousel -->
           <div class="carousel-separator" style="height:32px;"></div>
           <div class="carousel-container position-relative">
-            <!-- Flèche gauche supprimée -->
+            <!-- Flèche droite supprimée -->
             <div class="arrow right">&#10095;</div>
             <div class="cards d-flex gap-3 overflow-auto pb-2" id="carousel">
               @foreach($properties->take(8) as $property)
@@ -327,6 +360,7 @@
                 </a>
               @endforeach
             </div>
+            <!-- Bouton View all déplacé en dehors du conteneur .cards -->
             <button class="view-all mt-4" onclick="window.location.href='{{ route('properties.show_listing_page_client') }}'">View all</button>
 
           </div>
