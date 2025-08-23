@@ -626,39 +626,48 @@
             <div class="swiper-wrapper">
               <!-- Slide 1 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web1.png') }}" alt="Image Web 1" class="carousel-image">
+                <img src="{{ asset('images/carousel/web1.png') }}" alt="Image Web 1" class="carousel-image web-image">
+                <img src="{{ asset('images/carousel/mobile1.png') }}" alt="Image Mobile 1" class="carousel-image mobile-image">
               </div>
               <!-- Slide 2 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web2.png') }}" alt="Image Web 2" class="carousel-image">
+                <img src="{{ asset('images/carousel/web2.png') }}" alt="Image Web 2" class="carousel-image web-image">
+                <img src="{{ asset('images/carousel/mobile2.png') }}" alt="Image Mobile 2" class="carousel-image mobile-image">
               </div>
               <!-- Slide 3 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web3.png') }}" alt="Image Web 3" class="carousel-image">
+                <img src="{{ asset('images/carousel/web3.png') }}" alt="Image Web 3" class="carousel-image web-image">
+                <img src="{{ asset('images/carousel/mobile3.png') }}" alt="Image Mobile 3" class="carousel-image mobile-image">
               </div>
               <!-- Slide 4 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web4.png') }}" alt="Image Web 4" class="carousel-image">
+                <img src="{{ asset('images/carousel/web4.png') }}" alt="Image Web 4" class="carousel-image web-image">
+                <img src="{{ asset('images/carousel/mobile4.png') }}" alt="Image Mobile 4" class="carousel-image mobile-image">
               </div>
               <!-- Slide 5 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web5.png') }}" alt="Image Web 5" class="carousel-image">
+                <img src="{{ asset('images/carousel/web5.png') }}" alt="Image Web 5" class="carousel-image web-image">
+                <img src="{{ asset('images/carousel/mobile5.png') }}" alt="Image Mobile 5" class="carousel-image mobile-image">
               </div>
               <!-- Slide 6 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web6.png') }}" alt="Image Web 6" class="carousel-image">
+                <img src="{{ asset('images/carousel/web6.png') }}" alt="Image Web 6" class="carousel-image web-image">
+                <img src="{{ asset('images/carousel/mobile6.png') }}" alt="Image Mobile 6" class="carousel-image mobile-image">
               </div>
               <!-- Slide 7 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web7.png') }}" alt="Image Web 7" class="carousel-image">
+                <img src="{{ asset('images/carousel/web7.png') }}" alt="Image Web 7" class="carousel-image web-image">
+                <img src="{{ asset('images/carousel/mobile7.png') }}" alt="Image Mobile 7" class="carousel-image mobile-image">
               </div>
               <!-- Slide 8 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web8.png') }}" alt="Image Web 8" class="carousel-image">
+                <img src="{{ asset('images/carousel/web8.png') }}" alt="Image Web 8" class="carousel-image web-image">
+                <img src="{{ asset('images/carousel/mobile8.png') }}" alt="Image Mobile 8" class="carousel-image mobile-image">
               </div>
               <!-- Slide 9 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web9.png') }}" alt="Image Web 9" class="carousel-image">
+                <img src="{{ asset('images/carousel/web9.png') }}" alt="Image Web 9" class="carousel-image web-image">
+                <img src="{{ asset('images/carousel/mobile9.png') }}" alt="Image Mobile 9" class="carousel-image mobile-image">
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -678,7 +687,7 @@
           
           .fullwidth-swiper { 
             width: 100%;
-            height: 565px; 
+            height: 561px; 
             display: block;
             overflow: hidden;
           }
@@ -707,45 +716,106 @@
             display: block;
           }
           
+          /* Affichage conditionnel des images selon la taille d'écran */
+          .web-image {
+            display: block;
+            width: 100%;
+            height: 561px;
+            object-fit: cover;
+            object-position: center;
+          }
+          
+          .mobile-image {
+            display: none;
+            width: 100%;
+            height: 561px;
+            object-fit: cover;
+            object-position: center;
+          }
+          
           /* Tablettes et écrans moyens */
           @media (max-width: 1024px) {
-            .fullwidth-swiper { height: 432px; }
-            .carousel-image { 
-              height: 432px;
-              object-fit: contain;
+            .fullwidth-swiper { height: 430px; }
+            .web-image { 
+              height: 430px;
+              object-fit: cover;
+            }
+            .mobile-image {
+              height: 430px;
+              object-fit: cover;
             }
           }
           
           /* Tablettes */
           @media (max-width: 768px) {
             .fullwidth-swiper { 
-              height: 324px;
+              height: 323px;
             }
-            .carousel-image { 
-              height: 324px;
-              object-fit: contain;
+            .web-image { 
+              height: 323px;
+              object-fit: cover;
+            }
+            .mobile-image { 
+              height: 323px;
+              object-fit: cover;
               object-position: center;
+            }
+            
+            /* Basculer vers les images mobiles */
+            .web-image {
+              display: none;
+            }
+            
+            .mobile-image {
+              display: block;
             }
           }
           
           /* Mobiles */
           @media (max-width: 480px) {
             .fullwidth-swiper { 
-              height: 270px;
+              height: 269px;
             }
-            .carousel-image { 
-              height: 270px;
-              object-fit: contain;
+            .web-image { 
+              height: 269px;
+              object-fit: cover;
+            }
+            .mobile-image { 
+              height: 269px;
+              object-fit: cover;
+            }
+            
+            /* Confirmer l'affichage des images mobiles */
+            .web-image {
+              display: none;
+            }
+            
+            .mobile-image {
+              display: block;
             }
           }
           
           /* Très petits écrans */
           @media (max-width: 360px) {
             .fullwidth-swiper { 
-              height: 203px;
+              height: 202px;
             }
-            .carousel-image { 
-              height: 203px;
+            .web-image { 
+              height: 202px;
+              object-fit: cover;
+            }
+            .mobile-image { 
+              height: 202px;
+              object-fit: cover;
+            }
+            
+            /* Confirmer l'affichage des images mobiles */
+            .web-image {
+              display: none;
+            }
+            
+            .mobile-image {
+              display: block;
             }
           }
           
