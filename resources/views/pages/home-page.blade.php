@@ -301,7 +301,7 @@
             <div class="cards d-flex gap-3 overflow-auto pb-2" id="carousel">
               @foreach($properties->take(8) as $property)
                 <a href="/listing_page/home_details/{{ $property->id }}" class="card-link" style="text-decoration:none;color:inherit;">
-                  <div class="card" data-status="{{ strtolower($property->property_status) }}" style="min-width:250px;max-width:280px;cursor:pointer;">
+                  <div class="card" data-status="{{ strtolower($property->property_status) }}" style="width:270px;min-width:270px;max-width:270px;cursor:pointer;">
                     @php
                       $img = $property->images->first()->image_url ?? null;
                       if ($img && !str_starts_with($img, 'http')) {
@@ -310,9 +310,9 @@
                     @endphp
                     <img src="{{ $img ?? 'https://via.placeholder.com/300x160' }}" alt="{{ $property->property_name }}" class="w-100" style="height:160px;object-fit:cover;">
                     <div class="card-content p-3">
-                      <h3 class="mb-1">{{ $property->property_name }}</h3>
-                      <p class="mb-1">{{ $property->property_type }}</p>
-                      <p class="mb-1">{{ $property->address }}</p>
+                      <h3 class="mb-1">{{ \Illuminate\Support\Str::limit($property->property_name, 40, '...') }}</h3>
+                      <p class="mb-1">{{ \Illuminate\Support\Str::limit($property->property_type, 30, '...') }}</p>
+                      <p class="mb-1">{{ \Illuminate\Support\Str::limit($property->address, 50, '...') }}</p>
                       <div class="price-handover d-flex justify-content-between mt-2">
                         <span class="price">AED {{ number_format($property->price) }}</span>
                         <span class="handover">{{ $property->handover_date ?? '' }}</span>
@@ -502,6 +502,14 @@
           }
           .card { min-width: 250px; max-width: 280px; background: #fff; border: 1px solid #ddd; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); flex-shrink: 0; }
           .card-content { padding: 12px 16px; }
+          .card-content h3,
+          .card-content p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            display: block;
+          }
           .card h3 { margin: 0; font-size: 16px; font-weight: bold; }
           .card p { margin: 4px 0; font-size: 13px; color: #555; }
           .price-handover { display: flex; justify-content: space-between; margin-top: 10px; font-size: 14px; font-weight: bold; }
