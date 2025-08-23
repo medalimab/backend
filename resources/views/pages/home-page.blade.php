@@ -318,7 +318,11 @@
                         <span class="handover">{{ $property->handover_date ?? '' }}</span>
                       </div>
                     </div>
-                    <span class="whatsapp" style="pointer-events:none;">WhatsApp</span>
+                    @if($property->agent && $property->agent->whatsapp)
+                      <a class="whatsapp" href="https://wa.me/{{ $property->agent->whatsapp }}" target="_blank">WhatsApp</a>
+                    @else
+                      <span class="whatsapp" style="pointer-events:none;">WhatsApp</span>
+                    @endif
                   </div>
                 </a>
               @endforeach
