@@ -5,7 +5,9 @@
       padding-left: 0 !important;
       margin-left: 0 !important;
       margin-right: 0 !important;
-      padding-right: 1000 !important;
+      padding-right: 0 !important;
+
+      gap: 16px !important;
     }
     .card {
       margin-left: 0 !important;
@@ -170,13 +172,26 @@
       
       /* Styles pour très petits écrans */
       @media (max-width: 480px) {
-        .footer_one {
-          padding: 30px 0;
-        }
-        
-        .footer_about_widget,
-        .footer_qlink_widget,
-        .footer_contact_widget,
+          .carousel-container {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            margin-left: calc(-50vw + 50%) !important;
+            margin-right: calc(-50vw + 50%) !important;
+            padding: 0 !important;
+          }
+          .cards {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            gap: 0 !important;
+          }
+          .card {
+            min-width: 100vw !important;
+            max-width: 100vw !important;
+            width: 100vw !important;
+            margin: 0 !important;
+          }
         .footer_social_widget {
           padding: 0 10px;
         }
