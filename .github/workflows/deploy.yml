@@ -34,6 +34,9 @@ jobs:
             mkdir -p bootstrap/cache storage/logs storage/framework/cache storage/framework/sessions storage/framework/views storage/app/public/properties
             chmod -R 775 bootstrap/cache storage public/storage
             chown -R www-data:www-data bootstrap/cache storage public/storage || chown -R apache:apache bootstrap/cache storage public/storage || chown -R nginx:nginx bootstrap/cache storage public/storage || true
+
+            # Correction permissions Laravel pour les logs
+            chmod -R 775 storage/logs
             # Corriger les permissions de la base de données SQLite
             if [ -f "database/database.sqlite" ]; then
               chmod 664 database/database.sqlite
