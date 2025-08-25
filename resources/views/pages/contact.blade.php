@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
+        <style>
+            /* Forcer le padding et le margin du champ téléphone */
+            .form-group .intl-tel-input input[type="tel"],
+            .form-group #form_phone {
+                padding-left: 150px !important;
+                margin-left: 0px !important;
+            }
+        </style>
+        <style>
+            /* Correction ultime largeur champ téléphone */
+            .form-group .intl-tel-input,
+            .form-group .intl-tel-input .iti__flag-container,
+            .form-group .intl-tel-input input[type="tel"],
+            .form-group #form_phone {
+                width: 100% !important;
+                min-width: 0 !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .form-group .intl-tel-input input[type="tel"] {
+                height: 48px !important;
+                font-size: 16px !important;
+            }
+        </style>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +37,27 @@
 <!-- Responsive stylesheet -->
 <link rel="stylesheet" href="css/responsive.css">
 <!-- intl-tel-input CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.min.css"/>
+            <style>
+                /* Forcer la largeur du champ téléphone et de son wrapper intl-tel-input */
+                .form-group .intl-tel-input {
+                    width: 100% !important;
+                    min-width: 0 !important;
+                    max-width: 100% !important;
+                    box-sizing: border-box !important;
+                }
+                .form-group .intl-tel-input input[type="tel"] {
+                    width: 100% !important;
+                    min-width: 0 !important;
+                    max-width: 100% !important;
+                    box-sizing: border-box !important;
+                    height: 48px !important;
+                    font-size: 16px !important;
+                }
+                .intl-tel-input .iti__country-list {
+                    min-width: 200px;
+                }
+            </style>
 <!-- Title -->
 <title>HOM Agency - Contact Us</title>
 <!-- Favicon -->
@@ -75,7 +119,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input id="form_phone" name="form_phone" class="form-control required phone" required="required" type="tel" placeholder="Phone">
+                                        <input id="form_phone" name="form_phone" class="form-control required phone" required="required" type="tel" placeholder="Phone" style="padding-left:150px !important;margin-left:0px !important;">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
