@@ -262,11 +262,11 @@ class PropertyController extends Controller
                     // Validation conditionnelle : Plot Area < Build up Area pour les villas/townhouses
                     $villaTypes = ['Villa', 'Town House', 'Townhouse', 'Villa Compound'];
                     if (in_array($request->property_type, $villaTypes)) {
-                        // Valider que plot_area < property_built_up_area si les deux sont présents
+                        // Valider que plot_area > property_built_up_area si les deux sont présents
                         if ($request->plot_area && $request->property_built_up_area) {
-                            if ($request->plot_area >= $request->property_built_up_area) {
+                            if ($request->plot_area <= $request->property_built_up_area) {
                                 return back()->withErrors([
-                                    'plot_area' => 'Plot area must be less than built-up area for villas/townhouses.'
+                                    'plot_area' => 'Plot area must be greater than built-up area for villas/townhouses.'
                                 ])->withInput();
                             }
                         }

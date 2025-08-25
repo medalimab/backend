@@ -968,7 +968,7 @@
                 alertMessage += 'Property size must be less than built-up area for apartments.';
                 focusField = document.getElementById('property-size');
             } else if (villaTypes.includes(propertyType)) {
-                alertMessage += 'Plot area must be less than built-up area for villas/townhouses.';
+                alertMessage += 'Plot area must be greater than built-up area for villas/townhouses.';
                 focusField = document.getElementById('plot-area-main');
             }
             
