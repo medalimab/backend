@@ -52,6 +52,9 @@
 
       /* Styles responsive pour mobile */
       @media (max-width: 600px) {
+        .py-5 {
+          padding-bottom: 0 !important;
+        }
         .carousel-container,
         .cards {
           padding-left: 0 !important;
