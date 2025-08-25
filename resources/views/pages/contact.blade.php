@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="css/style.css">
 <!-- Responsive stylesheet -->
 <link rel="stylesheet" href="css/responsive.css">
+<!-- intl-tel-input CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.min.css"/>
 <!-- Title -->
 <title>HOM Agency - Contact Us</title>
 <!-- Favicon -->
@@ -73,7 +75,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input id="form_phone" name="form_phone" class="form-control required phone" required="required" type="phone" placeholder="Phone">
+                                        <input id="form_phone" name="form_phone" class="form-control required phone" required="required" type="tel" placeholder="Phone">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -163,5 +165,38 @@
 <script type="text/javascript" src="{{ asset('js/googlemaps1.js') }}"></script>
 <!-- Custom script for all pages -->
 <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+
+<!-- intl-tel-input JS -->
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<!-- intl-tel-input utils.js (for formatting/validation) -->
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize intl-tel-input for the phone field
+    const phoneInputField = document.querySelector("#form_phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        initialCountry: "ae", // UAE as default
+        preferredCountries: ["ae", "sa", "kw", "qa", "bh", "om"], // GCC countries first
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+        separateDialCode: true,
+        formatOnDisplay: true,
+        nationalMode: false,
+    });
+
+    // Optional: Add validation on form submit
+    const form = phoneInputField.closest('form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (!phoneInput.isValidNumber()) {
+                e.preventDefault();
+                alert('Please enter a valid phone number');
+                phoneInputField.focus();
+            }
+        });
+    }
+});
+</script>
+
 </body>
 </html>
