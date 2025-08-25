@@ -38,18 +38,90 @@
     <style>
       /* Correction de l'espacement entre Our Partners et Footer */
       #our-partners {
-        margin-bottom: 0 !important;
-        padding-bottom: 30px !important;
-      }
-      
-      #our-partners {
         width: 1790.670px !important;
         height: 300px !important;
         max-width: 100vw;
         margin: 0 auto;
         overflow: hidden;
       }
+      
+      @media (min-width: 769px) {
+        #our-partners {
+          width: 1790px !important;
+          height: 300px !important;
+          max-width: 100vw; 
+          margin: 100px
+          overflow: hidden;
+        }
       }
+
+
+
+      /* SECTION WRAPPER */
+#our-partners {
+  margin: 60px auto;
+  padding: 20px 0;
+  max-width: 100vw;
+  overflow: hidden;
+  /* remove these if present: width, height */
+}
+
+/* SLIDES */
+#our-partners .swiper-slide {
+  height: 100px !important;       /* consistent row height */
+  width: auto !important;         /* let Swiper/breakpoints decide count */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  margin-right: 20px;             /* spacing between logos */
+}
+
+@media (max-width: 768px) {
+  #our-partners .swiper-slide {
+    height: 80px !important;
+  }
+}
+
+/* LOGO IMAGES */
+#our-partners .swiper-slide img {
+  max-height: 70px;               /* keeps logos inside the box */
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;            /* never crop a logo */
+}
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      
       
       /* S'assurer que le footer n'a pas de marge excessive en haut */
       .footer_one {
