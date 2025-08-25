@@ -1,3 +1,17 @@
+    <style>
+      @media (max-width: 768px) {
+        .carousel-image {
+          height: auto !important;
+          max-width: 100% !important;
+          width: 100% !important;
+          object-fit: contain !important;
+          display: block !important;
+        }
+        .swiper-slide {
+          min-height: 220px !important;
+        }
+      }
+    </style>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
   <head>
@@ -652,54 +666,45 @@
       
 
       <!-- Carousel d'images pleine largeur -->
-      <section id="fullwidth-carousel" class="fullwidth-section">
+  <section id="fullwidth-carousel" class="fullwidth-section" style="padding-top:0;">
         <div class="container-fluid p-0">
           <div class="swiper fullwidth-swiper">
             <div class="swiper-wrapper">
               <!-- Slide 1 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web1.png') }}" alt="Image Web 1" class="carousel-image web-image">
-                <img src="{{ asset('images/carousel/mobile1.png') }}" alt="Image Mobile 1" class="carousel-image mobile-image">
+                <img src="{{ asset('images/carousel/web1.png') }}" alt="Image 1" class="carousel-image">
               </div>
               <!-- Slide 2 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web2.png') }}" alt="Image Web 2" class="carousel-image web-image">
-                <img src="{{ asset('images/carousel/mobile2.png') }}" alt="Image Mobile 2" class="carousel-image mobile-image">
+                <img src="{{ asset('images/carousel/web2.png') }}" alt="Image 2" class="carousel-image">
               </div>
               <!-- Slide 3 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web3.png') }}" alt="Image Web 3" class="carousel-image web-image">
-                <img src="{{ asset('images/carousel/mobile3.png') }}" alt="Image Mobile 3" class="carousel-image mobile-image">
+                <img src="{{ asset('images/carousel/web3.png') }}" alt="Image 3" class="carousel-image">
               </div>
               <!-- Slide 4 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web4.png') }}" alt="Image Web 4" class="carousel-image web-image">
-                <img src="{{ asset('images/carousel/mobile4.png') }}" alt="Image Mobile 4" class="carousel-image mobile-image">
+                <img src="{{ asset('images/carousel/web4.png') }}" alt="Image 4" class="carousel-image">
               </div>
               <!-- Slide 5 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web5.png') }}" alt="Image Web 5" class="carousel-image web-image">
-                <img src="{{ asset('images/carousel/mobile5.png') }}" alt="Image Mobile 5" class="carousel-image mobile-image">
+                <img src="{{ asset('images/carousel/web5.png') }}" alt="Image 5" class="carousel-image">
               </div>
               <!-- Slide 6 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web6.png') }}" alt="Image Web 6" class="carousel-image web-image">
-                <img src="{{ asset('images/carousel/mobile6.png') }}" alt="Image Mobile 6" class="carousel-image mobile-image">
+                <img src="{{ asset('images/carousel/web6.png') }}" alt="Image 6" class="carousel-image">
               </div>
               <!-- Slide 7 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web7.png') }}" alt="Image Web 7" class="carousel-image web-image">
-                <img src="{{ asset('images/carousel/mobile7.png') }}" alt="Image Mobile 7" class="carousel-image mobile-image">
+                <img src="{{ asset('images/carousel/web7.png') }}" alt="Image 7" class="carousel-image">
               </div>
               <!-- Slide 8 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web8.png') }}" alt="Image Web 8" class="carousel-image web-image">
-                <img src="{{ asset('images/carousel/mobile8.png') }}" alt="Image Mobile 8" class="carousel-image mobile-image">
+                <img src="{{ asset('images/carousel/web8.png') }}" alt="Image 8" class="carousel-image">
               </div>
               <!-- Slide 9 -->
               <div class="swiper-slide">
-                <img src="{{ asset('images/carousel/web9.png') }}" alt="Image Web 9" class="carousel-image web-image">
-                <img src="{{ asset('images/carousel/mobile9.png') }}" alt="Image Mobile 9" class="carousel-image mobile-image">
+                <img src="{{ asset('images/carousel/web9.png') }}" alt="Image 9" class="carousel-image">
               </div>
             </div>
             <div class="swiper-pagination"></div>
