@@ -151,15 +151,7 @@
                             </div>
                             
                             <!--end col-md-7-->
-                            <div class="col-md-5 col-sm-5 animate">
-                                <div class="tour-btn-wrapper">
-                                    <a href="https://youtube.com/shorts/JpdaNMdc04w?si=9K-Yv0z3BK9o-JJE
-                                    " class="video-tour video-popup">
-                                      <i class="play-icon arrow_triangle-right"></i>
-                                      <span>Click to take a tour</span>
-                                    </a>
-                                  </div>
-                            </div>
+                          
                             <!--end col-md-5-->
                         </div>
                         <!--end row-->
