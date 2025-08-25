@@ -320,7 +320,6 @@
                       <select class="toggle-prop-type" name="listing_status">
                         <option value="All" {{ request('listing_status') == 'All' ? 'selected' : '' }}>All</option>
                         <option value="Buy" {{ request('listing_status') == 'Buy' ? 'selected' : '' }}>Buy</option>
-                        <option value="Rent" {{ request('listing_status') == 'Rent' ? 'selected' : '' }}>Rent</option>
                       </select>
 
                       <input type="text" class="filter-input" placeholder="Enter location" name="location" />
