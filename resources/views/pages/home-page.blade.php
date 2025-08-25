@@ -81,15 +81,6 @@
           font-size: 15px !important;
           cursor: pointer !important;
         }
-        
-        /* Ajustements mobile pour réduire l'espace */
-        #our-partners {
-          padding-bottom: 20px !important;
-        }
-        
-        .footer_one {
-          padding-top: 40px !important;
-        }
       }
 
       /* Style spécifique pour le sous-menu Explore */
