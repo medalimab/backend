@@ -564,12 +564,9 @@
 									@if($property->dld_permit_qr)
 										<div class="iba_container style2 d-flex flex-column align-items-center">
 											<img src="{{ asset('storage/' . $property->dld_permit_qr) }}" alt="QR Code DLD" style="max-width:180px;max-height:180px; margin-bottom: 10px;">
-											<div class="details mt-2">
-												<h5>Scannez ce Trakheesi Permit pour vérifier le permis DLD</h5>
-											</div>
 										</div>
 									@else
-										<p>Aucun Trakheesi Permit disponible.</p>
+										<p>No Trakheesi Permit available.</p>
 									@endif
 								</div>
 							</div>
