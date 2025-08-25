@@ -42,9 +42,13 @@
         padding-bottom: 30px !important;
       }
       
-      .our-partners {
-        margin-bottom: 0 !important;
-        padding-bottom: 30px !important;
+      #our-partners {
+        width: 1790.670px !important;
+        height: 300px !important;
+        max-width: 100vw;
+        margin: 0 auto;
+        overflow: hidden;
+      }
       }
       
       /* S'assurer que le footer n'a pas de marge excessive en haut */
