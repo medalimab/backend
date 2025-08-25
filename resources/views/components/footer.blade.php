@@ -46,19 +46,7 @@
               <a href="https://www.facebook.com/people/HOM-Agency/61567611663846/#"><i class="fab fa-facebook-f"></i></a>
             </li>
             <li class="list-inline-item">
-              <a href="#"><i class="fab fa-twitter"></i></a>
-            </li>
-            <li class="list-inline-item">
               <a href="https://www.instagram.com/hom.uaeagency/"><i class="fab fa-instagram"></i></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#"><i class="fab fa-pinterest"></i></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#"><i class="fab fa-dribbble"></i></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#"><i class="fab fa-google"></i></a>
             </li>
           </ul>
           <h4 class="mb-2">Subscribe</h4>
@@ -81,6 +69,9 @@
 </section>
 <style>
 @media (max-width: 768px) {
+  .footer_one ol, .footer_one ul {
+    padding-left: 0 !important;
+  }
   .footer_one .container {
     padding-left: 15px;
     padding-right: 15px;
@@ -104,7 +95,7 @@
   .footer_contact_widget,
   .footer_social_widget {
     text-align: center;
-    padding: 0 20px;
+    padding: 0;
   }
   .footer_about_widget h4,
   .footer_qlink_widget h4,
@@ -118,6 +109,7 @@
   .footer_contact_widget ul {
     list-style: none;
     padding: 0;
+    padding-left: 0;
     margin: 0;
     text-align: center;
   }
@@ -128,6 +120,11 @@
   .footer_social_widget ul {
     text-align: center;
     justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+  .footer_social_widget h4 {
+    text-align: center;
   }
   .footer_mailchimp_form {
     max-width: 300px;
