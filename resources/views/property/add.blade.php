@@ -837,13 +837,13 @@
                 validationResult = false;
             }
         }
-        // Validation pour les villas (Plot Area < Build up Area)
+        // Validation pour les villas (Plot Area > Build up Area)
         else if (villaTypes.includes(propertyType) && plotAreaInput) {
             targetInput = plotAreaInput;
             targetValue = parseFloat(plotAreaInput.value) || 0;
             
-            if (targetValue > 0 && builtUpArea > 0 && targetValue >= builtUpArea) {
-                errorMessage = 'Plot area must be less than built-up area for villas/townhouses.';
+            if (targetValue > 0 && builtUpArea > 0 && targetValue <= builtUpArea) {
+                errorMessage = 'Plot area must be greater than built-up area for villas/townhouses.';
                 validationResult = false;
             }
         }
