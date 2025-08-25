@@ -1,6 +1,90 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Mobile-only: Price at same level as text-thm */
+        @media screen and (max-width: 768px) {
+            /* Main row container: price left, badge right */
+            .mobile-price-badge-row {
+                margin: 0 0 16px 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                min-height: auto !important;
+            }
+            
+            /* Price element - SAME LEVEL AS TEXT-THM */
+            .mobile-price.fp_price.tag {
+                display: inline-block !important;
+                margin: 0 !important;
+                padding: 4px 8px !important;
+                font-size: 14px !important;
+                font-weight: 500 !important;
+                line-height: 1.5 !important; /* Same as text-thm */
+                white-space: nowrap !important;
+                border-radius: 4px !important;
+                text-decoration: none !important;
+                /* Same baseline as text-thm */
+                vertical-align: baseline !important;
+            }
+            
+            /* Badge container and element */
+            .mobile-badge {
+                margin: 0 !important;
+                padding: 0 !important;
+                list-style: none !important;
+            }
+            
+            .mobile-badge li {
+                margin: 0 !important;
+                padding: 0 !important;
+                list-style: none !important;
+            }
+            
+            .mobile-badge li a {
+                display: inline-block !important;
+                margin: 0 !important;
+                padding: 4px 8px !important;
+                font-size: 14px !important;
+                font-weight: 500 !important;
+                line-height: 1.5 !important; /* Same as text-thm */
+                white-space: nowrap !important;
+                border-radius: 4px !important;
+                text-decoration: none !important;
+                vertical-align: baseline !important;
+            }
+            
+            /* Text-thm: reference level */
+            .tc_content .text-thm {
+                margin: 0 0 16px 0 !important;
+                padding: 0 !important;
+                font-size: 14px !important;
+                font-weight: 500 !important;
+                line-height: 1.5 !important;
+                /* This is the reference baseline */
+            }
+            
+            /* Container spacing */
+            .tc_content .dtls_headr {
+                margin-bottom: 0 !important;
+            }
+            
+            /* Small screen optimization */
+            @media screen and (max-width: 480px) {
+                .mobile-price.fp_price.tag,
+                .mobile-badge li a {
+                    padding: 3px 6px !important;
+                    font-size: 13px !important;
+                }
+            }
+        }
+        
+        /* Desktop - keep original styles untouched */
+        @media screen and (min-width: 769px) {
+            .mobile-price-badge-row {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="property-list-container">
@@ -33,17 +117,18 @@
                 <div class="details">
                     <div class="tc_content">
                     <div class="dtls_headr">
-                    <!-- Mobile layout (price left, tags right) -->
-                    <div class="d-flex d-md-none align-items-start mb-2 dtls_headr-mobile" style="justify-content: flex-start !important; gap: 15px;">
-                        <ul style="flex: 1 1 auto; max-width: 65%; min-width: 100px; margin-right: auto; overflow: hidden;"> 
-                        <a class="fp_price tag" href="#" style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
+                    <!-- Mobile layout: Price at same level as text-thm, Badge separate -->
+                    <div class="d-flex d-md-none justify-content-between align-items-center mobile-price-badge-row">
+                        <!-- Price: same level as text-thm -->
+                        <a class="fp_price tag mobile-price" href="#">
                             {{ number_format($property->price, 0, '.', ',') }} AED
                         </a>
-                        </ul>
                         
-                        <ul class="tag mb-0" style="margin-left: auto; flex-shrink: 0; min-width: 80px; max-width: 35%;">
-                            <li><a href="#">{{ $property->property_status }}</a></li>
-                            <!-- <li><a href="#">Featured</a></li> -->
+                        <!-- Badge: aligned to right -->
+                        <ul class="tag mobile-badge">
+                            <li>
+                                <a href="#">{{ $property->property_status }}</a>
+                            </li>
                         </ul>
                     </div>
 
