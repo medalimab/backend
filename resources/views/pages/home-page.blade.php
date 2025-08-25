@@ -1,36 +1,3 @@
-          <style>
-  @media (max-width: 600px) {
-    .carousel-container,
-    .cards {
-      padding-left: 0 !important;
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-      padding-right: 0 !important;
-    }
-    .card {
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-    }
-    .card-content {
-      padding-left: 0 !important;
-      margin-right: 0 !important;
-    }
-    .view-all {
-      display: block !important;
-      margin: 0 auto !important;
-      text-align: center !important;
-      width: fit-content !important;
-      max-width: 90vw !important;
-      padding: 10px 18px !important;
-      border-radius: 8px !important;
-      border: 1px solid #ccc !important;
-      background: #f1f8fa !important;
-      font-weight: bold !important;
-      font-size: 15px !important;
-      cursor: pointer !important;
-    }
-  }
-          </style>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
   <head>
@@ -55,6 +22,76 @@
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+      /* Correction de l'espacement entre Our Partners et Footer */
+      #our-partners {
+        margin-bottom: 0 !important;
+        padding-bottom: 30px !important;
+      }
+      
+      .our-partners {
+        margin-bottom: 0 !important;
+        padding-bottom: 30px !important;
+      }
+      
+      /* S'assurer que le footer n'a pas de marge excessive en haut */
+      .footer_one {
+        margin-top: 0 !important;
+        padding-top: 50px !important;
+      }
+      
+      /* Réduire l'espace du conteneur des partenaires */
+      .our-partners .container {
+        margin-bottom: 0 !important;
+      }
+      
+      /* Réduire l'espace du swiper des partenaires */
+      .my-partners-slider {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+      }
+
+      /* Styles responsive pour mobile */
+      @media (max-width: 600px) {
+        .carousel-container,
+        .cards {
+          padding-left: 0 !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          padding-right: 0 !important;
+        }
+        .card {
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+        .card-content {
+          padding-left: 0 !important;
+          margin-right: 0 !important;
+        }
+        .view-all {
+          display: block !important;
+          margin: 0 auto !important;
+          text-align: center !important;
+          width: fit-content !important;
+          max-width: 90vw !important;
+          padding: 10px 18px !important;
+          border-radius: 8px !important;
+          border: 1px solid #ccc !important;
+          background: #f1f8fa !important;
+          font-weight: bold !important;
+          font-size: 15px !important;
+          cursor: pointer !important;
+        }
+        
+        /* Ajustements mobile pour réduire l'espace */
+        #our-partners {
+          padding-bottom: 20px !important;
+        }
+        
+        .footer_one {
+          padding-top: 40px !important;
+        }
+      }
+
       /* Style spécifique pour le sous-menu Explore */
       .ace-responsive-menu .sub-menu {
         display: none;
