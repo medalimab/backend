@@ -70,7 +70,7 @@
         }
         .view-all {
           display: block !important;
-          margin: 0 auto !important;
+          margin: 20px auto !important;
           text-align: center !important;
           width: fit-content !important;
           max-width: 90vw !important;
