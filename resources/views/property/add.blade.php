@@ -505,6 +505,17 @@
         });
 
         function toggleFields() {
+            // Correction : cacher le champ au chargement si type appartement
+            setTimeout(function() {
+                const selectedType = propertyTypeSelect ? propertyTypeSelect.value : '';
+                if (selectedType === 'Apartment' || selectedType === 'Penthouse' || selectedType === 'Hotel Apartment') {
+                    if (builtUpAreaField) {
+                        builtUpAreaField.closest('.col-lg-6').style.display = 'none';
+                        builtUpAreaField.required = false;
+                        builtUpAreaField.value = '';
+                    }
+                }
+            }, 100);
             const selectedStatus = statusSelect ? statusSelect.value : '';
             const selectedType = propertyTypeSelect ? propertyTypeSelect.value : '';
 
@@ -529,27 +540,6 @@
                     yearBuiltInput.required = false;
                     yearBuiltInput.value = '';
                 }
-            } else {
-                console.log('Add form - Hiding handover date field');
-                if (yearBuiltGroup) {
-                    yearBuiltGroup.classList.remove('hide-field');
-                    yearBuiltGroup.classList.add('show-field');
-                }
-                if (yearBuiltInput) {
-                    yearBuiltInput.required = true;
-                }
-                if (handoverDateGroup) {
-                    handoverDateGroup.classList.remove('show-field');
-                    handoverDateGroup.classList.add('hide-field');
-                    handoverDateGroup.style.setProperty('display', 'none', 'important');
-                }
-                if (handoverDateInput) {
-                    handoverDateInput.required = false;
-                    handoverDateInput.value = '';
-                }
-            }
-
-            // Filtrage par type
             // Villas/Townhouses
             if (selectedType === 'Villa' || selectedType === 'Townhouse' || selectedType === 'Villa Compound') {
                 if (buildingCard) buildingCard.style.display = 'none';
@@ -569,16 +559,38 @@
                 if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
                 if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
                 if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
-                // Afficher le champ "Build up area" pour les appartements (nécessaire pour la validation)
+                // Cacher le champ "Build up area" pour les appartements
                 if (builtUpAreaField) {
-                    builtUpAreaField.closest('.col-lg-6').style.display = 'block';
-                    builtUpAreaField.required = true; // Rendu requis pour permettre la validation
+                    builtUpAreaField.closest('.col-lg-6').style.display = 'none';
+                    builtUpAreaField.required = false;
+                    builtUpAreaField.value = '';
                 }
             }
             // Plots/Land - cacher Build up area
             else if (selectedType === 'Plot' || selectedType === 'Land' || selectedType === 'Industrial Land' || selectedType === 'Mixed Use Land') {
                 if (buildingCard) buildingCard.style.display = 'none';
                 if (bedroomsField) bedroomsField.closest('.col-lg-4').style.display = 'none';
+                if (bathroomsField) bathroomsField.closest('.col-lg-4').style.display = 'none';
+                if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'none';
+                if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'none';
+                if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
+                // Cacher le champ Built up area pour les terrains
+                if (builtUpAreaField) {
+                    builtUpAreaField.closest('.col-lg-6').style.display = 'none';
+                    builtUpAreaField.required = false;
+                    builtUpAreaField.value = '';
+                }
+            }
+            // Building/Floor - afficher Build up area
+            else if (selectedType === 'Building' || selectedType === 'Floor') {
+                if (buildingCard) buildingCard.style.display = 'block';
+                if (bedroomsField) bedroomsField.closest('.col-lg-4').style.display = 'block';
+                if (bathroomsField) bathroomsField.closest('.col-lg-4').style.display = 'block';
+                if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'block';
+                if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'block';
+                if (plotAreaField) plotAreaField.closest('.col-lg-6').style.display = 'block';
+                if (builtUpAreaField) builtUpAreaField.closest('.col-lg-6').style.display = 'block';
+            }
                 if (bathroomsField) bathroomsField.closest('.col-lg-4').style.display = 'none';
                 if (furnishingField) furnishingField.closest('.col-lg-4').style.display = 'none';
                 if (garageField) garageField.closest('.col-lg-4, .col-lg-6').style.display = 'none';
