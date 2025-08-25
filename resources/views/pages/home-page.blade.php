@@ -64,7 +64,8 @@
           margin-right: 0 !important;
         }
         .card-content {
-          padding-left: 0 !important;
+          padding-left: 1rem !important;
+          padding-right: 1rem !important;
           margin-right: 0 !important;
         }
         .view-all {
